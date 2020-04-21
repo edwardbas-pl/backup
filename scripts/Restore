@@ -1,0 +1,43 @@
+#!/bin/sh
+echo "Restoring config files. PLease Wait..."
+cd ~/backup
+# alias config="mkdir -p ~/.config"
+alias di="mkdir -p"
+alias cp="cp -r"
+path=$(pwd)
+cd ~/.config
+config=$(pwd)
+cd $path
+
+
+di $config/ranger
+di $config/i3
+di $config/polybar
+di ~/.polybar-scripts
+di ~/.scripts
+di ~/Pictures
+di ~/Pictures/Wallpapers
+di $config/kitty
+di $config/dunst
+
+
+sudo cp $path/backgrounds/* 		/usr/share/backgrounds
+sudo cp $path/backgrounds/* 		~/Pictures/Wallpapers
+
+# cp $config
+
+cp $path/ranger/*			$config/ranger/
+cp $path/i3/*				$config/i3/ 
+cp $path/polybar/*			$config/polybar
+cp $path/kitty/*			$config/kitty
+cp $path/dunst*				$config/dunst
+
+cp $path/polybar-scripts/*		$HOME/.polybar-scripts/
+cp $path/scripts/*			$HOME/.scripts/
+
+cp $path/bash_profile			$HOME/.bash_profile
+cp $path/bashrc				~/.bashrc
+cp $path/vimrc				$HOME/.vimrc
+cp $path/profile			$HOME/.profile
+sync
+echo "Done! Enjoy"

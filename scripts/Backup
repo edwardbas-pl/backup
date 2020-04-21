@@ -1,0 +1,45 @@
+#!/bin/sh
+echo "Backing Up dotfiles. Please wait..."
+cd
+mkdir -p backup
+cd backup
+# alias config="mkdir -p ~/.config"
+alias di="mkdir -p"
+alias cp="cp -r"
+path=$(pwd)
+cd ~/.config
+config=$(pwd)
+cd $path
+
+
+di ranger
+di i3
+di polybar
+di polybar-scripts
+di scripts
+di backgrounds
+di kitty
+di dunst
+
+sudo cp ~/Pictures/Wallpapers/* /usr/share/backgrounds
+sudo cp /usr/share/backgrounds/* $path/backgrounds
+
+# cp $config
+
+cp $config/ranger/*		$path/ranger/
+cp $config/i3/*			$path/i3/ 
+cp $config/polybar/*		$path/polybar
+cp $config/kitty/*		$path/kitty
+cp $config/dunst/*		$path/dunst
+
+cp $HOME/.polybar-scripts/*	$path/polybar-scripts/
+cp $HOME/.scripts/*		$path/scripts
+
+cp $HOME/.bash_profile		$path/bash_profile
+cp $HOME/.bashrc		$path/bashrc
+cp $HOME/.vimrc			$path/vimrc
+cp $HOME/.profile		$path/profile
+cp ~/.scripts/Restore		$path/Restore
+sync
+echo "Done!"
+notify-send "Dotfiles copied to $HOME/backup/"
