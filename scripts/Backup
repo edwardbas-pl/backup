@@ -22,10 +22,12 @@ di kitty
 di dunst
 di picom
 di lightdm
-sudo mkdir -p /usr/share/backgrounds/
+di themes
 
+sudo mkdir -p /usr/share/backgrounds/
 sudo cp ~/Pictures/Wallpapers/* /usr/share/backgrounds
-sudo cp /usr/share/backgrounds/* $path/backgrounds
+cp /usr/share/backgrounds/* 	$path/backgrounds
+cp -r /usr/share/themes/*	$path/themes/
 
 # cp $config
 

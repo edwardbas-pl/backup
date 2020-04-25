@@ -20,11 +20,13 @@ di ~/Pictures/Wallpapers
 di $config/kitty
 di $config/dunst
 di $config/picom
-sudo mkdir -p  /etc/lightdm
 
+sudo mkdir -p  /etc/lightdm
+sudo mkdir -p /usr/share/themes
 
 sudo cp $path/backgrounds/* 		/usr/share/backgrounds
-sudo cp $path/backgrounds/* 		~/Pictures/Wallpapers
+cp $path/backgrounds/* 			~/Pictures/Wallpapers
+sudo cp -r $path/themes/*			/usr/share/themes/
 
 # cp $config
 
