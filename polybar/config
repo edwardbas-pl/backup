@@ -23,7 +23,7 @@ primary = ${xrdb:color1:#222}
 secondary = ${xrdb:color2:#222}
 alert = ${xrdb:color3:#222}
 [bar/example]
-monitor = ${env:MONITOR:eDP1}
+monitor = ${env:MONITOR:HDMI-A-0}
 width = 100%
 height = 30
 ;offset-x = 1%
@@ -52,7 +52,7 @@ font-2 = symbola:pixelsize=17;1
 
 modules-left = i3
 modules-center = popup-calendar
-modules-right = pulseaudio battery second-battery network memory cpu eth powermenu
+modules-right = pulseaudio memory cpu eth powermenu
 
 tray-position = right
 tray-padding = 2
@@ -368,84 +368,6 @@ menu-2-0 = power off
 menu-2-0-exec = sudo poweroff
 menu-2-1 = cancel
 menu-2-1-exec = menu-open-0
-
-[module/battery2]
-type = internal/battery
-
-; This is useful in case the battery never reports 100% charge
-;full-at = 99
-
-; Use the following command to list batteries and adapters:
-; $ ls -1 /sys/class/power_supply/
-battery = BAT0
-adapter = AC
-
-; If an inotify event haven't been reported in this many
-; seconds, manually poll for new values.
-;
-; Needed as a fallback for systems that don't report events
-; on sysfs/procfs.
-;
-; Disable polling by setting the interval to 0.
-;
-; Default: 5
-
-[module/second-battery]
-type = internal/battery
-
-; This is useful in case the battery never reports 100% charge
-;full-at = 100
-
-; Use the following command to list batteries and adapters:
-; $ ls -1 /sys/class/power_supply/
-battery = BAT1
-adapter = AC 
-
-; If an inotify event haven't been reported in this many
-; seconds, manually poll for new values.
-;
-; Needed as a fallback for systems that don't report events
-; on sysfs/procfs.
-;
-; Disable polling by setting the interval to 0.
-;
-; Default: 5
-poll-interval = 5
-
-[module/network]
-type = internal/network
-; Name of the network interface to display. You can get the names of the
-; interfaces on your machine with `ip link`
-; Wireless interfaces often start with `wl` and ethernet interface with `eno` or `eth`
-interface = wlp4s0
-
-; Seconds to sleep between updates
-; Default: 1
-interval = 3.0
-
-; Test connectivity every Nth update
-; A value of 0 disables the feature
-; NOTE: Experimental (needs more testing)
-; Default: 0
-;ping-interval = 3
-
-; @deprecated: Define min width using token specifiers (%downspeed:min% and %upspeed:min%)
-; Minimum output width of upload/download rate
-; Default: 3
-udspeed-minwidth = 5
-
-; Accumulate values from all interfaces
-; when querying for up/downspeed rate
-; Default: false
-accumulate-stats = true
-
-label-connected = WiFi: %essid% IP: %local_ip%
-
-; Consider an `UNKNOWN` interface state as up.
-; Some devices like USB network adapters have 
-; an unknown state, even when they're running
-; Default: false
-unknown-as-up = true
 
 ; vim:ft=dosini
 ;---------------------------------------------

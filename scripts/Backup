@@ -21,6 +21,7 @@ di backgrounds
 di kitty
 di dunst
 di picom
+di lightdm
 
 sudo cp ~/Pictures/Wallpapers/* /usr/share/backgrounds
 sudo cp /usr/share/backgrounds/* $path/backgrounds
@@ -42,6 +43,7 @@ cp $HOME/.bashrc		$path/bashrc
 cp $HOME/.vimrc			$path/vimrc
 cp $HOME/.profile		$path/profile
 cp ~/.scripts/Restore		$path/Restore
+cp /etc/lightdm/*		$path/lightdm
 sync
 echo "Done!"
 notify-send "Dotfiles copied to $HOME/backup/"
