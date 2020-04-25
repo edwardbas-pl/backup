@@ -94,7 +94,7 @@ font-2 = symbola:pixelsize=17;1
 
 modules-left = i3
 modules-center = popup-calendar
-modules-right = pulseaudio memory cpu eth powermenu
+modules-right = pulseaudio battery battery2 memory cpu eth powermenu
 
 tray-position = right
 tray-padding = 2

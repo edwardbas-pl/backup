@@ -168,12 +168,14 @@ for_window [title="galculator"] floating enable
 
 new_window pixel 0
 exec_always --no-startup-id ~/.config/polybar/launch.sh
-exec_allways  --no-startup-id xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
+exec_always --no-startup-id picom --vsync &
+exec_always --no-startup-id polybar -q example
+exec --no-startup-id xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
 exec_always --no-startup-id setxkbmap -layout pl
-exec_always --no-startup-id i3 gaps inner all set 15
-exec_always --no-startup-id ~/.fehbg 
-exec_always --no-startup-id Wal -R &
-#exec_always --no-startup-id
+exec_always --nostartup-id i3 gaps inner all set 15
+exec_always --nostartup-id ~/.fehbg 
+exec_always --nostartup-id Wal -R &
+
 
 bindsym $mod+f exec firefox 
 bindsym $mod+e exec kitty -e ranger
