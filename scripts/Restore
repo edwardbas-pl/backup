@@ -20,7 +20,7 @@ di ~/Pictures/Wallpapers
 di $config/kitty
 di $config/dunst
 di $config/picom
-sudo di /etc/lightdm
+sudo mkdir -p  /etc/lightdm
 
 
 sudo cp $path/backgrounds/* 		/usr/share/backgrounds
@@ -42,6 +42,6 @@ cp $path/bash_profile			$HOME/.bash_profile
 cp $path/bashrc				~/.bashrc
 cp $path/vimrc				$HOME/.vimrc
 cp $path/profile			$HOME/.profile
-sudo cp $path/lightdm			/etc/
+sudo cp $path/lightdm/*			/etc/
 sync
 echo "Done! Enjoy"
