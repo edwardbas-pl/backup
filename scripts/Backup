@@ -20,6 +20,7 @@ di scripts
 di backgrounds
 di kitty
 di dunst
+di picom
 
 sudo cp ~/Pictures/Wallpapers/* /usr/share/backgrounds
 sudo cp /usr/share/backgrounds/* $path/backgrounds
@@ -31,6 +32,7 @@ cp $config/i3/*			$path/i3/
 cp $config/polybar/*		$path/polybar
 cp $config/kitty/*		$path/kitty
 cp $config/dunst/*		$path/dunst
+cp $config/picom/*		$path/picom
 
 cp $HOME/.polybar-scripts/*	$path/polybar-scripts/
 cp $HOME/.scripts/*		$path/scripts
