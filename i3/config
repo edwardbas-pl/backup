@@ -180,7 +180,7 @@ exec_always --nostartup-id Wal -R &
 bindsym $mod+f exec firefox 
 bindsym $mod+e exec kitty -e ranger
 bindsym $mod+Shift+p exec kitty -e python
-bindsym $mod+Control+e exec pcmanfm
+bindsym $mod+Control+e exec nemo
 bindsym $mod+l exec lutris
 bindsym $mod+q exec qbittorrent
 bindsym $mod+s exec steam

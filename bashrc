@@ -25,4 +25,4 @@ alias m="udisksctl mount -b"
 alias yt="ytmdl"
 alias file=">> list.txt"
 alias ech="echo"
-alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+alias iso="sudo mount -o loop"
