@@ -10,16 +10,12 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 
 
-cd
-./.fehbg
-wal -R &&
 
 
 i3 gaps inner all set 15
+killall picom 
+picom --vsync &
 
-
-killall picom
-picom &
 
 if type "xrandr"; then
   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do

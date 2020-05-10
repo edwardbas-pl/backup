@@ -25,8 +25,8 @@ di lightdm
 di themes
 
 sudo mkdir -p /usr/share/backgrounds/
-sudo cp ~/Pictures/Wallpapers/* /usr/share/backgrounds
-cp /usr/share/backgrounds/* 	$path/backgrounds
+sudo cp -r ~/Pictures/Wallpapers/* /usr/share/backgrounds
+cp -r /usr/share/backgrounds/* 	$path/backgrounds
 cp -r /usr/share/themes/*	$path/themes/
 
 # cp $config

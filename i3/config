@@ -166,21 +166,23 @@ bindsym $mod+r mode "resize"
 for_window [class="Yad" title="yad-calendar"] floating enable
 for_window [title="galculator"] floating enable
 
-new_window pixel 0
-exec_always --no-startup-id ~/.config/polybar/launch.sh
-exec_always --no-startup-id picom --vsync &
-exec_always --no-startup-id polybar -q example
-exec --no-startup-id xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
-exec_always --no-startup-id setxkbmap -layout pl
-exec_always --nostartup-id i3 gaps inner all set 15
-exec_always --nostartup-id ~/.fehbg 
-exec_always --nostartup-id Wal -R &
 
+new_window pixel 0
+
+exec_always  i3 gaps inner all set 15
+exec_always --no-startup-id killall picom
+exec_always --no-startup-id polybar -q example
+exec_always --no-startup-id xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
+exec_always --no-startup-id setxkbmap -layout pl
+exec_always --no-startup-id $HOME/.fehbg 
+exec_always --no-startup-id wal -R &
+exec_always --no-startup-id nm-applet
+exec_always --no-startup-id ~/.config/polybar/launch.sh
 
 bindsym $mod+f exec firefox 
 bindsym $mod+e exec kitty -e ranger
 bindsym $mod+Shift+p exec kitty -e python
-bindsym $mod+Control+e exec pcmanfm
+bindsym $mod+Control+e exec nemo
 bindsym $mod+l exec lutris
 bindsym $mod+q exec qbittorrent
 bindsym $mod+s exec steam
