@@ -175,9 +175,10 @@ exec_always --no-startup-id polybar -q example
 exec_always --no-startup-id xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
 exec_always --no-startup-id setxkbmap -layout pl
 exec_always --no-startup-id $HOME/.fehbg 
-exec_always --no-startup-id wal -R &
 exec_always --no-startup-id nm-applet
 exec_always --no-startup-id ~/.config/polybar/launch.sh
+
+exec_always --no-startup-id wal -R &
 
 bindsym $mod+f exec firefox 
 bindsym $mod+e exec kitty -e ranger
