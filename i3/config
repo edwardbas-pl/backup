@@ -169,7 +169,7 @@ for_window [title="galculator"] floating enable
 
 new_window pixel 0
 
-exec_always  i3 gaps inner all set 15
+# exec_always --no-startup-id i3 gaps inner all set 15
 exec_always --no-startup-id killall picom
 exec_always --no-startup-id polybar -q example
 exec_always --no-startup-id xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
@@ -198,7 +198,7 @@ bindsym --release $mod+Shift+m exec usb
 bindcode 232 exec xbacklight -dec 10
 bindcode 233 exec xbacklight -inc 10
 
-
+gaps inner 15
 border_radius 10
 #bindsym $mod+
 
