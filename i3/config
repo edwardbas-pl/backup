@@ -177,7 +177,7 @@ exec_always --no-startup-id setxkbmap -layout pl
 exec_always --no-startup-id $HOME/.fehbg 
 exec_always --no-startup-id nm-applet
 exec_always --no-startup-id ~/.config/polybar/launch.sh
-
+exec_always --no-startup-id cat /home/marcin/.cache/wal/sequences
 exec_always --no-startup-id wal -R &
 
 bindsym $mod+f exec firefox 
