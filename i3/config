@@ -193,7 +193,7 @@ bindsym $mod+i exec inkscape
 bindsym $mod+c exec code
 bindsym $mod+g exec graphics
 bindsym --release $mod+Shift+s exec spectacle -cbr 
-bindsym --release Print exec spectacle -b &
+bindsym --release Print exec spectacle -cb &
 bindsym --release $mod+Shift+m exec usb 
 bindcode 232 exec xbacklight -dec 10
 bindcode 233 exec xbacklight -inc 10
