@@ -20,6 +20,7 @@ di ~/Pictures/Wallpapers
 di $config/kitty
 di $config/dunst
 di $config/picom
+di $config/gtk-3.0
 
 sudo mkdir -p  /etc/lightdm
 sudo mkdir -p /usr/share/themes
@@ -36,14 +37,16 @@ cp $path/polybar/*			$config/polybar
 cp $path/kitty/*			$config/kitty
 cp $path/dunst/*			$config/dunst
 cp $path/picom/*			$config/picom
+cp $path/gtk-3.0/*			$config/gtk-3.0
 
 cp $path/polybar-scripts/*		$HOME/.polybar-scripts/
 cp $path/scripts/*			$HOME/.scripts/
 
 cp $path/bash_profile			$HOME/.bash_profile
-cp $path/bashrc				~/.bashrc
+cp $path/bashrc				$HOME/.bashrc
 cp $path/vimrc				$HOME/.vimrc
 cp $path/profile			$HOME/.profile
+cp $path/gtkrc-2.0			$HOME/.gtkrc-2.0
 sudo cp $path/lightdm/*			/etc/
 sync
 echo "Done! Enjoy"

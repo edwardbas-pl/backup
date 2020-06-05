@@ -23,6 +23,7 @@ di dunst
 di picom
 di lightdm
 di themes
+di gtk-3.0
 
 sudo mkdir -p /usr/share/backgrounds/
 sudo cp -r ~/Pictures/Wallpapers/* /usr/share/backgrounds
@@ -32,11 +33,12 @@ cp -r /usr/share/themes/*	$path/themes/
 # cp $config
 
 cp $config/ranger/*		$path/ranger/
-cp $config/i3/*			$path/i3/ 
+cp $config/i3/*			$path/i3/
 cp $config/polybar/*		$path/polybar
 cp $config/kitty/*		$path/kitty
 cp $config/dunst/*		$path/dunst
 cp $config/picom/*		$path/picom
+cp $config/gtk-3.0/*		$path/gtk-3.0/
 
 cp $HOME/.polybar-scripts/*	$path/polybar-scripts/
 cp $HOME/.scripts/*		$path/scripts
@@ -47,6 +49,7 @@ cp $HOME/.vimrc			$path/vimrc
 cp $HOME/.profile		$path/profile
 cp ~/.scripts/Restore		$path/Restore
 cp /etc/lightdm/*		$path/lightdm
+cp ~/.gtkrc-2.0			$path/gtkrc-2.0
 sync
 echo "Done!"
 notify-send "Dotfiles copied to $HOME/backup/"
