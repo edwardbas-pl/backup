@@ -38,6 +38,8 @@ cp $path/kitty/*			$config/kitty
 cp $path/dunst/*			$config/dunst
 cp $path/picom/*			$config/picom
 cp $path/gtk-3.0/*			$config/gtk-3.0
+sudo cp $path/gtk-3.0/*			$config/gtk-3.0
+
 
 cp $path/polybar-scripts/*		$HOME/.polybar-scripts/
 cp $path/scripts/*			$HOME/.scripts/
@@ -47,6 +49,8 @@ cp $path/bashrc				$HOME/.bashrc
 cp $path/vimrc				$HOME/.vimrc
 cp $path/profile			$HOME/.profile
 cp $path/gtkrc-2.0			$HOME/.gtkrc-2.0
-sudo cp $path/lightdm/*			/etc/
+sudo cp $path/gtkrc-2.0			$HOME/.gtkrc-2.0
+
+sudo cp $path/lightdm/*			/etc/lightdm/
 sync
 echo "Done! Enjoy"

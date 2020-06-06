@@ -1,5 +1,5 @@
 #!/bin/sh
-echo "Backing Up dotfiles. Please wait..."
+echo "Backing Up dotfiles. Please wait..." && notify-send "Backing Up dotfiles. Please wait..."
 cd
 mkdir -p backup
 cd backup

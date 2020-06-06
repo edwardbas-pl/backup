@@ -186,12 +186,13 @@ bindsym $mod+Shift+p exec kitty -e python
 bindsym $mod+Control+e exec nemo
 bindsym $mod+l exec lutris
 bindsym $mod+q exec qbittorrent
-bindsym $mod+s exec steam
+bindsym $mod+s exec steam-runtime
 bindsym $mod+p exec vlc
 bindsym $mod+w exec libreoffice --writer
 bindsym $mod+i exec inkscape
 bindsym $mod+c exec code
 bindsym $mod+g exec graphics
+bindsym Control+l exec i3lock -n -i /usr/share/backgrounds/ThinkPad.png --nofork
 bindsym --release $mod+Shift+s exec spectacle -cbr 
 bindsym --release Print exec spectacle -cb &
 bindsym --release $mod+Shift+m exec usb 
