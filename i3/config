@@ -165,7 +165,7 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 for_window [class="Yad" title="yad-calendar"] floating enable
 for_window [title="galculator"] floating enable
-
+for_window [instance="origin.exe"] floating enable
 
 new_window pixel 0
 
@@ -195,6 +195,7 @@ bindsym $mod+g exec graphics
 bindsym Control+l exec i3lock -n -i /usr/share/backgrounds/ThinkPad.png --nofork
 bindsym --release $mod+Shift+s exec spectacle -cbr 
 bindsym --release Print exec spectacle -cb &
+bindsym --release Shift+Print exec spectacle -cbm &
 bindsym --release $mod+Shift+m exec usb 
 bindcode 232 exec xbacklight -dec 10
 bindcode 233 exec xbacklight -inc 10
