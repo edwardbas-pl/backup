@@ -26,3 +26,4 @@ alias yt="ytmdl"
 alias file=">> list.txt"
 alias ech="echo"
 alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+alias compress='tar -czvf'
