@@ -186,7 +186,7 @@ bindsym $mod+Shift+p exec kitty -e python
 bindsym $mod+Control+e exec nemo
 bindsym $mod+l exec lutris
 bindsym $mod+q exec qbittorrent
-bindsym $mod+s exec steam-runtime
+bindsym $mod+s exec steam
 bindsym $mod+p exec vlc
 bindsym $mod+w exec libreoffice --writer
 bindsym $mod+i exec inkscape
