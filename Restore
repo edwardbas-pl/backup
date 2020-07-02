@@ -24,6 +24,7 @@ di $config/gtk-3.0
 
 sudo mkdir -p  /etc/lightdm
 sudo mkdir -p /usr/share/themes
+sudo mkdir -O /usr/share/backgrounds
 
 sudo cp $path/backgrounds/* 		/usr/share/backgrounds
 cp $path/backgrounds/* 			~/Pictures/Wallpapers
