@@ -1,6 +1,8 @@
 #! /bin/sh
 killall compton
 compton &
+bspc monitor HDMI-A-0 -d 1 2 3 4 5 6 7 8
+bspc monitor HDMI-A-1 -d 9 10
 ~/.config/polybar/launch.sh & # Status bar
 xclip &
 xsetroot -cursor_name left_ptr & # X cursor fix
@@ -8,8 +10,7 @@ dunst & # Notifications
 feh --bg-fill ~/Pictures/Wallpapers/space-neon.jpg & # Wallpaper
 sxhkd & # Keyboard shortcuts
 xss-lock --transfer-sleep-lock --i3lock -n -i /usr/share/backgrounds/ThinkPad.png --nofork &
-
-bspc monitor -d I II III IV V VI VII VIII IX X
+exec $HOME/.config/polybar/launch.sh &
 wal -R &
 polybar -q example & 
 xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1

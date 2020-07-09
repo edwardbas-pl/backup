@@ -14,8 +14,8 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 
 i3 gaps inner all set 15
-killall picom 
-picom --vsync &
+killall compton 
+compton &
 
 
 if type "xrandr"; then
