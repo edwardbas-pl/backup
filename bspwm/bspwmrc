@@ -1,0 +1,33 @@
+#! /bin/sh
+killall compton
+compton &
+~/.config/polybar/launch.sh & # Status bar
+xclip &
+xsetroot -cursor_name left_ptr & # X cursor fix
+dunst & # Notifications
+feh --bg-fill ~/Pictures/Wallpapers/space-neon.jpg & # Wallpaper
+sxhkd & # Keyboard shortcuts
+xss-lock --transfer-sleep-lock --i3lock -n -i /usr/share/backgrounds/ThinkPad.png --nofork &
+
+bspc monitor -d I II III IV V VI VII VIII IX X
+wal -R &
+polybar -q example & 
+xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
+setxkbmap -layout pl
+nm-applet &
+bspc config border_width         0
+bspc config window_gap           16
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+# bspc config focus_follows_pointer true
+
+# bspc config single_monocle	 true
+
+bspc rule -a Gimp desktop='^8' state=floating follow=on
+bspc rule -a origin.exe state=floating
+bspc rule -a Chromium desktop='^2'
+bspc rule -a mplayer2 state=floating
+bspc rule -a Kupfer.py focus=on
+bspc rule -a Screenkey manage=off
