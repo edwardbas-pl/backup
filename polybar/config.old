@@ -24,7 +24,7 @@ secondary = ${xrdb:color2:#222}
 alert = ${xrdb:color3:#222}
 
 [bar/main]
-monitor = ${env:MONITOR:HDMI-A-0}
+monitor = ${env:MONITOR:}
 width = 100%
 height = 30
 ;offset-x = 1%
@@ -51,7 +51,7 @@ font-0 = fixed:pixelsize=10;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = symbola:pixelsize=17;1
 
-modules-left = i3
+modules-left = i3 bspwm
 modules-center = popup-calendar
 modules-right = pulseaudio memory cpu eth powermenu
 
@@ -301,7 +301,7 @@ format-charging = <animation-charging> <label-charging>
 format-charging-underline = #ffb52a
 
 format-discharging = <animation-discharging> <label-discharging>
-format-discharging-underline = ${self.format-charging-underline}
+format-discharging-underline = ${colors.primary}
 
 format-full-prefix = " "
 format-full-prefix-foreground = ${colors.foreground-alt}
@@ -333,7 +333,7 @@ format-charging = <animation-charging> <label-charging>
 format-charging-underline = #ffb52a
 
 format-discharging = <animation-discharging> <label-discharging>
-format-discharging-underline = ${self.format-charging-underline}
+format-discharging-underline = ${colors.primary}
 
 format-full-prefix = " "
 format-full-prefix-foreground = ${colors.foreground-alt}
@@ -382,6 +382,30 @@ ramp-foreground = ${colors.foreground-alt}
 margin-top = 5
 margin-bottom = 5
 
+[module/bspwm]
+type = internal/bspwm
+ 
+pin-workspaces = false
+ 
+label-focused = %index%
+label-focused-foreground = ${colors.foreground}
+label-focused-background = ${colors.background}
+label-focused-underline= ${colors.foreground}
+label-focused-padding = 2
+ 
+label-occupied = %index%
+label-occupied-underline = ${colors.foreground}
+label-occupied-padding = 2
+ 
+label-urgent = %index%!
+label-urgent-background = ${colors.background}
+label-urgent-padding = 2
+ 
+label-empty = %index%
+label-empty-foreground = ${colors.foreground}
+label-empty-padding = 2
+
+
 [module/powermenu]
 type = custom/menu
 label-active-font = 3
@@ -395,12 +419,22 @@ label-open-foreground = ${colors.foreground}
 label-separator = |
 label-separator-foreground = ${colors.foreground}
 
-menu-0-0 = reboot
-menu-0-0-exec = sudo reboot
-menu-0-1 = power off
+menu-0-0 = Reboot
+menu-0-0-exec = systemctl reboot
+
+menu-0-1 = Shutdown
 menu-0-1-exec = sudo shutdown -P now
+
+menu-0-2 = Suspend
+menu-0-2-exec = systemctl suspend
+
+menu-0-3 = Hibernate
+menu-0-3-exec = systemctl hibernate
+
+
 menu-1-0 = cancel
 menu-1-0-exec = menu-open-0
+
 menu-1-1 = reboot
 menu-1-1-exec = sudo reboot
 menu-2-0 = power off
@@ -410,7 +444,3 @@ menu-2-1-exec = menu-open-0
 
 ; vim:ft=dosini
 ;---------------------------------------------
-
-
-
-

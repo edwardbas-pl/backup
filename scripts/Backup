@@ -11,7 +11,8 @@ cd ~/.config
 config=$(pwd)
 cd $path
 
-
+di bspwm
+di sxhkd
 di ranger
 di i3
 di polybar
@@ -39,6 +40,8 @@ cp $config/kitty/*		$path/kitty
 cp $config/dunst/*		$path/dunst
 cp $config/picom/*		$path/picom
 cp $config/gtk-3.0/*		$path/gtk-3.0/
+cp $config/bspwm/*		$path/bspwm/
+cp $config/sxhkd/*		$path/sxhkd/
 
 cp $HOME/.polybar-scripts/*	$path/polybar-scripts/
 cp $HOME/.scripts/*		$path/scripts
