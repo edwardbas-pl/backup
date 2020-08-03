@@ -7,5 +7,5 @@
 
 export EDITO=R"vim"
 export TERMINAL="kitty"
-BROWSER="firefox"
+export BROWSER="firefox"
 export PATH="$PATH:$HOME/.scripts"

@@ -41,7 +41,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec $TERMINAL
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -182,8 +182,7 @@ exec_always --no-startup-id cat /home/marcin/.cache/wal/sequences
 exec_always --no-startup-id wal -R &
 
 bindsym $mod+f exec firefox 
-bindsym $mod+e exec kitty -e ranger
-bindsym $mod+Shift+p exec kitty -e python
+bindsym $mod+e exec $TERMINAL -e ranger
 bindsym $mod+Control+e exec nemo
 bindsym $mod+l exec lutris
 bindsym $mod+q exec qbittorrent
