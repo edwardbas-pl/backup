@@ -166,20 +166,20 @@ super + shift + s
 #               Start Programs                 #
 ################################################
 
-alt + f
+super + f
 	firefox
-alt + c
+super + c
 	code-oss
-alt + e
+super + e
 	$TERMINAL -e ranger
-alt + shift + e
+super + shift + e
 	nemo
-alt + v
+super + v
 	$TERMINAL -e vim
-alt + l
+super + l
 	lutris
-alt + s
+super + s
 	steam
-shift  + l
+ctrl + alt + l
 	i3lock -n -i /usr/share/backgrounds/ThinkPad.png --nofork
 
