@@ -423,7 +423,7 @@ menu-0-0 = Reboot
 menu-0-0-exec = systemctl reboot
 
 menu-0-1 = Shutdown
-menu-0-1-exec = sudo shutdown -P now
+menu-0-1-exec = shutdown -P now
 
 menu-0-2 = Suspend
 menu-0-2-exec = systemctl suspend
