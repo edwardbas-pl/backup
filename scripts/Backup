@@ -25,11 +25,13 @@ di picom
 di lightdm
 di themes
 di gtk-3.0
+di icons
 
 sudo mkdir -p /usr/share/backgrounds/
 sudo cp -r ~/Pictures/Wallpapers/* /usr/share/backgrounds
 cp -r /usr/share/backgrounds/* 	$path/backgrounds
 cp -r /usr/share/themes/*	$path/themes/
+cp -r /usr/share/icons/*	$path/icons/
 cp    $HOME/.config/compton.conf	$path/compton.conf
 
 # cp $config

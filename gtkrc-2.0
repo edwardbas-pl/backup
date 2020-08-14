@@ -3,7 +3,7 @@
 
 include "/home/marcin/.gtkrc-2.0.mine"
 gtk-theme-name="Qogir-dark"
-gtk-icon-theme-name="Adwaita"
+gtk-icon-theme-name="BigSur-black"
 gtk-font-name="Cantarell 11"
 gtk-cursor-theme-name="Adwaita"
 gtk-cursor-theme-size=0
