@@ -56,7 +56,7 @@ font-2 = symbola:pixelsize=17;1
 
 modules-left = bspwm i3
 modules-center = popup-calendar
-modules-right = memory cpu battery-internal battery-external backlight powermenu
+modules-right = wireless-network memory cpu battery-internal battery-external backlight powermenu
 
 tray-position = center
 tray-padding = 10
@@ -302,6 +302,22 @@ menu-2-1-exec = menu-open-0
 [global/wm]
 margin-top = 0
 margin-bottom = 0
+
+[module/wireless-network]
+type = internal/network
+interface = wlp4s0
+label-connected = wifi: %essid% signal: %signal%%
+label-disconnected = not connected
+
+label-conneced-underline = ${colors.foreground}
+click-left = $TERMINAL &
+
+ramp-signal-0 = 1
+ramp-signal-1 = 2
+ramp-signal-2 = 3
+ramp-signal-3 = 4
+ramp-signal-4 = 5
+ramp-signal-5 = 6
 
 [module/popup-calendar]
 type = custom/script
