@@ -10,6 +10,10 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'skammer/vim-css-color'
 Plug 'mattn/emmet-vim'
 Plug 'preservim/nerdtree'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'jiangmiao/auto-pairs'
+Plug 'valloric/youcompleteme' , { 'do': './install.py' }
+
 
 call plug#end()
 
