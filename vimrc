@@ -1,5 +1,5 @@
 set number
-
+set encoding=utf-8
 call plug#begin('~/.local/share/vim/plugged')
 
 
