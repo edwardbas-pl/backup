@@ -19,7 +19,8 @@ if [ -f /etc/bash.command-not-found ]; then
     . /etc/bash.command-not-found
 fi
 
-
+shopt -s autocd
+alias ..="cd .."
 alias vi="vim"
 alias ka="killall"
 alias compress='tar -czvf'
