@@ -18,7 +18,7 @@ Plug 'preservim/nerdtree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jiangmiao/auto-pairs'
 Plug 'valloric/youcompleteme' , { 'do': './install.py' }
-
+Plug 'jceb/vim-orgmode'
 
 call plug#end()
 
