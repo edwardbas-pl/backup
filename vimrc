@@ -1,5 +1,6 @@
 set number
 set encoding=utf-8
+set mouse=a
 call plug#begin('~/.local/share/vim/plugged')
 
 

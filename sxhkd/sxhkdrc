@@ -138,15 +138,17 @@ XF86AudioPlay
 
 # Volume up
 XF86AudioRaiseVolume 
-	pamixer -i 5 
-
+	pactl set-sink-volume @DEFAULT_SINK@ +10%
 # Volume down
 XF86AudioLowerVolume 
-	pamixer -d 5
-
+	pactl set-sink-volume @DEFAULT_SINK@ -10%
 # Volume mute
 XF86AudioMute 
-	pamixer -t
+	pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# Mic mute
+XF86AudioMicMute
+	pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 # Brightness up
 XF86MonBrightnessUp
