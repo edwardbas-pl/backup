@@ -1,7 +1,7 @@
 set number
 set encoding=utf-8
 set mouse=a
-syntax on
+"syntax on
 set nowrap
 set smartindent
 
