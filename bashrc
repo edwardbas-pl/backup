@@ -25,3 +25,5 @@ alias vi="vim"
 alias ka="killall"
 alias compress='tar -czvf'
 alias cp='cp -iv'
+
+alias dmenu='dmenu -h 25 -l 20 -nb "$color0" -nf "$color15" -sb "$color1" -sf "$color15"'
