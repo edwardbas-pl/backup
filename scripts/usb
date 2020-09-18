@@ -5,7 +5,7 @@ alias dmenu='dmenu -h 25 -l 20 -nb "$color0" -nf "$color15" -sb "$color1" -sf "$
 
 pgrep -x dmenu && exit
 
-mountable=$(lsblk -lp | grep "part $" | awk '{print $1, "(" $4 ")"}')
+mountable=$(lsblk -lp | grep "part  $" | grep /dev/sd[e-z]| awk '{print $1, "(" $4 ")"}')
 [[("$mountable" == "")]] && exit 1
 chosen=$(echo "$mountable" | dmenu -i -p  "Mount witch drive?" | awk '{print $1}')
 [[("$chosen" == "")]] && exit 1

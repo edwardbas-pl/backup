@@ -56,7 +56,7 @@ font-2 = symbola:pixelsize=17;1
 
 modules-left = bspwm i3
 modules-center = popup-calendar
-modules-right = wireless-network memory cpu battery-internal battery-external backlight powermenu
+modules-right = wireless-network pulseaudio memory cpu battery-internal battery-external backlight powermenu
 
 tray-position = center
 tray-padding = 10
@@ -305,9 +305,8 @@ margin-bottom = 0
 
 [module/wireless-network]
 type = internal/network
-interface = wlp4s0
-label-connected = wifi: %essid% signal: %signal%%
-label-disconnected = not connected
+interface = enp0s31f6
+label-connected = 🖧
 
 label-conneced-underline = ${colors.foreground}
 click-left = $TERMINAL &
@@ -319,9 +318,54 @@ ramp-signal-3 = 4
 ramp-signal-4 = 5
 ramp-signal-5 = 6
 
+[module/wireless-network]
+type = internal/network
+interface = wlp4s0
+label-connected =%essid% %signal%%
+
+label-conneced-underline = ${colors.foreground}
+click-left = $TERMINAL &
+
+ramp-signal-0 = 1
+ramp-signal-1 = 2
+ramp-signal-2 = 3
+ramp-signal-3 = 4
+ramp-signal-4 = 5
+ramp-signal-5 = 6
+
+
 [module/popup-calendar]
 type = custom/script
 exec = ~/.polybar-scripts/popup-calendar.sh
 interval = 5
 click-left = ~/.polybar-scripts/popup-calendar.sh --popup &
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+format-volume = <label-volume> <bar-volume>
+label-volume = VOL %percentage%%
+label-volume-foreground = ${root.foreground}
+
+label-muted = 🔇 muted
+label-muted-foreground = #666
+
+bar-volume-width = 10
+bar-volume-foreground-0 = #55aa55
+bar-volume-foreground-1 = #55aa55
+bar-volume-foreground-2 = #55aa55
+bar-volume-foreground-3 = #55aa55
+bar-volume-foreground-4 = #55aa55
+bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-6 = #ff5555
+bar-volume-gradient = false
+bar-volume-indicator = |
+bar-volume-indicator-font = 2
+bar-volume-fill = ─
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.foreground-alt}
+
+
 ; vim:ft=dosini
