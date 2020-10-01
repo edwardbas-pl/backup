@@ -179,6 +179,8 @@ exec_always --no-startup-id nm-applet
 exec_always --no-startup-id ~/.config/polybar/launch.i3
 exec_always --no-startup-id cat /home/marcin/.cache/wal/sequences
 exec_always --no-startup-id wal -R &
+exec_always --no-startup-id lxsession &
+
 
 bindsym $mod+f exec firefox 
 bindsym $mod+e exec $TERMINAL -e ranger

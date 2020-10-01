@@ -9,3 +9,4 @@ EDITOR="vim"
 TERMINAL="kitty"
 BROWSER="firefox"
 export PATH="$PATH:~/.scripts"
+startx
