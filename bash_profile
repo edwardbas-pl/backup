@@ -5,8 +5,7 @@
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
 
-EDITOR="vim"
-TERMINAL="kitty"
-BROWSER="firefox"
-export PATH="$PATH:~/.scripts"
-startx
+export EDITO=R"vim"
+export TERMINAL="kitty"
+export BROWSER="firefox"
+export PATH="$PATH:$HOME/.scripts"
