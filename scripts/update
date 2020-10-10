@@ -1,2 +1,8 @@
 #!/bin/bash
+cd
+git clone https://github.com/edwardbas-pl/backup
+cd ~/backup
+git pull
 yay -Syyu --noconfirm
+Restore
+
