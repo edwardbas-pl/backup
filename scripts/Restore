@@ -24,10 +24,10 @@ di $config/gtk-3.0
 di $config/bspwm
 di $config/sxhkd
 
-sudo mkdir -p  /etc/lightdm
+sudo mkdir -p /etc/lightdm
 sudo mkdir -p /usr/share/themes
-sudo mkdir -P /usr/share/backgrounds
-sudo mkdir -P /usr/share/icons
+sudo mkdir -p /usr/share/backgrounds
+sudo mkdir -p /usr/share/icons
 
 sudo cp $path/backgrounds/* 		/usr/share/backgrounds
 cp $path/backgrounds/* 			~/Pictures/Wallpapers
