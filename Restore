@@ -100,7 +100,6 @@ done
 echo '</wallpapers>' >> ~/test.xml
 
 sudo mkdir -p  /usr/share/gnome-background-properties/
-sudo cp /usr/share/gnome-background-properties/gnome-backgrounds.xml /usr/share/gnome-background-properties/gnome-backgrounds.xml.old
 sudo cp ~/test.xml /usr/share/gnome-background-properties/gnome-backgrounds.xml
 rm ~/test.xml
 
