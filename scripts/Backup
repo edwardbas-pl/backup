@@ -53,6 +53,7 @@ cp $HOME/.bash_profile		$path/bash_profile
 cp $HOME/.bashrc		$path/bashrc
 cp $HOME/.vimrc			$path/vimrc
 cp $HOME/.profile		$path/profile
+cp $HOME/.xinitrc 		$path/xinitrc
 cp ~/.scripts/Restore		$path/Restore
 cp /etc/lightdm/*		$path/lightdm
 cp ~/.gtkrc-2.0			$path/gtkrc-2.0

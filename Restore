@@ -55,6 +55,7 @@ cp $path/bash_profile			$HOME/.bash_profile
 cp $path/bashrc				$HOME/.bashrc
 cp $path/vimrc				$HOME/.vimrc
 cp $path/profile			$HOME/.profile
+cp $path/xinitrc			$HOME/.xinitrc
 cp $path/gtkrc-2.0			$HOME/.gtkrc-2.0
 sudo cp $path/gtkrc-2.0			$HOME/.gtkrc-2.0
 cp $path/compton.conf			$config/compton.conf
