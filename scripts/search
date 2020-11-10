@@ -1,8 +1,0 @@
-#!/bin/bash
-. "${HOME}/.cache/wal/colors.sh"
-alias dmenu='dmenu -h 25 -l 20 -nb "$color0" -nf "$color15" -sb "$color1" -sf "$color15"'
-
-
-$mountable="cos"
-chosen=$(echo "$mountable" | dmenu -i -p  "Search" | awk '{print $1}')
-

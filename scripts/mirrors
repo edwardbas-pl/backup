@@ -1,4 +1,0 @@
-#!/bin/sh
-sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
-sudo reflector --verbose --latest 20 --sort rate --save /etc/pacman.d/mirrorlist
- 
