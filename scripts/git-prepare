@@ -1,0 +1,10 @@
+#!/bin/sh
+pacman -Sy git --noconfirm
+clear
+echo "Your username is:"
+read user
+echo "your mail is:"
+read email
+
+git config --global user.name $user
+git config --global user.email $email

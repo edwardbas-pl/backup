@@ -1,0 +1,16 @@
+#!/bin/sh
+
+. "${HOME}/.cache/wal/colors.sh"
+alias dmenu='dmenu -h 25 -l 20 -nb "$color0" -nf "$color15" -sb "$color1" -sf "$color15"'
+
+pgrep -x dmenu && exit
+
+program=$(cat ~/.scripts/lists/graphics-program.list)
+
+chosen=$(echo "$program" |dmenu -i -p "Wich program you want to use?" )
+
+if  [ -f /bin/$chosen ]; then 
+	exec $chosen ; 
+else 
+	notify-send "$chosen is not installed"; 
+fi
