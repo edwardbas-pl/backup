@@ -14,7 +14,6 @@ setxkbmap pl
 pfetch
 
 
-
 if [ -f /etc/bash.command-not-found ]; then
     . /etc/bash.command-not-found
 fi
@@ -46,10 +45,12 @@ extract () {
 
 
 shopt -s autocd
+shopt -s cdspell
 alias ..="cd .."
 alias vi="vim"
 alias ka="killall"
 alias compress='tar -czvf'
 alias cp='cp -iv'
+alias grep='grep --color=auto'
 
 alias dmenu='dmenu -h 25 -l 20 -nb "$color0" -nf "$color15" -sb "$color1" -sf "$color15"'
