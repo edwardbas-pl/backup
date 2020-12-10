@@ -173,8 +173,8 @@ workspace 10 output HDMI-A-1
 new_window pixel 0
 
 # exec_always --no-startup-id i3 gaps inner all set 15
-exec_always --no-startup-id killall compton
-exec_always --no-startup-id compton &
+exec_always --no-startup-id killall picom
+exec_always --no-startup-id picom -bcCGfF -o 0.38 -O 200 -I 200 -t 0 -l 0 -r 3 -D2 -m 0.88& &
 exec_always --no-startup-id xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
 exec_always --no-startup-id setxkbmap -layout pl
 exec_always --no-startup-id $HOME/.fehbg 

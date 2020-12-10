@@ -1,6 +1,6 @@
 #! /bin/sh
-killall compton
-compton &
+killall picom
+picom -bcCGfF -o 0.38 -O 200 -I 200 -t 0 -l 0 -r 3 -D2 -m 0.88 &
 bspc monitor -d 1 2 3 4 5 6 7 8 9 10
 ~/.config/polybar/launch.sh & # Status bar
 
