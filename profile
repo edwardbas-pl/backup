@@ -9,3 +9,4 @@ export EDITO=R"vim"
 export TERMINAL="kitty"
 export BROWSER="firefox"
 export PATH="$PATH:$HOME/.scripts"
+export mesa_glthread=true
