@@ -1,0 +1,24 @@
+#!/usr/bin/env perl
+use strict;
+use warnings FATAL => 'all';
+use 5.010;
+
+$_ = qx(efibootmgr);
+if ( /^Boot(\d+)[*]?\s+\bWindows Boot Manager$/m ) {
+    if (system("sudo -v") == 0) {
+        system "sudo efibootmgr -n $1";
+        if (defined $ENV{XDG_SESSION_DESKTOP} and $ENV{XDG_SESSION_DESKTOP} eq "xfce") {
+            system "xfce4-session-logout --reboot --fast";
+        } else {
+            system "systemctl reboot";
+        }
+    } else {
+        say "Sudo failed!";
+    }
+} else {
+    say "Error: Could not find 'Windows Boot Manager' in efibootmgr's output!";
+    say "efibootmgr output:";
+    s/^/  /mg;
+    print;
+}
+
