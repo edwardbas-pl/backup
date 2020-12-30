@@ -23,6 +23,7 @@ di $config/picom
 di $config/gtk-3.0
 di $config/bspwm
 di $config/sxhkd
+di $config/dconf
 
 sudo mkdir -p /etc/lightdm
 sudo mkdir -p /usr/share/themes
@@ -45,6 +46,7 @@ cp $path/picom/*			$config/picom
 cp $path/gtk-3.0/*			$config/gtk-3.0
 cp $path/bspwm/*			$config/bspwm
 cp $path/sxhkd/*			$config/sxhkd
+cp $path/dconf/*			$config/dconf
 sudo cp $path/gtk-3.0/*			$config/gtk-3.0
 cp -r $path/.icons/			$HOME/
 

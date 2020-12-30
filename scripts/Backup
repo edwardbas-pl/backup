@@ -27,6 +27,7 @@ di themes
 di gtk-3.0
 di icons
 di .icons
+di dconf
 
 
 sudo mkdir -p /usr/share/backgrounds/
@@ -57,6 +58,7 @@ cp $HOME/.bashrc		$path/bashrc
 cp $HOME/.vimrc			$path/vimrc
 cp $HOME/.profile		$path/profile
 cp $HOME/.xinitrc 		$path/xinitrc
+cp $config/dconf/*		$path/dconf
 cp ~/.scripts/Restore		$path/Restore
 cp /etc/lightdm/*		$path/lightdm
 cp ~/.gtkrc-2.0			$path/gtkrc-2.0
