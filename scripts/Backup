@@ -35,7 +35,8 @@ sudo cp -r ~/Pictures/Wallpapers/* /usr/share/backgrounds
 cp -r /usr/share/backgrounds/* 	$path/backgrounds
 cp -r /usr/share/themes/Qogir-dark	$path/themes/
 cp -r /usr/share/themes/Default		$path/themes/
-#cp -r /usr/share/icons/*	$path/icons/
+cp -r /usr/share/icons/Papirus-Dark	$path/icons/
+cp -r /usr/share/icons/WinSur-dark-cursors	$path/icons/
 cp    $HOME/.config/compton.conf	$path/compton.conf
 
 # cp $config

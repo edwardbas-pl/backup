@@ -39,6 +39,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 bindsym XF86Mail exec --no-startup-id thunderbird
 bindsym XF86Calculator exec --no-startup-id galculator
 bindsym XF86HomePage exec --no-startup-id firefox --new-window jbzd.com.pl 
+bindsym XF86Search exec bookmarks
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
