@@ -33,7 +33,8 @@ di dconf
 sudo mkdir -p /usr/share/backgrounds/
 sudo cp -r ~/Pictures/Wallpapers/* /usr/share/backgrounds
 cp -r /usr/share/backgrounds/* 	$path/backgrounds
-cp -r /usr/share/themes/*	$path/themes/
+cp -r /usr/share/themes/Qogir-dark	$path/themes/
+cp -r /usr/share/themes/Default		$path/themes/
 #cp -r /usr/share/icons/*	$path/icons/
 cp    $HOME/.config/compton.conf	$path/compton.conf
 
