@@ -8,6 +8,7 @@ arr+=(
 [jbzd]="jbzd.com.pl"
 [r/linuxmemes]="https://www.reddit.com/r/linuxmemes/"
 [r/linuxmasterrace]="https://www.reddit.com/r/linuxmasterrace/"
+[Reddit]="reddit.com"
 )
 
 choice=$(printf "%s\n" "${!arr[@]}" | dmenu -h 25 -l 20 -nb "$color0" -nf "$color15" -sb "$color1" -sf "$color15" -fn monospace-14)

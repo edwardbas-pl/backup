@@ -170,6 +170,7 @@ bindsym $mod+r mode "resize"
 for_window [class="Yad" title="yad-calendar"] floating enable
 for_window [title="galculator"] floating enable
 for_window [instance="origin.exe"] floating enable
+for_window [class="steam_app_1182480"] floating enable
 workspace 10 output HDMI-2
 new_window pixel 0
 

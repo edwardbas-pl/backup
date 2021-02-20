@@ -5,7 +5,8 @@ set nowrap
 set smartindent
 
 call plug#begin('~/.local/share/vim/plugged')
-
+autocmd BufNewFile  *.c 0r ~/.templates/skeleton.c 
+autocmd BufNewFile  *.yt 0r ~/.templates/skeleton.yt
 
 Plug 'vim-python/python-syntax'
 Plug 'PotatoesMaster/i3-vim-syntax'
@@ -17,6 +18,7 @@ Plug 'preservim/nerdtree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jiangmiao/auto-pairs'
 Plug 'valloric/youcompleteme' , { 'do': './install.py' }
+Plug 'dylanaraps/wal.vim'
 Plug 'jceb/vim-orgmode'
 
 call plug#end()
@@ -24,6 +26,7 @@ call plug#end()
 let g:airline_theme='simple'
 
 let mapleader = "\<Space>"
+colorscheme wal
 
 "Split resize section
 nnoremap <leader>, :vertical resize -10 <CR>

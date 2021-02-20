@@ -4,9 +4,9 @@ mkdir -p out
 declare -a array=($(ls))
 arraylength=${#array[@]}
 
-for (( i=1; i<${arraylength}+1; i++ ));
+for (( i=0; i<${arraylength}; i++ ));
 #for i in "$array"
 do
-	 g++ ${array[$i-1]} -o out/${array[$i-1]}
+	 g++ ${array[$i]} -o out/${array[$i]} -g
 done
 
