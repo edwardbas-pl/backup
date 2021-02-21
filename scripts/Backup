@@ -28,6 +28,7 @@ di gtk-3.0
 di icons
 di .icons
 di dconf
+di dwm
 
 
 sudo mkdir -p /usr/share/backgrounds/
@@ -50,6 +51,7 @@ cp $config/picom/*		$path/picom
 cp $config/gtk-3.0/*		$path/gtk-3.0/
 cp $config/bspwm/*		$path/bspwm/
 cp $config/sxhkd/*		$path/sxhkd/
+cp $config/dwm/*		$path/dwm/
 cp -r $HOME/.icons/*		$path/.icons
 
 cp $HOME/.polybar-scripts/*	$path/polybar-scripts/
