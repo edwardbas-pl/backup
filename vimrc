@@ -5,7 +5,7 @@ set nowrap
 set smartindent
 
 call plug#begin('~/.local/share/vim/plugged')
-autocmd BufNewFile  *.c 0r ~/.templates/skeleton.c 
+autocmd BufNewFile  *.cpp 0r ~/.templates/skeleton.cpp
 autocmd BufNewFile  *.yt 0r ~/.templates/skeleton.yt
 
 Plug 'vim-python/python-syntax'
