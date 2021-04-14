@@ -1,6 +1,0 @@
-#!/bin/sh
-echo "intalingg some necesary dependency please wait .."
-
-yay -S amdgpu-pro-libgl --noconfirm > /dev/null 
-exec /opt/resolve/bin/resolve %U
-yay -Rns amdgpu-pro-libgl --noconfirm > /dev/null

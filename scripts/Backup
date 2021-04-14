@@ -25,6 +25,7 @@ di picom
 di lightdm
 di themes
 di gtk-3.0
+di gtk-4.0
 di icons
 di .icons
 di dconf
@@ -49,6 +50,7 @@ cp $config/kitty/*		$path/kitty
 cp $config/dunst/*		$path/dunst
 cp $config/picom/*		$path/picom
 cp $config/gtk-3.0/*		$path/gtk-3.0/
+cp $config/gtk-4.0/*		$path/gtk-4.0/
 cp $config/bspwm/*		$path/bspwm/
 cp $config/sxhkd/*		$path/sxhkd/
 cp $config/dwm/*		$path/dwm/

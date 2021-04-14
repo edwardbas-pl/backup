@@ -21,6 +21,7 @@ di $config/kitty
 di $config/dunst
 di $config/picom
 di $config/gtk-3.0
+di $config/gtk-4.0
 di $config/bspwm
 di $config/sxhkd
 di $config/dconf
@@ -45,6 +46,7 @@ cp $path/kitty/*			$config/kitty
 cp $path/dunst/*			$config/dunst
 cp $path/picom/*			$config/picom
 cp $path/gtk-3.0/*			$config/gtk-3.0
+cp $path/gtk-4.0/*			$config/gtk-4.0
 cp $path/bspwm/*			$config/bspwm
 cp $path/sxhkd/*			$config/sxhkd
 cp $path/dconf/*			$config/dconf
