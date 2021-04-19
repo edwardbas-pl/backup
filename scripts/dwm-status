@@ -1,0 +1,57 @@
+#!/bin/bash
+
+print_mem(){
+	used=$( free | grep Mem | awk '{print $3}') #gets memory used in KB's
+	used=$( echo $(($used / 1024))) #calculate memory used in MB's
+	used=$(bc <<< 'scale=2; '$used'/1024') #calculate memory used in GB's in float point unit
+	echo $used 'GB'  #print Used memmory
+}
+
+#print_network(){
+
+#	}
+
+print_temp(){
+	test -f /sys/class/thermal/thermal_zone0/temp || return 0
+	echo $(head -c 2 /sys/class/thermal/thermal_zone0/temp)C
+}
+
+print_brightnes(){
+	    brightness = $(cat /sys/class/backlight/amdgpu_bl0/brightness)
+}
+
+#print_bat(){
+#	hash acpi || return 0
+#	onl="$(grep "on-line" <(acpi -V))"
+#	charge="$(awk '{ sum += $1 } END { print sum }' /sys/class/power_supply/BAT*/capacity)"
+#	if test -z "$onl"
+#	then
+#		# suspend when we close the lid
+#		#systemctl --user stop inhibit-lid-sleep-on-battery.service
+#		echo -e "${charge}"
+#	else
+#		# On mains! no need to suspend
+#		#systemctl --user start inhibit-lid-sleep-on-battery.service
+#		echo -e "${charge}"
+#	fi
+#}
+
+print_date(){
+	echo $(date "+%a %m-%d %T")
+}
+
+print_record(){
+	# https://github.com/kaihendry/recordmydesktop2.0/
+	test -f /tmp/r2d2 || return
+	rp=$(cat /tmp/r2d2 | awk '{print $2}')
+	size=$(du -h $rp | awk '{print $1}')
+	echo " $size $(basename $rp)"
+}
+
+while true
+do
+	xsetroot -name "$(print_brightnes) $(print_mem) $(print_date)"
+	sleep 30
+done
+
+

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+
+echo "Are you sure you want t o cintinue in this folder? If not press Ctrl+c. else press Enter"
+declare -a array=($(ls -l | awk '{print $10}'))
+
+arraylength=${#array[@]}
+
+
+
+
+
+
+for (( i=1; i<${arraylength}+1; i++ ));
+do
+	echo ${array[$i-1]}
+#	zip -rmfz "My Wife Is A Demon Quen Chapter${i}.zip" "${array[$i-1]}"/
+#	mv "My Wife Is A Demon Quen Chapter${i}.zip" "My Wife Is A Demon Quen Chapter${i}.cbz"
+
+
+
+done

@@ -1,0 +1,18 @@
+#!/bin/bash
+. "${HOME}/.cache/wal/colors.sh"
+alias launch='dmenu -h 25 -l 20 -nb "$color0" -nf "$color15" -sb "$color1" -sf "$color15"'
+
+#arr=(Hello World)
+declare -A arr
+arr+=(
+[Shutdown]="shutdown -P now"
+[Reboot]="shutdown -r now"
+[Hibernate]="systemctl hibernate"
+)
+
+choice=$(printf "%s\n" "${!arr[@]}" | dmenu -h 25 -l 20 -nb "$color0" -nf "$color15" -sb "$color1" -sf "$color15" -fn monospace-14)
+
+#choice=$(printf "%s\n" "${!arr[@]}" | dmenu -i -p "Chose a site to open")
+
+# Execute choice if dmenu returns ok:
+[ $? = 0 ] && ${arr[$choice]}

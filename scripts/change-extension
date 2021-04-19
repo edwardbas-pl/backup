@@ -1,0 +1,11 @@
+#!/bin/sh
+echo "Give extension to change"
+read from
+echo "Give target extension"
+read target
+
+declare -a array=($(ls))
+
+for f in *.$from; do 
+    mv -- "$f" "${f%.$from}.$target"
+done
