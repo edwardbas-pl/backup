@@ -22,6 +22,7 @@ Plug 'jceb/vim-orgmode'
 call plug#end()
 
 autocmd BufNewFile  *.cpp 0r ~/.templates/skeleton.cpp
+autocmd BufNewFile  *.sh 0r ~/.templates/skeleton.sh
 autocmd BufNewFile  *.yt 0r ~/.templates/skeleton.yt
 
 let g:airline_theme='simple'

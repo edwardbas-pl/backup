@@ -13,10 +13,11 @@ cd $path
 di $config/ranger
 di $config/i3
 di $config/polybar
-di ~/.polybar-scripts
-di ~/.scripts
-di ~/Pictures
-di ~/Pictures/Wallpapers
+di $HOME/polybar-scripts
+di $HOME/.scripts
+di $HOME/Pictures
+di $HOME/Pictures/Wallpapers
+di $HOME/.templates
 di $config/kitty
 di $config/dunst
 di $config/picom

@@ -30,16 +30,18 @@ di icons
 di .icons
 di dconf
 di dwm
+di vim-templates
 
 
 sudo mkdir -p /usr/share/backgrounds/
 sudo cp -r ~/Pictures/Wallpapers/* /usr/share/backgrounds
-cp -r /usr/share/backgrounds/* 	$path/backgrounds
-cp -r /usr/share/themes/Qogir-dark	$path/themes/
-cp -r /usr/share/themes/Default		$path/themes/
-cp -r /usr/share/icons/Papirus-Dark	$path/icons/
-cp -r /usr/share/icons/WinSur-dark-cursors	$path/icons/
-cp    $HOME/.config/compton.conf	$path/compton.conf
+cp -r 	/usr/share/backgrounds/* 		$path/backgrounds
+cp -r 	/usr/share/themes/Qogir-dark		$path/themes/
+cp -r 	/usr/share/themes/Default		$path/themes/
+cp -r 	/usr/share/icons/Papirus 		$path/icons/
+cp -r 	/usr/share/icons/WinSur-dark-cursors	$path/icons/
+cp   	$HOME/.config/compton.conf		$path/compton.conf
+cp 	$HOME/.templates/*			$path/vim-templates
 
 # cp $config
 
