@@ -52,3 +52,4 @@ nnoremap <leader><PageDown> :tabp <CR>
 noremap <leader><Return> :terminal <CR>
 map <F2> :NERDTreeToggle<CR>
 nnoremap <leader>o :e 
+nnoremap <leader>s :w <CR>
