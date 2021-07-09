@@ -71,59 +71,23 @@ cp $path/compton.conf			$config/compton.conf
 sudo cp $path/lightdm/*			/etc/lightdm/
 
 #Generating wallpaper list for gnome-settings
-
-<< bash-comment
-cd /usr/share/backgrounds/
-declare -a array=($(ls))
-#array=($(ls))
-#echo ${array[@]}
-arraylength=${#array[@]}
-echo '<?xml version="1.0"?>' > ~/test.xml
-echo '<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">' >> ~/test.xml
-echo '<wallpapers>' >> ~/test.xml
-for (( i=1; i<${arraylength}+1; i++ ));
-#for i in "$array"
-do
-	#echo "$array[@]"
-	#echo $i " / " ${arraylength} " : " ${array[$i-1]}
-	echo ${array[$i-1]}
-
-	#echo ${array[$i-1]} >> ~/test.xml
-	echo "	<wallpaper deleted='false'>
-		<name>background ${array[$i-1]}</name>
-		<filename>/usr/share/backgrounds/${array[$i-1]}</filename>
-		<options>zoom</options>
-    <pcolor>#ffffff</pcolor>
-    <scolor>#000000</scolor>
-	</wallpaper>" >> ~/test.xml
-done
-echo '</wallpapers>' >> ~/test.xml
-sudo mkdir -p  /usr/share/gnome-background-properties/
-sudo cp ~/test.xml /usr/share/gnome-background-properties/gnome-backgrounds.xml
-rm ~/test.xml
-bash-comment
-
 python << END
 import os
 import xml.etree.cElementTree as ET
 
-
 workdir = '/usr/share/backgrounds'
 #os.chdir('/usr/share/gnome-background-properties')
 ls = os.listdir(workdir)
-for i in ls:
-	if os.path.isdir(i) == False:
-		print(i)
 
 root = ET.Element("wallpapers")
 for i in ls:
-    print(i)
-    wallpaper = ET.SubElement(root, "wallpaper", deleted="false")
-    ET.SubElement(wallpaper, "name").text='background '  + i
-    ET.SubElement(wallpaper, "filename").text=workdir + '/' + i
-    ET.SubElement(wallpaper, "options").text='zoom'
-    ET.SubElement(root, "pcolor").text='#ffffff'
-    ET.SubElement(root, "scolor").text='#000000'
+	if os.path.isdir(i) == False:
+		wallpaper = ET.SubElement(root, "wallpaper", deleted="false")
+		ET.SubElement(wallpaper, "name").text='background '  + i
+		ET.SubElement(wallpaper, "filename").text=workdir + '/' + i
+		ET.SubElement(wallpaper, "options").text='zoom'
+		ET.SubElement(root, "pcolor").text='#ffffff'
+		ET.SubElement(root, "scolor").text='#000000'
 tree = ET.ElementTree(root)
 tree.write("gnome-backgrounds.xml")
 
