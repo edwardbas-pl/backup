@@ -13,7 +13,6 @@ cd $path
 di $config/ranger
 di $config/i3
 di $config/polybar
-di $HOME/polybar-scripts
 di $HOME/.scripts
 di $HOME/Pictures
 di $HOME/Pictures/Wallpapers
