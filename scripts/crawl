@@ -1,9 +1,13 @@
-#!/bin/sh
-for i in $(ls -d */);
-do
-        echo ${i%%/}    
-        cd ${i%%/}
-        sh get.yt
-        cd ..
-done
-
+#!/bin/bash
+crawl(){
+	for i in $(ls -d */);
+	do                     
+        	echo ${i%%/}    
+	        cd ${i%%/}
+		crawl
+	        sh get.yt
+		sh crawl.sh
+	        cd ..
+	done
+}
+crawl
