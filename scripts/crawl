@@ -5,7 +5,7 @@ crawl(){
         	echo ${i%%/}    
 	        cd ${i%%/}
 		crawl
-	        sh get.yt
+	        sh *.yt
 		sh crawl.sh
 	        cd ..
 	done
