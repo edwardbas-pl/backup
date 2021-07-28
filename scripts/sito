@@ -1,0 +1,5 @@
+#!/bin/bash
+
+mkdir sito
+#find . -type f -size +10M -exec mv "{}" new_folder/ \;
+find . -type f -size +10M | xargs -I {} mv {} sito/
