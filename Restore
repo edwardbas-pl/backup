@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 echo "Restoring config files. PLease Wait..."
 cd ~/backup
 # alias config="mkdir -p ~/.config"
