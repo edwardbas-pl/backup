@@ -3,7 +3,6 @@
 path=$(pwd)
 echo "give me a pattern"
 read pattern
-
 mkdir "$path"/$pattern
 
 mv *$pattern* "$path"/$pattern

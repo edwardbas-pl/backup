@@ -11,7 +11,7 @@ PS1="\W> "
 
 setxkbmap pl
 
-pfetch
+pfetch | lolcat
 
 
 if [ -f /etc/bash.command-not-found ]; then

@@ -4,7 +4,7 @@ crawl(){
 	do                     
         	echo ${i%%/}    
 	        cd ${i%%/}
-		crawl &
+		crawl 
 	        sh *.yt
 		sh crawl.sh
 	        cd ..

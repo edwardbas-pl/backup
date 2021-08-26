@@ -1,3 +1,16 @@
 #!/bin/bash
-yay -Syyu --noconfirm
 
+if [[ -f /usr/bin/yay ]]
+then
+	yay -Syyu --noconfirm
+fi
+
+
+if [[ -f /usr/bin/apt ]]
+then
+	sudo apt update && sudo apt upgrade
+fi
+if [[ -f /usr/bin/dnf ]]
+then
+	sudo dnf upgrade
+fi
