@@ -3,6 +3,7 @@ set encoding=utf-8
 syntax on
 set nowrap
 set smartindent
+set noexpandtab
 
 call plug#begin('~/.local/share/vim/plugged')
 
