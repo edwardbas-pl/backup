@@ -11,26 +11,26 @@ cd ~/.config
 config=$(pwd)
 cd $path
 
-di bspwm
-di sxhkd
-di ranger
-di i3
-di polybar
-di polybar-scripts
-di scripts
-di backgrounds
-di kitty
-di dunst
-di picom
-di lightdm
-di themes
-di gtk-3.0
-di gtk-4.0
-di icons
-di .icons
-di dconf
-di dwm
-di vim-templates
+mkdir -p bspwm
+mkdir -p sxhkd
+mkdir -p ranger
+mkdir -p i3
+mkdir -p polybar
+mkdir -p polybar-scripts
+mkdir -p scripts
+mkdir -p backgrounds
+mkdir -p kitty
+mkdir -p dunst
+mkdir -p picom
+mkdir -p lightdm
+mkdir -p themes
+mkdir -p gtk-3.0
+mkdir -p gtk-4.0
+mkdir -p icons
+mkdir -p .icons
+mkdir -p dconf
+mkdir -p dwm
+mkdir -p vim-templates
 
 
 sudo mkdir -p /usr/share/backgrounds/
@@ -42,7 +42,6 @@ cp -r 	/usr/share/themes/Default				$path/themes/
 cp -r 	/usr/share/icons/Papirus 				$path/icons/
 cp -r 	/usr/share/icons/Flatery-Dark				$path/icons/
 cp -r 	/usr/share/icons/Marwaita-Dark				$path/icons/
-cp -r 	/usr/share/icons/Tela-circle-black-dark-Dark		$path/icons/
 cp -r 	/usr/share/icons/WinSur-dark-cursors			$path/icons/
 cp   	$HOME/.config/compton.conf				$path/compton.conf
 cp 	$HOME/.templates/*					$path/vim-templates
@@ -62,7 +61,7 @@ cp $config/sxhkd/*		$path/sxhkd/
 cp $config/dwm/*		$path/dwm/
 cp -r $HOME/.icons/*		$path/.icons
 
-cp $HOME/.polybar-scripts/*	$path/polybar-scripts/
+#cp $HOME/.polybar-scripts/*	$path/polybar-scripts/
 cp $HOME/.scripts/*		$path/scripts
 
 cp $HOME/.bash_profile		$path/bash_profile
