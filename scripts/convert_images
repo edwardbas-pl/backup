@@ -1,0 +1,41 @@
+#!/bin/python
+import os
+from PIL import Image
+
+PWD=os.getcwd()
+ls=os.listdir(PWD)
+output=PWD+'/output'
+png_output_path=output+'/png'
+jpg_output_path=output+'/jpg'
+
+if not os.path.exists(output):
+    os.makedirs(output)
+if not os.path.exists(png_output_path):
+    os.makedirs(png_output_path)
+if not os.path.exists(jpg_output_path):
+    os.makedirs(jpg_output_path)
+
+def is_image(image_name):
+    if image_name.lower().endswith(('.png', '.jpg', '.jpeg' , '.webp')):
+        return True
+    else:
+        return False
+
+def witch_file_type(image_name):
+    if image_name.lower().endswith(( '.jpg', '.jpeg')):
+        return JPEG
+    if image_name.lower().endswith(( '.png')):
+        return PNG
+    if image_name.lower().endswith(( '.webp')):
+        return WEBP
+
+for i in ls:
+    #im1.save(r'C:\Users\Ron\Desktop\Test\new_autumn.png')
+    if is_image(i) == True:
+        im1 = Image.open(i)
+        name = os.path.splitext(i)[0]
+        extension = os.path.splitext(i)[1]
+        print(name + ' is an image and have ' + extension + ' extension') 
+        im1.save(png_output_path + '/' + name + '.png')
+        im1.save(jpg_output_path + '/' + name + '.jpg')
+        os.remove(i)
