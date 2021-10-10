@@ -1,13 +1,20 @@
 #!/bin/bash
+yt(){
+
+	sh *.yt
+	youtube-dl -a *.yt
+	sh crawl.sh
+}
+
 crawl(){
 	for i in $(ls -d */);
 	do                     
         	echo ${i%%/}    
 	        cd ${i%%/}
 		crawl 
-	        sh *.yt
-		sh crawl.sh
+		yt
 	        cd ..
 	done
 }
+
 crawl
