@@ -1,9 +1,24 @@
 #!/bin/python
 import os
 
-print('give me pattern')
-pattern = input()
+def detect_fie_type(name):
+    if name.lower().endswith(( '.txt')):
+        return 'TXT'
+    if name.lower().endswith(( '.yt')):
+        return 'YT' 
 
-ls = os.listdir(os.getcwd)
-for i in ls:
-    print ( name, fnmatch.fnmatch(name, pattern))
+def crawl():
+    ls=os.listdir(os.getcwd())
+    for i in ls:
+        if os.path.isdir(i) == True:
+            os.chdir(i)
+            crawl()
+            os.chdir('../')
+        else:
+            type=detect_fie_type(i)
+            if type == 'TXT':
+                os.system('youtube-dl -a ' + i)
+            elif type == 'YT':
+                os.system('sh ' + i)
+
+crawl()
