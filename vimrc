@@ -18,7 +18,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jiangmiao/auto-pairs'
 Plug 'valloric/youcompleteme' , { 'do': './install.py' }
 Plug 'dylanaraps/wal.vim'
-Plug 'jceb/vim-orgmode'
+Plug 'voldikss/vim-floaterm'
 
 call plug#end()
 
@@ -28,6 +28,8 @@ autocmd BufNewFile  *.yt 0r ~/.templates/skeleton.yt
 autocmd BufNewFile  *-browser.py 0r ~/.templates/browser-skeleton.py
 
 let g:airline_theme='simple'
+let g:floaterm_keymap_toggle = '<F12>'
+"let g:floaterm_keymap_kill = 
 
 let mapleader = "\<Space>"
 "colorscheme wal

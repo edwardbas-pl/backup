@@ -9,7 +9,8 @@ def detect_fie_type(name):
 
 def crawl():
     ls=os.listdir(os.getcwd())
-    for i in ls:
+    ls.sort()
+    for i in sorted(ls):
         if os.path.isdir(i) == True:
             os.chdir(i)
             crawl()

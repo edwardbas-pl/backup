@@ -56,3 +56,4 @@ alias Video="/media/HDD/Video"
 alias SSD="/media/SSD"
 
 alias dmenu='dmenu -h 25 -l 20 -nb "$color0" -nf "$color15" -sb "$color1" -sf "$color15"'
+
