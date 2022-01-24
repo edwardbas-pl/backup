@@ -9,4 +9,5 @@ export EDITOR="vim"
 export TERMINAL="kitty"
 export BROWSER="firefox"
 export PATH="$PATH:$HOME/.scripts"
+export QT_QPA_PLATFORMTHEME="gnome"
 sh $HOME/Desktop/server/start.sh
