@@ -38,6 +38,7 @@ sudo cp -r ~/Pictures/Wallpapers/* /usr/share/backgrounds
 cp -r 	/usr/share/backgrounds/* 				$path/backgrounds
 cp -r 	/usr/share/themes/Qogir-dark				$path/themes/
 cp -r 	/usr/share/themes/Skeuos-Blue-Dark			$path/themes/
+cp -r 	/usr/share/themes/Dracula				$path/themes/
 cp -r 	/usr/share/themes/Default				$path/themes/
 cp -r 	/usr/share/icons/Papirus 				$path/icons/
 cp -r 	/usr/share/icons/Flatery-Dark				$path/icons/
