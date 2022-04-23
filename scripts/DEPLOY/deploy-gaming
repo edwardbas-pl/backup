@@ -1,0 +1,39 @@
+if [[ -f /usr/bin/pacman ]]
+then
+	install="yay -S --noconfirm "
+	if [[ ! -f /usr/bin/yay ]]
+	then
+		$install git base-develop
+		git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm
+	fi
+
+	$install zpaq
+	sudo sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf && sudo pacman -Syyu #enabling 32 bit
+
+	#GPU Drivers
+	GPU=$(lspci | grep -i --color "vga\|3d\|2d")
+	if [[ ${GPU} == *Radeon* ]];
+	then
+		#echo "your GPU vendor is AMD"
+		$install  gamescope lib32-vulkan-icd-loader lib32-vulkan-radeon vulkan-icd-loader vulkan-radeon
+	fi
+	if [[ ${GPU} == *Intel* ]];
+	then
+		#echo your GPU vendor is Intel
+		$install gamescope lib32-vulkan-icd-loader lib32-vulkan-intel vulkan-icd-loader vulkan-intel 
+	fi
+	if [[ ${GPU} == *NV* ]];
+	then
+		#echo your GPU vendor is NVidia
+		$install lib32-libglvnd lib32-nvidia-utils lib32-vulkan-icd-loader libglvnd nvidia vulkan-icd-loader
+	fi
+	
+	#wine-stagin g and other libraries
+	$install giflib gnutls gst-plugins-bad gst-plugins-base gst-plugins-base-libs gst-plugins-good gst-plugins-ugly jq lib32-giflib lib32-gnutls lib32-gst-plugins-base-libs lib32-libjpeg-turbo lib32-libldap lib32-libpng lib32-libxcomposite lib32-libxinerama lib32-libxslt lib32-mpg123 lib32-opencl-icd-loader lib32-sdl2 lib32-v4l-utils libgphoto2 libjpeg-turbo libldap libpng libxcomposite libxinerama libxslt mono mpg123 opencl-icd-loader sdl2 v4l-utils wine-staging libxcrypt-compat
+	
+	#offline support for dxvk and vkd3d
+	$install  dxvk-bin vkd3d-proton-bin
+
+	#audio drivers
+	$install alsa-lib alsa-plugins lib32-alsa-lib lib32-alsa-plugins lib32-libpulse libpulse fluidsynth openal lib32-openal
+fi

@@ -1,0 +1,37 @@
+#!/bin/python3
+from natsort import natsorted # pip install natsort
+import os
+
+pwd = os.getcwd()
+
+def rename( file_list ):
+    file_list = natsorted(file_list)
+    for i in range(1,len(file_list)+1):
+        extension = os.path.splitext(file_list[i-1])[1]
+        name = f'{i:03}'
+        new_filename = name+extension
+        os.rename(str(file_list[i-1]), new_filename )
+        #print(f'{i:03}')
+
+def func( dir ):
+    ls = os.listdir( dir )
+    ls = natsorted(ls)
+    lista = []
+    for i in ls:
+        if os.path.isdir(i) == True:
+         new_dir = dir + "/" + str(i)
+         os.chdir(new_dir)
+         func( new_dir )
+         os.chdir( "../" )
+        else:
+            lista.append(i)
+    rename( lista ) 
+            
+
+#["{0:03}".format(i) for i in range(121)]
+
+
+#for i in range(121):
+#    print(f'{i:03}')
+
+func(pwd)
