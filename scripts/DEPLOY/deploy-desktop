@@ -1,0 +1,18 @@
+#!/bin/bash
+if [[ -f /usr/bin/pacman ]]
+then
+
+fi
+
+if [[ -f /usr/bin/apt ]]
+then
+
+fi
+
+if [[ -f /usr/bin/dnf ]]
+then 
+
+fi
+deploy-flatpak
+flatpak install flathub com.discordapp.Discord
+flatpak install flathub com.microsoft.Teams

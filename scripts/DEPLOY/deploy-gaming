@@ -1,3 +1,6 @@
+#!/bin/bash
+deploy-flatpak
+path=$1
 if [[ -f /usr/bin/pacman ]]
 then
 	install="yay -S --noconfirm "
@@ -36,4 +39,24 @@ then
 
 	#audio drivers
 	$install alsa-lib alsa-plugins lib32-alsa-lib lib32-alsa-plugins lib32-libpulse libpulse fluidsynth openal lib32-openal
+
+	$install rum
+	$install heroic-games-launcher
+	$install lutris
+	
+
+
 fi
+
+flatpak install flathub com.valvesoftware.Steam
+flatpak install com.valvesoftware.Steam.CompatibilityTool.Proton-GE
+flatpak install flathub com.parsecgaming.parsec
+
+if [ -n "$1" ]; then
+  echo "You supplied the first parameter!"
+  flatpak override --user --filesystem=$path com.valvesoftware.Steam
+else
+  echo "you didn't provided aditionsl disk path to be used as a game library"
+fi
+
+

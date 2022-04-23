@@ -1,0 +1,20 @@
+#!/bin/bash
+deploy-flatpak
+
+flatpak install flathub com.jetbrains.IntelliJ-IDEA-Community
+flatpak install flathub com.google.AndroidStudio
+flatpak install flathub com.github.marktext.marktext
+
+if [[ -f /usr/share/pacman ]]
+then
+	if [[ ! -f /usr/bin/yay ]]
+	then
+		$install git base-develop
+		git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm
+	fi
+	yay -S --noconfirm code vim curl 
+fi
+
+curl https://raw.githubusercontent.com/edwardbas-pl/backup/master/vimrc -o $HOME/.vimrc
+vim +PlugInstall +YcmRestartServer +qall
+

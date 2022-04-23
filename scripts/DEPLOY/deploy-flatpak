@@ -1,0 +1,12 @@
+#!/bin/bash
+if [[  ! -f /usr/bin/flatpak ]]
+then
+
+	if [[ -f /usr/bin/pacman ]]
+	then
+		install="sudo pacman -S --noconfirm"	
+		$install flatpak
+	fi
+else
+	exit
+fi
