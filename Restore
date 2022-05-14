@@ -39,7 +39,6 @@ sudo cp -r $path/themes/*		/usr/share/themes/
 sudo cp -r $path/icons/*		/usr/share/icons/
 
 # cp $config
-
 cp $path/ranger/*			$config/ranger/
 cp $path/i3/*				$config/i3/ 
 cp $path/polybar/*			$config/polybar
