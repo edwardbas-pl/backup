@@ -1,0 +1,25 @@
+#!/bin/python3
+import os
+
+def is_image(image_name):
+    if image_name.lower().endswith(('.png', '.jpg', '.jpeg')):
+        return True
+    else:
+        return False
+
+
+pwd = os.getcwd()
+ls = os.listdir(pwd)
+
+print(ls)
+print(pwd)
+command = "convert -append "
+for i in ls:
+	if os.path.isdir(i) == False:
+		if is_image(i) == True:
+			command = command + " " + i
+			print('obrazek')
+
+
+command = command + " " + "out.jpg"
+os.system(command)

@@ -57,15 +57,19 @@ cp -r $path/.icons/			$HOME/
 
 
 cp $path/polybar-scripts/*		$HOME/.polybar-scripts/
-cp $path/scripts/*			$HOME/.scripts/
+cp -r $path/scripts/*			$HOME/.scripts/
 
 cp $path/bash_profile			$HOME/.bash_profile
 cp $path/bashrc				$HOME/.bashrc
 cp $path/vimrc				$HOME/.vimrc
 cp $path/profile			$HOME/.profile
-cp $path/xinitrc			$HOME/.xinitrc
-cp $path/gtkrc-2.0			$HOME/.gtkrc-2.0
-sudo cp $path/gtkrc-2.0			$HOME/.gtkrc-2.0
+
+#X11
+mkdir -p $config/X11/.xinitrc
+cp $path/xinitrc			$config/X11/.xinitrc
+
+mkdir -p $config/gtk-2.0/
+cp $path/gtkrc-2.0			$config/gtk-2.0/gtkrc
 cp $path/compton.conf			$config/compton.conf
 
 sudo cp $path/lightdm/*			/etc/lightdm/

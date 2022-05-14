@@ -5,8 +5,15 @@ then
 	if [[ -f /usr/bin/pacman ]]
 	then
 		install="sudo pacman -S --noconfirm"	
-		$install flatpak
 	fi
+	if [[ -f /usr/bin/dnf ]]
+	then
+		install="sudo dnf install -y"
+	fi
+	if [[ -f /usr/bin/apt ]]
+	then
+		intall="sudo apt install -y"
+	$install flatpak
 else
 	exit
 fi

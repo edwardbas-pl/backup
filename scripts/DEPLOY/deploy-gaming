@@ -1,6 +1,6 @@
 #!/bin/bash
 deploy-flatpak
-path=$1
+flat_install="flatpak install --assumeyes"
 if [[ -f /usr/bin/pacman ]]
 then
 	install="yay -S --noconfirm "
@@ -43,20 +43,65 @@ then
 	$install rum
 	$install heroic-games-launcher
 	$install lutris
-	
+	$install gaemmode
+	$install goverlay
+fi
 
+if [[ -f /usr/bin/dnf ]]
+then
+	install="sudo dnf install -y"
+	#GPU Drivers
+	GPU=$(lspci | grep -i --color "vga\|3d\|2d")
+	if [[ ${GPU} == *Radeon* ]];
+	then
+		#echo "your GPU vendor is AMD"
+		$install  gamescope lib32-vulkan-icd-loader lib32-vulkan-radeon vulkan-icd-loader vulkan-radeon
+	fi
+	if [[ ${GPU} == *Intel* ]];
+	then
+		#echo your GPU vendor is Intel
+		$install gamescope lib32-vulkan-icd-loader lib32-vulkan-intel vulkan-icd-loader vulkan-intel 
+	fi
+	if [[ ${GPU} == *NV* ]];
+	then
+		#echo your GPU vendor is NVidia
+		$install lib32-libglvnd lib32-nvidia-utils lib32-vulkan-icd-loader libglvnd nvidia vulkan-icd-loader
+	fi
 
 fi
 
-flatpak install flathub com.valvesoftware.Steam
-flatpak install com.valvesoftware.Steam.CompatibilityTool.Proton-GE
-flatpak install flathub com.parsecgaming.parsec
+if [[ -f /usr/bin/apt ]]
+then
+	install="sudo apt install -y "
+	#GPU Drivers
+	GPU=$(lspci | grep -i --color "vga\|3d\|2d")
+	if [[ ${GPU} == *Radeon* ]];
+	then
+		#echo "your GPU vendor is AMD"
+		$install  gamescope lib32-vulkan-icd-loader lib32-vulkan-radeon vulkan-icd-loader vulkan-radeon
+	fi
+	if [[ ${GPU} == *Intel* ]];
+	then
+		#echo your GPU vendor is Intel
+		$install gamescope lib32-vulkan-icd-loader lib32-vulkan-intel vulkan-icd-loader vulkan-intel 
+	fi
+	if [[ ${GPU} == *NV* ]];
+	then
+		#echo your GPU vendor is NVidia
+		$install lib32-libglvnd lib32-nvidia-utils lib32-vulkan-icd-loader libglvnd nvidia vulkan-icd-loader
+	fi
+
+fi
+$flat_install flathub com.valvesoftware.Steam
+$flat_install com.valvesoftware.Steam.CompatibilityTool.Proton-GE
+$flat_install flathub com.parsecgaming.parsec
 
 if [ -n "$1" ]; then
-  echo "You supplied the first parameter!"
-  flatpak override --user --filesystem=$path com.valvesoftware.Steam
+	path=$1
+	echo "You supplied the first parameter!"
+	flatpak override --user --filesystem=$path com.valvesoftware.Steam
 else
-  echo "you didn't provided aditionsl disk path to be used as a game library"
+	echo "you didn't provided aditionsl disk path to be used as a game library"
 fi
 
 

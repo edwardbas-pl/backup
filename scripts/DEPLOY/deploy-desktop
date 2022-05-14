@@ -1,18 +1,75 @@
 #!/bin/bash
+CHOICE=$(dialog --clear --title "Okno dialogowe Checklist" --backtitle "BASH" --checklist "Optional support for:" 11 40 4  GNOME "Minimal gnome-shell instalation" "off" dwm "dwm windowm manager by suckless.org" "off" bspwm "bspwm tiling window manager" "off" i3 "i3 tiling window manager" "off" --stdout)
+echo $CHOICE
+dmenu(){
+	git clone https://github.com/edwardbas-pl/dmenu.git
+	cd dmenu
+	sudo make install
+	cd
+	rm -rf dmenu
+}
+flat_install="flatpak install --assumeyes"
 if [[ -f /usr/bin/pacman ]]
 then
+	if [[ ! -f /usr/bin/yay ]]
+	then
+		$install git base-develop
+		git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm
+	fi
+	install="yay -S --noconfirm "
+	TERMIANL="kitty"
+	$install $TERMINAL
+	if [[ $CHOICE == "i3" ]]
+	then
+		$install lxsession betterlockscreen i3-gaps sxhkd lightdm lightdm-slick-greeter lxsession xorg xorg-xinit polybar dunst lxappearance yad xdotool xclip picom-jonaburg-git
+		dmenu
+		sudo systemctl enable lightdm
+
+	fi
+	if [[ $CHOICE == "bspwm" ]]
+	then
+		$install lxsession betterlockscreen bspwm lightdm-slick-greeter lxsession xorg xorg-xinit polybar dunst lxappearance yad xdotool xclip picom-jonaburg-git
+		dmenu
+		sudo systemctl enable lightdm
+
+
+	fi
+	if [[ $CHOICE == "dwm" ]]
+	then
+		$install lxsession betterlockscreen lightdm-slick-greeter lxsession xorg xorg-xinit polybar dunst lxappearance yad xdotool xclip picom-jonaburg-git
+		dmenu
+		sudo systemctl enable lightdm
+
+	fi
+	if [[ $CHOICE == "GNOME" ]]
+	then
+		$install gnome-shell gnome-tweaks gnome-control-center gdm
+		sudo systemctl enable gdm
+	fi
+
+	$install ttf-symbola ttf-dejavu ttf-liberation
+	$install spectacle pulseaudio pavucontrol feh w3m alsa-firmware apulse pulseaudio-alsa alsa-oss nodejs
+	$install git rar dialog ranger btop gtop htop vim udisks2 autofs numlockx python-pywal pfetch
+	$install qbittorrent gimp playerctl code mpv nautilus nemo libreoffice-fresh galculator
+
+	gsettings set org.cinnamon.desktop.default-applications.terminal exec $TERMINAL
+
+	if [[ -f /sys/clsass/power_supply/BAT0 ]]
+	then
+		$install networkmanager network-manager-applet  tlp tp_smapi acpi_call
+	fi
 
 fi
-
 if [[ -f /usr/bin/apt ]]
 then
-
+	echo "apt is comming soon"
 fi
-
 if [[ -f /usr/bin/dnf ]]
 then 
-
+	echo "dnf is comming soon"
 fi
+ln -s /run/media/$USER/     ~/Media
+
 deploy-flatpak
-flatpak install flathub com.discordapp.Discord
-flatpak install flathub com.microsoft.Teams
+$flat_install flathub com.discordapp.Discord
+$flat_install flathub com.microsoft.Teams

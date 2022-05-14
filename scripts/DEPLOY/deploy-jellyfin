@@ -31,4 +31,4 @@ else
 fi
 
 
-flatpak install flathub com.github.iwalton3.jellyfin-media-player
+flatpak install  --assumeyes flathub com.github.iwalton3.jellyfin-media-player

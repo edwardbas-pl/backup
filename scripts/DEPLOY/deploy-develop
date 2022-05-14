@@ -1,9 +1,9 @@
 #!/bin/bash
 deploy-flatpak
-
-flatpak install flathub com.jetbrains.IntelliJ-IDEA-Community
-flatpak install flathub com.google.AndroidStudio
-flatpak install flathub com.github.marktext.marktext
+flat_install="flatpak install --assumeyes"
+$flat_install flathub com.jetbrains.IntelliJ-IDEA-Community
+$flat_install flathub com.google.AndroidStudio
+$flat_install flathub com.github.marktext.marktext
 
 if [[ -f /usr/share/pacman ]]
 then
