@@ -69,7 +69,7 @@ mkdir -p $config/X11/.xinitrc
 cp $path/xinitrc			$config/X11/.xinitrc
 
 mkdir -p $config/gtk-2.0/
-cp $path/gtkrc-2.0			$config/gtk-2.0/gtkrc
+cp -r $path/gtk-2.0			$config/
 cp $path/compton.conf			$config/compton.conf
 
 sudo cp $path/lightdm/*			/etc/lightdm/
