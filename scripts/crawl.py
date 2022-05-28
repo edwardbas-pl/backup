@@ -1,6 +1,10 @@
 #!/bin/python
 import os
 
+def go_line_by_line(file_name):
+    f = open(file_name , 'r')
+    for i in f:
+        os.system("youtube-dl " + i)
 def detect_fie_type(name):
     if name.lower().endswith(( '.txt')):
         return 'TXT'
@@ -18,8 +22,13 @@ def crawl():
         else:
             type=detect_fie_type(i)
             if type == 'TXT':
-                os.system('youtube-dl -a ' + i)
+                #os.system('youtube-dl -a ' + i)
+                go_line_by_line(i)
             elif type == 'YT':
                 os.system('sh ' + i)
 
-crawl()
+def main():
+    crawl()
+
+if __name__ == "__main__":
+    main()

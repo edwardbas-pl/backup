@@ -50,6 +50,8 @@ alias ..="cd .."
 alias vi="vim"
 alias compress='tar -czvf'
 alias cp='cp -iv'
+alias ll="ls -l"
+alias la="ls -la"
 alias grep='grep --color=auto'
 alias Games="/media/HDD/Games"
 alias Video="/media/HDD/Video"

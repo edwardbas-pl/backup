@@ -1,20 +1,34 @@
-#!/bin/bash
-yt(){
+#!/bin/python
+import os
 
-	sh *.yt
-	youtube-dl -a *.yt
-	sh crawl.sh
-}
+def go_line_by_line(file_name):
+    f = open(file_name , 'r')
+    for i in f:
+        os.system("youtube-dl " + i)
+def detect_fie_type(name):
+    if name.lower().endswith(( '.txt')):
+        return 'TXT'
+    if name.lower().endswith(( '.yt')):
+        return 'YT' 
 
-crawl(){
-	for i in $(ls -d */);
-	do                     
-        	echo ${i%%/}    
-	        cd ${i%%/}
-		crawl 
-		yt
-	        cd ..
-	done
-}
+def crawl():
+    ls=os.listdir(os.getcwd())
+    ls.sort()
+    for i in sorted(ls):
+        if os.path.isdir(i) == True:
+            os.chdir(i)
+            crawl()
+            os.chdir('../')
+        else:
+            type=detect_fie_type(i)
+            if type == 'TXT':
+                #os.system('youtube-dl -a ' + i)
+                go_line_by_line(i)
+            elif type == 'YT':
+                os.system('sh ' + i)
 
-crawl
+def main():
+    crawl()
+
+if __name__ == "__main__":
+    main()
