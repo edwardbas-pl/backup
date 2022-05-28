@@ -1,8 +1,35 @@
-#!/bin/sh
+#!/bin/python3
+import os
+import sys
+import shutil
 
-path=$(pwd)
-echo "give me a pattern"
-read pattern
-mkdir "$path"/$pattern
+def main( *args ):
+    pwd = os.getcwd()
+    ls = os.listdir(pwd)
+    if len(args) == 0:
+        print("give me a pattern")
+        pattern = input()
+    else:
+        pattern = args[0]
 
-mv *$pattern* "$path"/$pattern
+    if pattern in ls:
+        ls.remove(pattern)
+    else:
+        os.mkdir(pattern)
+    
+    target_dir = pattern
+
+    for i in ls:
+        if pattern in i:
+            target = target_dir + "/" + i
+            shutil.move( i , target)
+
+    pass
+
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        main(sys.argv[1])
+    else:
+        main()
+
+

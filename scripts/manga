@@ -1,7 +1,0 @@
-#!/bin/python3
-
-import os
-
-#pwd = os.getcwd()
-print(os.getcwd())
-
