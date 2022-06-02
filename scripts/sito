@@ -1,0 +1,13 @@
+#!/bin/python
+
+import os
+
+def main():
+	pwd = os.getcwd()
+	ls = os.listdir(pwd)
+	for i in ls:
+		file_stats = os.stat(i)
+		print( i + " filesieze = " + str(file_stats.st_size / (1024 * 1024)) + "MB")
+
+if __name__ == "__main__":
+	main()

@@ -1,0 +1,45 @@
+#!/bin/python3
+from natsort import natsorted # pip install natsort
+import os
+
+def manga_compress(dir):
+    ls = os.listdir(dir)
+    for i in ls:
+        if os.path.isdir(i) == True:
+            call = "zip -rm9fz '" + str(i) + ".cbz'" + " '" + str(i) + "'"
+            print(call)
+            os.system(call)
+
+def rename( file_list ):
+    file_list = natsorted(file_list)
+    for i in range(1,len(file_list)+1):
+        extension = os.path.splitext(file_list[i-1])[1]
+        name = f'{i:03}'
+        new_filename = name+extension
+        os.rename(str(file_list[i-1]), new_filename )
+        #print(f'{i:03}')
+
+def func( dir ):
+    ls = os.listdir( dir )
+    ls = natsorted(ls)
+    lista = []
+    for i in ls:
+        if os.path.isdir(i) == True:
+         new_dir = dir + "/" + str(i)
+         os.chdir(new_dir)
+         func( new_dir )
+         os.chdir( "../" )
+        else:
+            lista.append(i)
+    rename( lista ) 
+            
+
+
+
+def main():
+    pwd = os.getcwd()
+    func(pwd)
+    manga_compress(pwd)
+    
+if __name__ == "__main__":
+    main()

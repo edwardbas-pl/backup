@@ -1,0 +1,21 @@
+#!/bin/python3
+import os
+import sys
+
+
+def main(arg):
+    if "enable" in arg:
+        os.system("amixer --card=1 sset 'Line' 90% unmute")
+    if  "on" in arg:
+        os.system("amixer --card=1 sset 'Loopback Mixing' Enabled")
+    if "off" in arg:
+        os.system("amixer --card=1 sset 'Loopback Mixing' Disabled")
+        
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        main(sys.argv[1])
+    else:
+        print("you have to chose an option")
+        print("enable - it allows to loopback at all")
+        print("on - it makes loopback is on")
+        print("off - it makes loopback is off")

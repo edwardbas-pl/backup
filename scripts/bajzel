@@ -13,7 +13,8 @@ def main( *args ):
         pattern = args[0]
 
     if pattern in ls:
-        ls.remove(pattern)
+        if os.path.isdir(pattern) == True:
+            ls.remove(pattern)
     else:
         os.mkdir(pattern)
     
