@@ -13,12 +13,19 @@ def num_check(s):
             return True
     return check
             
-
+#custom Exeption
 class badFlagError(Exception):
     def __init__(self):
         self.message = "flag is defined as value of another flag"
     def __str__(self):
+
+class UnsupportedUnitError(Exception):
+    def __init__(self):
+        self.message = "Provided flag is unsupported"
+    def __str__(self):
         return self.message
+
+       return self.message
 
 def move(lista):
     dir = "to_chechk"
@@ -29,69 +36,93 @@ def move(lista):
 
 
 def main(arg):
-    flags = ['-s' , '-u' , '-d']
-    units = ["kb" , "mb" , "gb" ]
-    to_move_list = []
-    sieve_density = set_density()
-    unit_value = 1024**2
-    unit_name = "MB"
+    
+    flags = ['-s' , '-u' , '-d'] #list of flags
+    units = ["kb" , "mb" , "gb" ] #list of supported filesizes
+    
+    #definition of list of files wich will be moved 
+    #files will be added dynamicly
+    to_move_list = [] 
+
+    sieve_density = set_density() #set how many eg. MB's is set as treshold below witch files will be moved
+    
+    #default filesize 
+    unit_value = 1024**2 #1MB in bytes *Default Value*
+    unit_name = "MB" #unit name (neded for display)
+    
+    #geting contents list of direcotry
     pwd = os.getcwd()
     ls = os.listdir(pwd)
-#    if len(arg) > 1:
-       #print("podano wiecej niż jeden argument")
-    if "-s" in arg:
-        index = arg.index('-s')
+
+    #flag for changing number of units below witch filles will be moved
+    if "-s" in arg: #if flag is set
+        index = arg.index('-s') #get index of flag from list of index included when program was called
         try :
-            given_value = arg[index+1]
-            if given_value in flags:
-                raise badFlagError
-            if given_value.isnumeric() == False:
-                raise ValueError
+            given_value = arg[index+1] #get nex element of list after given flag and if flag is the last element of list there will be rised Index Error
+            if given_value in flags: #if given value is flag 
+                raise badFlagError  #rise custom exeption
+            if given_value.isnumeric() == False: #if value is not number
+                raise ValueError #rise value error
             else:
-                sieve_density = set_density(given_value) 
-                print("size flag valuse: " + str(sieve_density))
-            pass
+                sieve_density = set_density(given_value) #sets custom sive density
+                #print("size flag valuse: " + str(sieve_density))
+
+        #handling exceptions
         except IndexError:
             print("program wants you to define size")
         except badFlagError:
             print("flag is defined as value of another flag")
         except ValueError:
             print("Value for -s flag need to be number")
-    if "-u" in arg:
-        index = arg.index('-u')
+
+    #change Size unit flag (KB,MB*default*,GB)
+    if "-u" in arg: #if flag is set
+        index = arg.index('-u') #get index of flag from list of index included when program was called
         try:
-            unit = arg[index+1]
-            if unit in flags:
-                raise badFlagError
-            if num_check(unit) == True:
-                raise ValueError
-            unit = unit.lower()
-            if unit in units:
-                power = (units.index(unit) + 1)
+            unit = arg[index+1] #get nex element of list after given flag and if flag is the last element of list there will be rised Index Error
+            if unit in flags: #if given value is flag 
+                raise badFlagError #rise custom exeption
+            if num_check(unit) == True: #if given have numbers
+                raise ValueError #rise value error
+            unit = unit.lower() #sets provided unit to lovercase
+            if unit in units: #if provided unit is in list of supported
+                #sets adequate number of bits as a single unit
+                power = (units.index(unit) + 1) 
                 #print(power)
                 unit_name = units[power-1].upper()
                 unit_value = (1024**power)
                 #print(unit_name)
+            else:
+                raise UnsupportedUnitError
+        except UnsupportedUnitError:
+            print("Provided flag is unsupported" )
         except IndexError:
             print("you need to define file size unit")
         except badFlagError:
             print("flag is defined as value of another flag")
         except ValueError:
             print("unit type can't have any numbers")
+
+    #loop through directory content
     for i in ls:
-        if os.path.isfile(i) == True:
-            file_stats = os.stat(i)
-            file_size = file_stats.st_size
-            file_size = (file_size / unit_value)
-            file_size = float(format(file_size , '.3f'))
-            #print(type(file_size))
-            print( i + " filesieze = " + str(file_size) + ' '+unit_name)
-            if  file_size < float(sieve_density):
-                to_move_list.append(i)
-    print("list of files to move")
-    print(to_move_list)
-    if not '-d' in arg:
-        move(to_move_list)
+        if os.path.isfile(i) == True: #if element is a file
+            file_stats = os.stat(i) #get info about file
+            file_size = file_stats.st_size #get filesize form previously gathered information
+            file_size = (file_size / unit_value) #calculate file size in value witch is currently set
+            file_size = float(format(file_size , '.3f')) #set file size as float with specific precission
+            #old debug code
+            #print(type(file_size)) 
+            #print( i + " filesieze = " + str(file_size) + ' '+unit_name) #may be useful if i ever wanted to add verbose mode
+            if  file_size < float(sieve_density): #if file passes through the sieve
+                to_move_list.append(i) #addd file to to_move_list
+
+    #dry run flag
+    if not '-d' in arg: #if it's not in dry run mode 
+        move(to_move_list) #move fioles from list to directory
+    else: #in the other case
+        #print files that passed through the sieve
+        print("list of files to move")
+        print(to_move_list)
 
 if __name__ == "__main__":
 	main(sys.argv)
