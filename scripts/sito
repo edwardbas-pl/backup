@@ -1,13 +1,97 @@
 #!/bin/python
-
+import sys
+import shutil
 import os
 
-def main():
-	pwd = os.getcwd()
-	ls = os.listdir(pwd)
-	for i in ls:
-		file_stats = os.stat(i)
-		print( i + " filesieze = " + str(file_stats.st_size / (1024 * 1024)) + "MB")
+def set_density(value = 100):
+    return int(value)
+
+def num_check(s):
+    check = False
+    for i in s:
+        if i.isdigit() == True:
+            return True
+    return check
+            
+
+class badFlagError(Exception):
+    def __init__(self):
+        self.message = "flag is defined as value of another flag"
+    def __str__(self):
+        return self.message
+
+def move(lista):
+    dir = "to_chechk"
+    os.mkdir(dir)
+    for i in lista:
+            target = dir + "/" + i
+            shutil.move( i , target)
+
+
+def main(arg):
+    flags = ['-s' , '-u' , '-d']
+    units = ["kb" , "mb" , "gb" ]
+    to_move_list = []
+    sieve_density = set_density()
+    unit_value = 1024**2
+    unit_name = "MB"
+    pwd = os.getcwd()
+    ls = os.listdir(pwd)
+#    if len(arg) > 1:
+       #print("podano wiecej niż jeden argument")
+    if "-s" in arg:
+        index = arg.index('-s')
+        try :
+            given_value = arg[index+1]
+            if given_value in flags:
+                raise badFlagError
+            if given_value.isnumeric() == False:
+                raise ValueError
+            else:
+                sieve_density = set_density(given_value) 
+                print("size flag valuse: " + str(sieve_density))
+            pass
+        except IndexError:
+            print("program wants you to define size")
+        except badFlagError:
+            print("flag is defined as value of another flag")
+        except ValueError:
+            print("Value for -s flag need to be number")
+    if "-u" in arg:
+        index = arg.index('-u')
+        try:
+            unit = arg[index+1]
+            if unit in flags:
+                raise badFlagError
+            if num_check(unit) == True:
+                raise ValueError
+            unit = unit.lower()
+            if unit in units:
+                power = (units.index(unit) + 1)
+                #print(power)
+                unit_name = units[power-1].upper()
+                unit_value = (1024**power)
+                #print(unit_name)
+        except IndexError:
+            print("you need to define file size unit")
+        except badFlagError:
+            print("flag is defined as value of another flag")
+        except ValueError:
+            print("unit type can't have any numbers")
+    for i in ls:
+        if os.path.isfile(i) == True:
+            file_stats = os.stat(i)
+            file_size = file_stats.st_size
+            file_size = (file_size / unit_value)
+            file_size = float(format(file_size , '.3f'))
+            #print(type(file_size))
+            print( i + " filesieze = " + str(file_size) + ' '+unit_name)
+            if  file_size < float(sieve_density):
+                to_move_list.append(i)
+    print("list of files to move")
+    print(to_move_list)
+    if not '-d' in arg:
+        move(to_move_list)
 
 if __name__ == "__main__":
-	main()
+	main(sys.argv)
