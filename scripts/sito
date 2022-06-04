@@ -18,13 +18,12 @@ class badFlagError(Exception):
     def __init__(self):
         self.message = "flag is defined as value of another flag"
     def __str__(self):
+        return self.message
 
 class UnsupportedUnitError(Exception):
     def __init__(self):
         self.message = "Provided flag is unsupported"
     def __str__(self):
-        return self.message
-
        return self.message
 
 def move(lista):
