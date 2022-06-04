@@ -13,7 +13,7 @@ def num_check(s):
             return True
     return check
             
-#custom Exeption
+#custom Exeptions
 class badFlagError(Exception):
     def __init__(self):
         self.message = "flag is defined as value of another flag"
