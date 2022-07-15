@@ -40,7 +40,7 @@ then
 	#audio drivers
 	$install alsa-lib alsa-plugins lib32-alsa-lib lib32-alsa-plugins lib32-libpulse libpulse fluidsynth openal lib32-openal
 
-	$install rum
+	$install rum-bin
 	$install heroic-games-launcher
 	$install lutris
 	$install gaemmode

@@ -15,6 +15,8 @@ then
 	then
 		$install git base-develop
 		git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm
+		cd ..
+		rm -rf yay-bin
 	fi
 	install="yay -S --noconfirm "
 	TERMIANL="kitty"
