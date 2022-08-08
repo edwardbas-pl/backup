@@ -26,8 +26,11 @@ autocmd BufNewFile  *.cpp 0r ~/.templates/skeleton.cpp
 autocmd BufNewFile  *.sh 0r ~/.templates/skeleton.sh
 autocmd BufNewFile  *.yt 0r ~/.templates/skeleton.yt
 autocmd BufNewFile  *-browser.py 0r ~/.templates/browser-skeleton.py
+autocmd QuitPre * :FloatermKill
+autocmd VimLeave * :!clear
 
 let g:airline_theme='simple'
+let g:floaterm_autoclose=2
 let g:floaterm_keymap_toggle = '<F12>'
 "let g:floaterm_keymap_kill = 
 

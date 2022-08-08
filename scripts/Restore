@@ -27,6 +27,7 @@ mkdir -p $config/bspwm
 mkdir -p $config/sxhkd
 mkdir -p $config/dconf
 mkdir -p $config/dwm
+mkdir -p $config/nvim
 
 sudo mkdir -p /etc/lightdm
 sudo mkdir -p /usr/share/themes
@@ -51,6 +52,7 @@ cp $path/bspwm/*			$config/bspwm
 cp $path/sxhkd/*			$config/sxhkd
 cp $path/dconf/*			$config/dconf
 cp $path/dwm/*				$config/dwm/
+cp $path/nvim/init.lua				$config/nvim/
 sudo cp $path/gtk-3.0/*			$config/gtk-3.0
 cp -r $path/.icons/			$HOME/
 

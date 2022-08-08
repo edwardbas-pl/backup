@@ -31,6 +31,7 @@ mkdir -p .icons
 mkdir -p dconf
 mkdir -p dwm
 mkdir -p vim-templates
+mkdir -p nvim
 
 
 sudo mkdir -p /usr/share/backgrounds/
@@ -59,6 +60,7 @@ cp $config/gtk-4.0/*		$path/gtk-4.0/
 cp $config/bspwm/*		$path/bspwm/
 cp $config/sxhkd/*		$path/sxhkd/
 cp $config/dwm/*		$path/dwm/
+cp $config/nvim/init.lua		$path/nvim/
 cp -r $HOME/.icons/*		$path/.icons
 
 #cp $HOME/.polybar-scripts/*	$path/polybar-scripts/

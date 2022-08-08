@@ -8,6 +8,7 @@
 export VITASDK=/usr/local/vitasdk
 export EDITOR="vim"
 export TERMINAL="kitty"
+export WINEPREFIX="$HOME/.config/wine"
 export BROWSER="firefox"
 export PATH="$PATH:$HOME/.scripts"
 export PATH="$PATH:$HOME/.scripts/DEPLOY"

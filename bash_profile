@@ -7,7 +7,7 @@
 
 
 export VITASDK=/usr/local/vitasdk
-export EDITO=R"vim"
+export EDITO=R"nvim"
 export TERMINAL="kitty"
 export BROWSER="firefox"
 export PATH="$PATH:$HOME/.scripts"
