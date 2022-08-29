@@ -2,6 +2,7 @@
 import sys
 import shutil
 import os
+#TODO exclude flag -- to exclude fpecific files from moving
 
 def set_density(value = 100):
     return int(value)
@@ -27,8 +28,11 @@ class UnsupportedUnitError(Exception):
        return self.message
 
 def move(lista):
+    pwd = os.getcwd()
     dir = "to_chechk"
-    os.mkdir(dir)
+    path = pwd + '/' + dir
+    if os.path.exists == False:
+        os.mkdir(dir)
     for i in lista:
             target = dir + "/" + i
             shutil.move( i , target)
@@ -118,6 +122,7 @@ def main(arg):
     #dry run flag
     if not '-d' in arg: #if it's not in dry run mode 
         move(to_move_list) #move fioles from list to directory
+            
     else: #in the other case
         #print files that passed through the sieve
         print("list of files to move")

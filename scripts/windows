@@ -4,7 +4,7 @@ use warnings FATAL => 'all';
 use 5.010;
 
 $_ = qx(efibootmgr);
-if ( /^Boot(\d+)[*]?\s+\bWindows Boot Manager$/m ) {
+if ( /^Boot(\d+)[*]?\s+\b\sWindows Boot Manager$/m ) {
     if (system("sudo -v") == 0) {
         system "sudo efibootmgr -n $1";
         if (defined $ENV{XDG_SESSION_DESKTOP} and $ENV{XDG_SESSION_DESKTOP} eq "xfce") {

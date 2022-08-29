@@ -7,7 +7,9 @@
 
 
 export VITASDK=/usr/local/vitasdk
-export EDITO=R"nvim"
+export VISUAL="nvim"
+export EDITOR="nvim"
+export WINEPREFIX="$HOME/.config/wine"
 export TERMINAL="kitty"
 export BROWSER="firefox"
 export PATH="$PATH:$HOME/.scripts"
