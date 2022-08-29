@@ -1,0 +1,9 @@
+#!/bin/bash
+
+sudo echo "[Desktop Entry]
+Encoding=UTF-8
+Name=Dwm
+Comment=Dynamic window manager
+Exec=/usr/local/bin/dwm
+Icon=dwm
+Type=XSession" > /usr/share/xsessions/dwm.desktop

@@ -1,0 +1,4 @@
+#!/bin/bash
+yay -S  --noconfirm qemu-full virt-manager libvirt edk2-ovmf dnsmasq iptables virt-manager
+#qemu-desktop 
+sudo systemctl enable --now libvirtd

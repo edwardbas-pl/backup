@@ -1,0 +1,50 @@
+#!/bin/python3
+
+from natsort import natsorted # pip install natsort
+import os
+
+
+global video_file_extensions
+video_file_extensions = ['.mkv','.avi','.mp4']
+
+def transcode_here(list):
+    pwd = os.getcwd()
+    os.system('mkdir -p out')
+    for i in list:
+        filename = os.path.splitext(i)[0]
+        extension = os.path.splitext(i)[1]
+        print(filename)
+        command = 'ffmpeg -i "' + pwd + '/' +  filename + extension + '" -c:v libsvtav1 -preset 7 -crf 30 -b:v 0 ' + pwd + '/out/"' + filename + '.avi"'
+        os.system(command)
+        os.system('notify-send "'+ i + ' was transcoded to the av1 format')
+    pass
+
+def crawl():
+    pwd = os.getcwd()
+    ls=os.listdir(pwd)
+    ls = natsorted(ls)
+    list_to_transcode = []
+    for i in ls:
+        if os.path.isdir(i) == True:
+            if 'out' in i:
+                pass
+            else:
+                os.chdir(i)
+                print(i + 'is a directory being recursive...')
+                crawl()
+                os.chdir('../')
+        else:
+            extension = os.path.splitext(i)[1]
+            if extension in video_file_extensions:
+                print(i + "is a supported video")
+                list_to_transcode.append(i)
+            #command = 'ffmpeg -i "' + pwd + '/' +  filename + extension + '" -c:v libsvtav1 -preset 7 -crf 30 -b:v 0 ' + outdir + '/"' + filename + '.mkv"'
+    print(list_to_transcode)
+    transcode_here( list_to_transcode )
+
+
+def main():
+    crawl()
+
+if __name__ == "__main__":
+    main()
