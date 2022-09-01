@@ -1,13 +1,20 @@
 #!/bin/python3
+from natsort import natsorted # pip install natsort
 import shutil
 import sys
 import os
+
 
 class PathDoesNotExist(Exception):
     def __init__(self):
         self.message = "provided path does not exist"
     def __str__(self):
         return self.message
+
+def move_unmoved(list,path):
+    to_move = natsorted(list)
+    for i in to_move:
+        shutil.copy2(i,path)
 
 def import_play_dir(playlist_file,target_dir):
     dir_name=os.path.splitext(playlist_file)[0] #get rid of playlist file extension
@@ -26,14 +33,25 @@ def import_play_dir(playlist_file,target_dir):
         shutil.copy2( i , dir_to_create+"/")
     return list
 
-def filter_list(full_list, excludes):
-    list = []
-    for i in excludes:
-        for j in full_list:
-            if i != j:
-                list.append(i)
-    print(list)
-    return list
+def filter_list(excludes):
+    ls = os.listdir(cwd)
+    mp3_list = []
+    for i in ls:
+        extension = os.path.splitext(i)[1]
+        if extension == ".mp3":
+            if i in excludes:
+                pass
+            else:
+                mp3_list.append(i)
+    #for i in mp3_list:
+     #   for j in excludes:
+      #      if i == j:
+       #         print(i)
+        #        mp3_list.remove(i)
+        #    else:
+         #       pass
+    #print("this should be list of umoved files: ")
+    return mp3_list
 
 def get_playlists(dir):
     ls = os.listdir(dir)
@@ -45,19 +63,31 @@ def get_playlists(dir):
             list.append(i)
     return list
 
-def main(arg):
+def main( arg ):
     #print(len(arg))
     global cwd
     cwd = os.getcwd()
-#    ls = os.listdir(cwd)
+#   ls = os.listdir(cwd)
     moved_list = []
-    if len(arg) > 1:
-        path=arg[1]
-        raw_playlists = get_playlists(cwd)
-        for i in raw_playlists:
-            moved_list.append(import_play_dir(i,path))
-    else:
-        print("number of parameters is invalid")
+    path=arg[1]
+    raw_playlists = get_playlists(cwd)
+    for i in raw_playlists:
+        list = import_play_dir(i,path)
+        for j in list:
+            if j in moved_list:
+                pass
+            else:
+                moved_list.append(j)
+    #print(moved_list)
+    #print(len(moved_list))
+    unmoved_list = filter_list(moved_list)
+    move_unmoved(unmoved_list,path)
+
+    #print(unmoved_list)
+    #print(len(unmoved_list))
+
+    
+
 
 if __name__ == "__main__":
     try:
