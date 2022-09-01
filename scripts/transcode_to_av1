@@ -1,22 +1,33 @@
 #!/bin/python3
-
+import sys
+import ntpath
 from natsort import natsorted # pip install natsort
 import os
 
+class PathDoesNotExist(Exception):
+    def __init__(self):
+        self.message = "provided path does not exist"
+    def __str__(self):
+        return self.message
 
 global video_file_extensions
 video_file_extensions = ['.mkv','.avi','.mp4']
 
-def transcode_here(list):
-    pwd = os.getcwd()
-    os.system('mkdir -p out')
+def transcode(list,path):
+    #pwd = os.getcwd()
+    #os.system('mkdir -p out')
     for i in list:
-        filename = os.path.splitext(i)[0]
-        extension = os.path.splitext(i)[1]
-        print(filename)
-        command = 'ffmpeg -i "' + pwd + '/' +  filename + extension + '" -c:v libsvtav1 -preset 7 -crf 30 -b:v 0 ' + pwd + '/out/"' + filename + '.avi"'
+        # i - path -to file
+        # file_name - file with excluded extension
+        # file filename + extension
+        file = (ntpath.basename(i))
+        file_name = os.path.splitext(file)[0]
+        output_file_name = file_name + video_file_extensions[1]
+        output = path + '/' + output_file_name
+        command = 'ffmpeg -i "' + i + '" -c:v libsvtav1 -preset 7 -crf 30 -b:v 0 "' + output +'"'
+        #print(command)
         os.system(command)
-        os.system('notify-send "'+ i + ' was transcoded to the av1 format')
+        #os.system('notify-send "'+ i + ' was transcoded to the av1 format')
     pass
 
 def crawl():
@@ -31,20 +42,39 @@ def crawl():
             else:
                 os.chdir(i)
                 print(i + 'is a directory being recursive...')
-                crawl()
+                output = crawl()
                 os.chdir('../')
+                for j in output:
+                    list_to_transcode.append(j)
         else:
             extension = os.path.splitext(i)[1]
             if extension in video_file_extensions:
                 print(i + "is a supported video")
-                list_to_transcode.append(i)
+                list_to_transcode.append(os.getcwd()+'/'+i)
             #command = 'ffmpeg -i "' + pwd + '/' +  filename + extension + '" -c:v libsvtav1 -preset 7 -crf 30 -b:v 0 ' + outdir + '/"' + filename + '.mkv"'
     print(list_to_transcode)
-    transcode_here( list_to_transcode )
+    return(list_to_transcode)
+    #transcode_here( list_to_transcode )
 
-
-def main():
-    crawl()
+def main(args):
+    if len(args) > 1:
+        try:
+            path_check = os.path.exists(args[1])
+            #print(path_check)
+            if path_check == False:
+                raise PathDoesNotExist
+            else:
+                path = args[1]
+        except PathDoesNotExist:
+            print("provided path does not exist")
+            quit()
+    else:
+        pwd = os.getcwd()
+        path = pwd + '/out'
+        os.system('mkdir -p ' + path)
+    list = crawl()
+    transcode(list,path)
+    #print(path)
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv)

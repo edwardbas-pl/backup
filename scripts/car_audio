@@ -3,6 +3,11 @@ import shutil
 import sys
 import os
 
+class PathDoesNotExist(Exception):
+    def __init__(self):
+        self.message = "provided path does not exist"
+    def __str__(self):
+        return self.message
 
 def import_play_dir(playlist_file,target_dir):
     dir_name=os.path.splitext(playlist_file)[0] #get rid of playlist file extension
@@ -20,7 +25,6 @@ def import_play_dir(playlist_file,target_dir):
         list.append(i)
         shutil.copy2( i , dir_to_create+"/")
     return list
-
 
 def filter_list(full_list, excludes):
     list = []
@@ -56,6 +60,13 @@ def main(arg):
         print("number of parameters is invalid")
 
 if __name__ == "__main__":
-    main(sys.argv)
+    try:
+        if os.path.exists(sys.argv[1]) == False:
+            raise PathDoesNotExist
+        else:
+            main(sys.argv)
+    except PathDoesNotExist:
+        print('provided path does not exist')
+        quit()
 
 

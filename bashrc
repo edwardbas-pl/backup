@@ -44,6 +44,12 @@ extract () {
 }
 
 
+session=$(tty)
+sub='pts'
+if [[ "$session" =~ .*"$SUB".* ]]; then
+	export GAMESCOPE=0
+fi
+
 shopt -s autocd
 shopt -s cdspell
 alias ..="cd .."

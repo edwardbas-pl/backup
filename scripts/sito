@@ -28,9 +28,9 @@ class UnsupportedUnitError(Exception):
        return self.message
 
 def move(lista):
-    pwd = os.getcwd()
+    #pwd = os.getcwd()
     dir = "to_chechk"
-    path = pwd + '/' + dir
+    #path = pwd + '/' + dir
     if os.path.exists == False:
         os.mkdir(dir)
     for i in lista:

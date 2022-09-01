@@ -5,6 +5,11 @@
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
 
+session=$(tty)
+sub='pts'
+if [[ "$session" =~ .*"$SUB".* ]]; then
+	export GAMESCOPE=0
+fi
 export VITASDK=/usr/local/vitasdk
 export EDITOR="vim"
 export TERMINAL="kitty"
