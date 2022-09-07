@@ -3,7 +3,7 @@ from natsort import natsorted # pip install natsort
 import shutil
 import sys
 import os
-
+#TODO make the scriot to be executed by default inside of the $HOME/Music directory
 
 class PathDoesNotExist(Exception):
     def __init__(self):
@@ -28,7 +28,7 @@ def import_play_dir(playlist_file,target_dir):
         raw_list = love.readlines()
     for i in raw_list:
         i = i.replace("\n","")
-        #print(i)
+        print(i)
         list.append(i)
         shutil.copy2( i , dir_to_create+"/")
     return list

@@ -6,8 +6,10 @@
 [[ $- != *i* ]] && return
 
 alias ls='ls --color=auto'
-
-PS1="\W> "
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+PS1="\W\[\e[91m\]\$(parse_git_branch)\[\e[00m\]> "
 
 setxkbmap pl
 
