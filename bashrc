@@ -45,6 +45,10 @@ extract () {
     esac
 }
 
+2clip (){
+	xclip -sel clip $1
+}
+
 
 session=$(tty)
 sub='pts'
