@@ -3,7 +3,6 @@ import sys
 import ntpath
 from natsort import natsorted # pip install natsort
 import os
-#TODO replicate source direcoty structure in outpu direcotry
 ##  exclude path from the directory from witch script is running
 ##  os.system( "mkdir -p " path )
 
@@ -35,8 +34,14 @@ def transcode(list,path):
         # file filename + extension
         file = (ntpath.basename(i))
         file_name = os.path.splitext(file)[0]
+        if rootdir in i:
+            txt = i
+            txt = txt.replace(rootdir,'')
+            path_to_replicate = txt.replace(os.path.basename(txt),'')
+            dest_path = path + '/' + path_to_replicate
+            os.system('mkdir -p ' + dest_path)
         output_file_name = file_name + video_file_extensions[1]
-        output = path + '/' + output_file_name
+        output = dest_path + '/' + output_file_name
         command = 'ffmpeg -i "' + i + '" -map 0:0 -map 0:1 -map 0:1 -c:v libsvtav1 -preset 7 -crf 30 -b:v 0 "' + output +'"'
         #print(command)
         os.system(command)
