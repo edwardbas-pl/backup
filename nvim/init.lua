@@ -131,7 +131,8 @@ map('i', '<C-E>', '<ESC>A')
 map('i', '<C-A>', '<ESC>I')
 
 -- nerd tree
-map('n', '<F2>', ':NERDTreeToggle<CR>')
+map('n' , '<F2>' , ':NERDTreeToggle<CR>')
+map('n' , '<s-F2>' , ':UndotreeToggle<CR>')
 --map('i', '<C-F2>', ':NERDTreeToggle<CR>')
 
 -- split creation
@@ -216,6 +217,7 @@ return require('packer').startup(function()
   use 'neoclide/coc.nvim'
 
   use 'voldikss/vim-floaterm'
+  use 'mbbill/undotree'
 
 end)
 
