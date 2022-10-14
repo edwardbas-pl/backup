@@ -15,13 +15,11 @@ def main( *args ):
 
     if pattern in ls:
         if os.path.isdir(pattern) == True:
-            #ls.remove(pattern)
+            ls.remove(pattern)
             pass
     else:
         os.mkdir(pattern)
-    
     target_dir = pattern
-
     for i in ls:
         if pattern in i:
             target = target_dir + "/" + i

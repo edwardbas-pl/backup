@@ -89,6 +89,7 @@ opt.mouse = "a"
 g.mapleader = ' '
 g.maplocalleader = ' '
 g.floaterm_keymap_toggle = '<F12>'
+g.python_recommended_style = 0
 
 require('lualine').setup()
 

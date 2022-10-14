@@ -1,4 +1,4 @@
-#!/bin/python
+#!/bin/python3
 import os
 from PIL import Image
 
@@ -23,11 +23,11 @@ def is_image(image_name):
 
 def witch_file_type(image_name):
     if image_name.lower().endswith(( '.jpg', '.jpeg')):
-        return JPEG
+        return 'JPEG'
     if image_name.lower().endswith(( '.png')):
-        return PNG
+        return 'PNG'
     if image_name.lower().endswith(( '.webp')):
-        return WEBP
+        return 'WEBP'
 
 for i in ls:
     #im1.save(r'C:\Users\Ron\Desktop\Test\new_autumn.png')
