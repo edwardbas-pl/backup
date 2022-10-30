@@ -187,7 +187,7 @@ return require('packer').startup(function()
   -- File management --
   use 'vifm/vifm.vim'
   use 'scrooloose/nerdtree'
-  use 'tiagofumo/vim-nerdtree-syntax-highlight'
+  --use 'tiagofumo/vim-nerdtree-syntax-highlight'
   use 'ryanoasis/vim-devicons'
 
   -- Productivity --

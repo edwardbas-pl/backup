@@ -4,6 +4,8 @@ import ntpath
 from natsort import natsorted # pip install natsort
 import os
 #TODO exclude path from the directory from witch script is running
+#TODO check if transcode command was successfull or not
+#TODO add optimize space flag (compare output file size with source file. if source is smaler then remove output and copy input to the output path)
 
 global rootdir
 rootdir = os.getcwd()
