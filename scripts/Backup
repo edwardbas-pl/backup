@@ -35,7 +35,7 @@ mkdir -p nvim
 
 
 sudo mkdir -p /usr/share/backgrounds/
-cp -r 	$HOME/Pictures/Wallpapers/* 				$path/backgrounds
+cp -r 	$HOME/Pictures/Wallpapers/* 				$path/wallpapers
 cp -r 	/usr/share/themes/Qogir-dark				$path/themes/
 cp -r 	/usr/share/themes/Skeuos-Blue-Dark			$path/themes/
 cp -r 	/usr/share/themes/Dracula				$path/themes/

@@ -33,9 +33,10 @@ def transcode(list,path):
 			path_to_replicate = txt.replace(os.path.basename(txt),'')
 			dest_path = path + '"' + path_to_replicate + '"'
 			os.system('mkdir -p ' + dest_path)
-		output_file_name = file_name + video_file_extensions[1]
-		output = dest_path + '/' + '"' + output_file_name + '"'
-		command = 'ffmpeg -n -i "' + i + '" -map 0:0 -map 0:1 -c:v libsvtav1 -preset 7 -crf 30 -b:v 0 ' + output 
+		output_file_name = '"'+file_name + video_file_extensions[1] + '"'
+		output = dest_path + '/'  + output_file_name
+		command = 'ffmpeg -n -i "' + i + '"  -c:v libsvtav1 -map 0:0 -map 0:1 -preset 7 -crf 30 -b:v 0 ' + output 
+		#print(command)
 		os.system(command)
 		os.system('notify-send "'+ i + ' was transcoded to the av1 format')
 	pass

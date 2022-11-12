@@ -34,7 +34,7 @@ sudo mkdir -p /usr/share/themes
 sudo mkdir -p /usr/share/backgrounds
 sudo mkdir -p /usr/share/icons
 
-sudo cp -r $path/backgrounds/* 		/usr/share/backgrounds
+sudo cp -r $path/wallpapers/* 		/usr/share/backgrounds
 cp -r $path/backgrounds/* 			~/Pictures/Wallpapers
 sudo cp -r $path/themes/*		/usr/share/themes/
 sudo cp -r $path/icons/*		/usr/share/icons/
