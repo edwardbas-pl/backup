@@ -1,24 +1,24 @@
-#!/usr/bin/env perl
-use strict;
-use warnings FATAL => 'all';
-use 5.010;
+#!/bin/python
 
-$_ = qx(efibootmgr);
-if ( /^Boot(\d+)[*]?\s+\b\sWindows Boot Manager$/m ) {
-    if (system("sudo -v") == 0) {
-        system "sudo efibootmgr -n $1";
-        if (defined $ENV{XDG_SESSION_DESKTOP} and $ENV{XDG_SESSION_DESKTOP} eq "xfce") {
-            system "xfce4-session-logout --reboot --fast";
-        } else {
-            system "systemctl reboot";
-        }
-    } else {
-        say "Sudo failed!";
-    }
-} else {
-    say "Error: Could not find 'Windows Boot Manager' in efibootmgr's output!";
-    say "efibootmgr output:";
-    s/^/  /mg;
-    print;
-}
+import os
+import subprocess
+import re
 
+result = subprocess.run(['efibootmgr'],text=True, stdout=subprocess.PIPE)
+output = str(result.stdout)
+
+lines = output.splitlines(True)
+for i in lines:
+	if "Windows Boot Manager" in i:
+		line_matched = i
+		exit
+
+if not line_matched:
+	print("no windows found")
+line_splited = line_matched.split("* ")
+important_part = line_splited[0]
+boot_id = important_part.replace("Boot","")
+#print(boot_id)
+command = "sudo efibootmgr -n " + boot_id
+os.system(command)
+os.system("systemctl reboot")
