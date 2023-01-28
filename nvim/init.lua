@@ -90,6 +90,7 @@ g.mapleader = ' '
 g.maplocalleader = ' '
 g.floaterm_keymap_toggle = '<F12>'
 g.python_recommended_style = 0
+g.ycm_python_binary_path = 'python'
 
 require('lualine').setup()
 
@@ -166,6 +167,7 @@ map('n' , '<C-P>' , ':m 0<CR>')
 map('n' , '<C-O>' , ':m $<CR>')
 map('n' , '<C-j>' , ':m .+1<CR>')
 map('n' , '<C-k>' , ':m .-2<CR>')
+map('n' , '<leader>rr' , ":update<CR>:exec '!python3' shellescape(@%, 1)<CR>")
 
 
 --loaterm
@@ -218,6 +220,10 @@ return require('packer').startup(function()
 
   use 'voldikss/vim-floaterm'
   use 'mbbill/undotree'
+  use {
+  'pianocomposer321/yabs.nvim',
+  requires = { 'nvim-lua/plenary.nvim' }
+  }
 
 end)
 

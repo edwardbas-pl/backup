@@ -11,7 +11,6 @@ parse_git_branch() {
 }
 PS1="\W\[\e[91m\]\$(parse_git_branch)\[\e[00m\]> "
 
-setxkbmap pl
 
 pfetch
 

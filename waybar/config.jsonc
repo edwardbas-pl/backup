@@ -1,0 +1,115 @@
+{
+    "layer": "top",
+    "position": "top",
+    "mod": "dock",
+    "exclusive": true,
+    "passthrough": false,
+    "gtk-layer-shell": true,
+    "height": 0,
+    "modules-left": [
+        "clock",
+        "wlr/workspaces"
+    ],
+    "modules-center": ["hyprland/window"],
+    "modules-right": [
+        "tray",
+        "custom/updates",
+        "pulseaudio",
+        "pulseaudio#microphone",
+		"backlight",
+		"memory",
+		"cpu",
+		"battery"
+    ],
+
+    "hyprland/window": {
+        "format": "{}"
+    },
+    "wlr/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "on-click": "activate",
+        "format": "{icon}",
+        "persistent_workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": [],
+            "6": [],
+            "7": [],
+            "8": [],
+            "9": [],
+            "10": []
+        }
+    },
+    "custom/updates": {
+        "exec": "(checkupdates ; yay -Qua) | wc -l",
+        "interval": 7200,
+        "format": " {}"
+    },
+    "tray": {
+        "icon-size": 13,
+        "spacing": 10
+    },
+    "clock": {
+        "format": "{: %R   %d/%m}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "tooltip": false,
+        "format-muted": " Muted",
+        "on-click": "pamixer -t",
+        "on-scroll-up": "pamixer -i 5",
+        "on-scroll-down": "pamixer -d 5",
+        "scroll-step": 5,
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        }
+    },
+    "pulseaudio#microphone": {
+        "format": "{format_source}",
+        "format-source": " {volume}%",
+        "format-source-muted": " Muted",
+        "on-click": "pamixer --default-source -t",
+        "on-scroll-up": "pamixer --default-source -i 5",
+        "on-scroll-down": "pamixer --default-source -d 5",
+        "scroll-step": 5
+    },
+	"backlight": {
+		"device": "intel_backlight",
+		"format": "{percent}% {icon}",
+		"format-icons": ["", ""]
+	},
+	"battery": {
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-charging": "{capacity}% ",
+        "format-plugged": "{capacity}% ",
+        "format-alt": "{time} {icon}",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": ["", "", "", "", ""]
+    },
+	"cpu": {
+		"interval": 10,
+	    "format": "{}% ",
+		"max-length": 10
+	},
+	"memory": {
+	    "interval": 30,
+		"format": "{percentage}% ",
+		"max-length": 10
+	}
+}

@@ -32,6 +32,9 @@ mkdir -p dconf
 mkdir -p dwm
 mkdir -p vim-templates
 mkdir -p nvim
+mkdir -p waybar
+mkdir -p hypr
+mkdir -p rofi
 
 
 sudo mkdir -p /usr/share/backgrounds/
@@ -60,7 +63,10 @@ cp $config/gtk-4.0/*		$path/gtk-4.0/
 cp $config/bspwm/*		$path/bspwm/
 cp $config/sxhkd/*		$path/sxhkd/
 cp $config/dwm/*		$path/dwm/
-cp $config/nvim/init.lua		$path/nvim/
+cp $config/nvim/*		$path/nvim/
+cp $config/hypr/*		$path/hypr/
+cp $config/rofi/*		$path/rofi/
+cp -r $config/waybar/*		$path/waybar/
 cp -r $HOME/.icons/*		$path/.icons
 
 #cp $HOME/.polybar-scripts/*	$path/polybar-scripts/

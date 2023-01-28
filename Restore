@@ -28,6 +28,9 @@ mkdir -p $config/sxhkd
 mkdir -p $config/dconf
 mkdir -p $config/dwm
 mkdir -p $config/nvim
+mkdir -p $config/hypr
+mkdir -p $config/waybar
+mkdir -p $config/rofi
 
 sudo mkdir -p /etc/lightdm
 sudo mkdir -p /usr/share/themes
@@ -53,6 +56,9 @@ cp $path/sxhkd/*			$config/sxhkd
 cp $path/dconf/*			$config/dconf
 cp $path/dwm/*				$config/dwm/
 cp $path/nvim/init.lua				$config/nvim/
+cp $path/hypr/*				$config/dwm/
+cp -r $path/waybar/*				$config/dwm/
+cp -r $path/rofi/*				$config/dwm/
 sudo cp $path/gtk-3.0/*			$config/gtk-3.0
 cp -r $path/.icons/			$HOME/
 
