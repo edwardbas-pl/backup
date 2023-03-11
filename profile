@@ -12,7 +12,8 @@ fi
 export VITASDK=/usr/local/vitasdk
 export LC_ALL="C"
 export EDITOR="vim"
-export TERMINAL="kitty"
+#export TERMINAL="kitty"
+export TERMINAL="alacritty"
 export WINEPREFIX="$HOME/.config/wine"
 export BROWSER="firefox"
 export PATH="$PATH:$HOME/.scripts"

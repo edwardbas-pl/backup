@@ -4,7 +4,7 @@ import os
 def go_line_by_line(file_name):
     f = open(file_name , 'r')
     for i in f:
-        os.system("youtube-dl " + i)
+        os.system("yt-dlp " + i)
 def detect_fie_type(name):
     if name.lower().endswith(( '.txt')):
         return 'TXT'
