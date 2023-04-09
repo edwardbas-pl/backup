@@ -28,10 +28,10 @@ def path_remodel(path):
 	    #string = string + '/'
 	return string
 
-def transcode(list,path):
+def transcode(lista,path):
 	#pwd = os.getcwd()
 	#os.system('mkdir -p out')
-	for i in list:
+	for i in lista:
 	# i - path -to file
 	# file_name - file with excluded extension
 	# file filename + extension
