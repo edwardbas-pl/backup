@@ -1,0 +1,9 @@
+#!/bin/bash
+
+gateway=$(route -n | grep 'UG[ \t]' | awk '{print $2}' | head -n 1)
+#echo $gateway
+
+#killall rofi || selected=$(ls ~/.scripts/|rofi -dmenu -p "Run: " -theme ~/.config/rofi/global/rofi.rasi)&&bash ~/.scripts/$selected
+killall rofi || selected=$(nmcli connection show | grep vpn | awk '{print $1}' |rofi -dmenu -p "Run: " -theme ~/.config/rofi/global/rofi.rasi)&& nmcli connection up $selected
+
+sudo route add default gw $gateway 

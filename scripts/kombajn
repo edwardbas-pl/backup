@@ -1,0 +1,172 @@
+#!/bin/python
+import sys
+import os
+import ntpath
+from natsort import natsorted # pip install natsort
+
+
+#TODO flags support
+#TODO choice to replicate or not file directory structure in the output dir
+#TODO exclude directory
+
+
+class PathDoesNotExistError(Exception):
+	def __init__(self):
+		self.message = "provided path does not exist"
+	def __str__(self):
+		return self.message
+
+
+class badFlagError(Exception):
+    def __init__(self):
+        self.message = "flag is defined as value of another flag"
+    def __str__(self):
+        return self.message
+
+def path_remodel(path):
+    string = ''
+    txt = path.split('/')
+    txt = txt[1:]
+    for i in txt:
+        string = string = string + '/'
+        string = string = string + '"' + i + '"'
+    return string
+
+
+def transcode( input_file, output_file , command ):
+	pass
+
+
+def crawl( extensions , rootdir , is_flat = False ):
+	pwd = os.getcwd()
+	ls=os.listdir(pwd)
+	ls = natsorted(ls)
+	list_to_transcode = []
+	list_of_output_file_names = []
+	list_of_directories_to_replicate = []
+	for i in ls:
+	    #print(i)
+	    if os.path.isdir(i) == True:
+	        if 'out' == i:
+	            pass
+	        else:
+	            os.chdir(i)
+	            #print(i + 'is a directory being recursive...')
+	            tmp,tmp2,tmp3 = crawl( extensions , rootdir)
+	            #input_to_transcode = crawl( extensions , rootdir)
+	            os.chdir('../')
+	            #print(input_to_transcode)
+	            for j in tmp: #appending result of recursive fuction call
+	            	list_to_transcode.append(j)
+	            for k in tmp2:
+	            	list_of_output_file_names.append(k)
+	            for l in tmp3:
+	            	list_of_directories_to_replicate.append(l)
+	    else:
+	        extension = os.path.splitext(i)[1]
+	        if extension in extensions:
+	            file = (ntpath.basename(i))
+	            file_name = os.path.splitext(file)[0]
+
+	            file_source_path = path_remodel(os.getcwd()+'/'+i)
+
+	            dir_to_replicate = os.getcwd()
+	            
+	            filename = '"' + file_name + '.m4a' + '"'
+	            if dir_to_replicate == rootdir:
+	            	pass
+	            else:
+	            	if is_flat == False:
+	            		print(filename)
+	            		filename = dir_to_replicate + '/' + filename
+	            		print(filename)
+	            	else:
+	            		pass
+	            	dir_to_replicate = dir_to_replicate.replace(rootdir,'')
+	            	list_of_directories_to_replicate.append(dir_to_replicate) 
+
+	            list_to_transcode.append(file_source_path)
+	            list_of_output_file_names.append( filename )
+	            #command = "ffmpeg -n -i " + cos + " -c:v copy -c:a alac ~/Music/'" + file_name + ".m4a'"
+	            #print(command)
+	            #os.system(command)
+	#print(list_of_output_file_names)
+	#return(list_to_transcode , list_of_output_file_names , list_of_directories_to_replicate)
+	return (list_to_transcode,list_of_output_file_names,list_of_directories_to_replicate)
+
+def get_list_of_directories_to_replicate( path_list , rootdir ):
+	directories_to_replicate = []
+	for i in path_list:
+		if rootdir in i:
+			txt = i
+			print(txt)
+			txt = txt.replace(rootdir,'')
+			directories_to_replicate.append(txt)
+	return directories_to_replicate	
+	pass
+
+
+def main(args):
+	flags = [ '--format' , '--exclude' , '-o' , '--flat']
+	formats = [ 'av1' , 'aac'  ]
+	file_format = formats[0]
+	file_extensions = ['.mkv','.avi','.mp4']
+	rootdir = os.getcwd()
+	path = None
+	if '--format' in args:
+		flag_index = args.index('--format')
+		try:
+			value = args[flag_index+1]
+			if value in flags:
+				raise badFlagError
+			if value.lower() == 'aac':
+				file_format = value.lower()
+				file_extensions = ['.flac' , '.mp3' , 'wav' , '.opus']
+		except badFlagError:
+			print("when you set flag you need to provide value")
+	if '-o' in args:
+		flag_index = args.index('-o')
+		try:
+			value = args[flag_index+1]
+			if value in flags:
+				raise badFlagError
+			else:
+				if os.path.exists( value ) == True:
+					path = value
+				else:
+					raise PathDoesNotExistError
+		except badFlagError:
+			print("Wrong value was provide for option -o ")
+		except PathDoesNotExistError:
+			print("Provided path does not exist")
+
+	pwd = os.getcwd()
+	#path = pwd + '/out'
+	source_path_list,out_file_names,list_of_dirs_to_replicate = crawl(file_extensions , rootdir)
+	if path == None:
+		#if output path wasn't provided then make out dir witin the directroy from wrher script is called
+		path = pwd + '/' + 'out' + '/' 
+	#print(rootdir)
+	print(source_path_list)
+	print(out_file_names)
+	print(list_of_dirs_to_replicate)
+
+	if len(source_path_list) != len(out_file_names):
+ 		print("Error number of elements of input and output array missmatch")
+
+	for i in list_of_dirs_to_replicate:
+		os.system("mkdir -p " + path + i )
+	
+	if file_format == "aac":
+		for i in range(len(source_path_list)):
+				input_file  = source_path_list[i]
+				output_file = path + '/' +out_file_names[i]
+			#command = command = "ffmpeg -n -i " + source_path_list[i] + " -b:a 16 -c:v copy -c:a alac -ar 44100 " + path + '/' +out_file_names[i]
+				#command = command = "ffmpeg -n -i " + source_path_list[i] + " -sample_fmt s16 -c:v copy -c:a alac -ar 44100 " + path + '/' +out_file_names[i]
+				command = command = "ffmpeg -n -i " + input_file + "  -c:v copy -c:a alac -ar 44100  -sample_fmt s16p " + output_file
+				#print(command)
+				os.system(command)
+	
+
+if __name__ == "__main__":
+	main(sys.argv)

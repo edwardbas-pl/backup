@@ -1,0 +1,4 @@
+#!/bin/bash
+
+swaybg -i $1
+echo $1 > $HOME/.config/hypr/bg_path.txt

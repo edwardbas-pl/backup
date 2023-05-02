@@ -1,0 +1,5 @@
+#!/bin/bash
+
+
+killall rofi || selected=$(ls ~/.scripts/|rofi -dmenu -p "Run: " -theme ~/.config/rofi/global/rofi.rasi)&&bash ~/.scripts/$selected
+

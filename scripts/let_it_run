@@ -1,0 +1,7 @@
+#!/bin/bash
+nc=$(grep -c ^processor /proc/cpuinfo)
+
+qmake *.pro
+name=$(cat Makefile  | grep TARGET -m1 | awk '{print $3}')
+make -j$nc 
+./$name
