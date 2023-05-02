@@ -74,7 +74,7 @@ stage {
     background-color: rgba(67, 69, 91, 0.25); }
 
 .menu #notification StEntry, .popup-menu #notification StEntry, #menu-search-entry {
-  padding: 7px;
+  padding: 5px;
   caret-size: 1px;
   selection-background-color: rgba(189, 147, 249, 0.5);
   selected-color: #f8f8f2;
@@ -153,19 +153,18 @@ StScrollBar {
   height: 1em; }
 
 .popup-slider-menu-item, .slider {
-  -slider-height: 4px;
-  -slider-background-color: rgba(25, 26, 34, 0.9);
-  -slider-border-color: rgba(0, 0, 0, 0);
+  -slider-height: 0.3em;
+  -slider-background-color: #333545;
+  -slider-border-color: rgba(30, 31, 41, 0.3);
   -slider-active-background-color: rgba(189, 147, 249, 0.5);
-  -slider-active-border-color: rgba(0, 0, 0, 0);
-  -slider-border-width: 0;
-  -slider-handle-radius: 4px;
-  height: 18px;
+  -slider-active-border-color: rgba(30, 31, 41, 0.3);
+  -slider-border-width: 1px;
+  -slider-handle-radius: 0.5em;
+  height: 1em;
   min-width: 15em;
   border: 0 solid transparent;
   border-right-width: 1px;
-  border-left-width: 5px;
-  color: transparent; }
+  border-left-width: 5px; }
   .popup-menu-item:active .popup-slider-menu-item,
   .popup-menu-item:active .slider {
     -slider-background-color: rgba(0, 0, 0, 0.2);
@@ -238,16 +237,33 @@ StScrollBar {
 .popup-menu,
 .popup-combo-menu {
   color: #f8f8f2;
-  border-image: url("dark-assets/menu/menu.svg") 9 9 9 9; }
+  border: 1px solid rgba(25, 26, 34, 0.9);
+  border-radius: 6px;
+  background-color: rgba(30, 31, 41, 0.99); }
+  .menu.top,
+  .popup-menu.top,
+  .top.popup-combo-menu {
+    border-radius: 0 0 6px 6px; }
+  .menu.bottom,
+  .popup-menu.bottom,
+  .bottom.popup-combo-menu {
+    border-radius: 6px 6px 0 0; }
+  .menu.left,
+  .popup-menu.left,
+  .left.popup-combo-menu {
+    border-radius: 0 6px 6px 0; }
+  .menu.right,
+  .popup-menu.right,
+  .right.popup-combo-menu {
+    border-radius: 6px 0 0 6px; }
   .menu-arrow,
   .popup-menu-arrow {
     icon-size: 16px; }
   .menu .popup-sub-menu,
   .popup-menu .popup-sub-menu,
   .popup-combo-menu .popup-sub-menu {
-    background-gradient-direction: none;
     box-shadow: none;
-    border-image: url("dark-assets/menu/submenu.svg") 9 9 9 9; }
+    background-color: #282a36; }
     .menu .popup-sub-menu .popup-menu-item:ltr,
     .popup-menu .popup-sub-menu .popup-menu-item:ltr,
     .popup-combo-menu .popup-sub-menu .popup-menu-item:ltr {
@@ -274,13 +290,14 @@ StScrollBar {
   .popup-menu .popup-menu-item,
   .popup-combo-menu .popup-menu-item {
     padding: .4em 1.75em;
-    spacing: 1em; }
+    spacing: 1em;
+    border-left-width: 0;
+    border-right-width: 0; }
     .menu .popup-menu-item:active,
     .popup-menu .popup-menu-item:active,
     .popup-combo-menu .popup-menu-item:active {
       color: #f8f8f2;
-      background-color: transparent;
-      border-image: url("common-assets/menu/menu-hover.svg") 9 9 1 1; }
+      background-color: rgba(189, 147, 249, 0.5); }
     .menu .popup-menu-item:insensitive,
     .popup-menu .popup-menu-item:insensitive,
     .popup-combo-menu .popup-menu-item:insensitive {
@@ -339,7 +356,7 @@ StScrollBar {
   height: 28px;
   width: 32px;
   font-weight: 700;
-  background-color: rgba(30, 31, 41, 0.7);
+  background-color: rgba(26, 27, 35, 0.95);
   color: #f8f8f2; }
   #panel:highlight {
     border-image: none;
@@ -968,7 +985,7 @@ StScrollBar {
 
 #menu-search-entry {
   width: 250px;
-  height: 15px;
+  min-height: 15px;
   font-weight: normal;
   caret-color: #f8f8f2; }
 
@@ -1054,7 +1071,7 @@ StScrollBar {
     background-color: rgba(248, 248, 242, 0.1); }
   .window-list-item-box:active, .window-list-item-box:checked, .window-list-item-box:focus, .window-list-item-box:running {
     color: #f8f8f2;
-    border-color: rgba(189, 147, 249, 0.5); }
+    border-color: #bd93f9; }
   .window-list-item-box .progress {
     background-color: rgba(189, 147, 249, 0.3); }
 .window-list-item-demands-attention {
@@ -1101,10 +1118,10 @@ StScrollBar {
       padding-left: 1px; }
   .grouped-window-list-item-box:active, .grouped-window-list-item-box:checked {
     color: #f8f8f2;
-    border-color: rgba(73, 76, 100, 0.7); }
+    border-color: rgba(90, 93, 123, 0.95); }
   .grouped-window-list-item-box:hover, .grouped-window-list-item-box:active:hover, .grouped-window-list-item-box:focus, .grouped-window-list-item-box:active:focus, .grouped-window-list-item-box:focus:hover, .grouped-window-list-item-box:active:focus:hover {
     color: #f8f8f2;
-    border-color: rgba(189, 147, 249, 0.5); }
+    border-color: #bd93f9; }
   .grouped-window-list-item-box .progress {
     background-color: rgba(189, 147, 249, 0.3); }
 .grouped-window-list-item-demands-attention {
@@ -1118,7 +1135,7 @@ StScrollBar {
   color: #f8f8f2; }
 .grouped-window-list-badge {
   border-radius: 256px;
-  background-color: rgba(30, 31, 41, 0.7); }
+  background-color: rgba(26, 27, 35, 0.95); }
 .grouped-window-list-button-label {
   padding-left: 4px; }
 .grouped-window-list-thumbnail-alert {
@@ -1264,9 +1281,9 @@ StScrollBar {
   padding-top: 4px;
   transition-duration: 300; }
   .workspace-button:outlined, .workspace-button:outlined:hover {
-    color: rgba(189, 147, 249, 0.5); }
+    color: #bd93f9; }
   .workspace-button:hover {
-    color: rgba(189, 147, 249, 0); }
+    color: rgba(189, 147, 249, 0.5); }
 
 /* Controls the style when using the "Visual representation" option */
 .workspace-graph {
@@ -1283,15 +1300,15 @@ StScrollBar {
   background-gradient-direction: none; }
 
 .workspace-graph .workspace .windows {
-  -active-window-background: rgba(62, 64, 85, 0.7);
+  -active-window-background: rgba(58, 60, 79, 0.95);
   -active-window-border: rgba(0, 0, 0, 0.8);
-  -inactive-window-background: rgba(62, 64, 85, 0.7);
+  -inactive-window-background: rgba(58, 60, 79, 0.95);
   -inactive-window-border: rgba(0, 0, 0, 0.8); }
 
 .workspace-graph .workspace:active .windows {
-  -active-window-background: rgba(73, 76, 100, 0.7);
+  -active-window-background: rgba(69, 71, 94, 0.95);
   -active-window-border: rgba(0, 0, 0, 0.8);
-  -inactive-window-background: rgba(41, 42, 56, 0.7);
+  -inactive-window-background: rgba(36, 38, 50, 0.95);
   -inactive-window-border: rgba(0, 0, 0, 0.8); }
 
 #panel-launchers-box {

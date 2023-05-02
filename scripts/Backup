@@ -39,8 +39,6 @@ mkdir -p rofi
 
 sudo mkdir -p /usr/share/backgrounds/
 cp -r 	$HOME/Pictures/Wallpapers/* 				$path/backgrounds
-cp -r 	/usr/share/themes/Qogir-dark				$path/themes/
-cp -r 	/usr/share/themes/Skeuos-Blue-Dark			$path/themes/
 cp -r 	/usr/share/themes/Dracula				$path/themes/
 #cp -r 	/usr/share/themes/Default				$path/themes/
 cp -r 	/usr/share/icons/Papirus 				$path/icons/
