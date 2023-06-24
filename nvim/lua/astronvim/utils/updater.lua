@@ -22,12 +22,9 @@ local function echo(messages)
   if type(messages) == "table" then vim.api.nvim_echo(messages, false, {}) end
 end
 
-local function confirm_prompt(messages)
-  if messages then echo(messages) end
-  local confirmed = string.lower(vim.fn.input "(y/n) ") == "y"
-  echo()
-  echo()
-  return confirmed
+local function confirm_prompt(messages, type)
+  return vim.fn.confirm(messages, "&Yes\n&No", (type == "Error" or type == "Warning") and 2 or 1, type or "Question")
+    == 1
 end
 
 --- Helper function to generate AstroNvim snapshots (For internal use only)
@@ -57,11 +54,11 @@ function M.generate_snapshot(write)
     if file then
       file:write(("  { %q, "):format(plugin[1]))
       if plugin.version then
-        file:write(("version = %q "):format(plugin.version))
+        file:write(("version = %q"):format(plugin.version))
       else
-        file:write(("commit = %q "):format(plugin.commit))
+        file:write(("commit = %q"):format(plugin.commit))
       end
-      file:write "},\n"
+      file:write ", optional = true },\n"
     end
     return plugin
   end, plugins)
@@ -119,7 +116,7 @@ end
 function M.create_rollback(write)
   local snapshot = { branch = git.current_branch(), commit = git.local_head() }
   if snapshot.branch == "HEAD" then snapshot.branch = "main" end
-  snapshot.remote = git.branch_remote(snapshot.branch)
+  snapshot.remote = git.branch_remote(snapshot.branch, false) or "origin"
   snapshot.remotes = { [snapshot.remote] = git.remote_url(snapshot.remote) }
 
   if write == true then
@@ -170,15 +167,9 @@ function M.update(opts)
       check_needed = true
     elseif
       current_url ~= url
-      and confirm_prompt {
-        { "Remote " },
-        { remote, "Title" },
-        { " is currently set to " },
-        { current_url, "WarningMsg" },
-        { "\nWould you like us to set it to " },
-        { url, "String" },
-        { "?" },
-      }
+      and confirm_prompt(
+        ("Remote %s is currently: %s\n" .. "Would you like us to set it to %s ?"):format(remote, current_url, url)
+      )
     then
       git.remote_update(remote, url)
       check_needed = true
@@ -244,11 +235,9 @@ function M.update(opts)
     return
   elseif -- prompt user if they want to accept update
     not opts.skip_prompts
-    and not confirm_prompt {
-      { "Update available to ", "Title" },
-      { is_stable and opts.version or target, "String" },
-      { "\nUpdating requires a restart, continue?" },
-    }
+    and not confirm_prompt(
+      ("Update avavilable to %s\nUpdating requires a restart, continue?"):format(is_stable and opts.version or target)
+    )
   then
     echo(cancelled_message)
     return
@@ -257,10 +246,16 @@ function M.update(opts)
     -- calculate and print the changelog
     local changelog = git.get_commit_range(source, target)
     local breaking = git.breaking_changes(changelog)
-    local breaking_prompt = { { "Update contains the following breaking changes:\n", "WarningMsg" } }
-    vim.list_extend(breaking_prompt, git.pretty_changelog(breaking))
-    vim.list_extend(breaking_prompt, { { "\nWould you like to continue?" } })
-    if #breaking > 0 and not opts.skip_prompts and not confirm_prompt(breaking_prompt) then
+    if
+      #breaking > 0
+      and not opts.skip_prompts
+      and not confirm_prompt(
+        ("Update contains the following breaking changes:\n%s\nWould you like to continue?"):format(
+          table.concat(breaking, "\n")
+        ),
+        "Warning"
+      )
+    then
       echo(cancelled_message)
       return
     end
@@ -270,10 +265,10 @@ function M.update(opts)
     if
       not updated
       and not opts.skip_prompts
-      and not confirm_prompt {
-        { "Unable to pull due to local modifications to base files.\n", "ErrorMsg" },
-        { "Reset local files and continue?" },
-      }
+      and not confirm_prompt(
+        "Unable to pull due to local modifications to base files.\nReset local files and continue?",
+        "Error"
+      )
     then
       echo(cancelled_message)
       return
@@ -306,7 +301,11 @@ function M.update(opts)
 
     -- if the user wants to auto quit, create an autocommand to quit AstroNvim on the update completing
     if opts.auto_quit then
-      vim.api.nvim_create_autocmd("User", { pattern = "AstroUpdateComplete", command = "quitall" })
+      vim.api.nvim_create_autocmd("User", {
+        desc = "Auto quit AstroNvim after update completes",
+        pattern = "AstroUpdateComplete",
+        command = "quitall",
+      })
     end
 
     require("lazy.core.plugin").load() -- force immediate reload of lazy

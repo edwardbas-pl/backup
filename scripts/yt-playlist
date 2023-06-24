@@ -1,0 +1,2 @@
+#!/bin/bash
+yt-dlp  $1 ./playlists.yt -o "%(channel)s/%(playlist)s/%(playlist_index)s  - %(title)s.%(ext)s" --embed-thumbnail

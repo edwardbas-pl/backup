@@ -22,7 +22,6 @@ export PATH=$VITASDK/bin:$PATH # add vitasdk tool to $PATH
 export QT_QPA_PLATFORMTHEME="gnome"
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
 #export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
-export WINEPREFIX="$XDG_DATA_HOME"/wine
 export PSQL_HISTORY="$XDG_DATA_HOME/psql_history"
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 export MYSQL_HISTFILE="$XDG_DATA_HOME"/mysql_history

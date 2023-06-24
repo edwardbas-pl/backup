@@ -11,6 +11,7 @@
 local M = { hl = {}, init = {}, provider = {}, condition = {}, component = {}, utils = {}, env = {}, heirline = {} }
 
 local utils = require "astronvim.utils"
+local buffer_utils = require "astronvim.utils.buffer"
 local extend_tbl = utils.extend_tbl
 local get_icon = utils.get_icon
 local is_available = utils.is_available
@@ -362,10 +363,22 @@ end
 -- @usage local heirline_component = { provider = require("astronvim.utils.status").provider.numbercolumn }
 -- @see astronvim.utils.status.utils.stylize
 function M.provider.numbercolumn(opts)
-  opts = extend_tbl({ escape = false }, opts)
+  opts = extend_tbl({ thousands = false, culright = true, escape = false }, opts)
   return function()
+    local lnum, rnum, virtnum = vim.v.lnum, vim.v.relnum, vim.v.virtnum
     local num, relnum = vim.opt.number:get(), vim.opt.relativenumber:get()
-    local str = ((num and not relnum) and "%l") or ((relnum and not num) and "%r") or "%{v:relnum?v:relnum:v:lnum}"
+    local str
+    if not num and not relnum then
+      str = ""
+    elseif virtnum ~= 0 then
+      str = "%="
+    else
+      local cur = relnum and (rnum > 0 and rnum or (num and lnum or 0)) or lnum
+      if opts.thousands and cur > 999 then
+        cur = string.reverse(cur):gsub("%d%d%d", "%1" .. opts.thousands):reverse():gsub("^%" .. opts.thousands, "")
+      end
+      str = (rnum == 0 and not opts.culright and relnum) and cur .. "%=" or "%=" .. cur
+    end
     return M.utils.stylize(str, opts)
   end
 end
@@ -401,7 +414,8 @@ function M.provider.foldcolumn(opts)
         for col = 1, width do
           str = str
             .. (
-              ((closed and (col == foldinfo.level or col == width)) and foldclosed)
+              (vim.v.virtnum ~= 0 and foldsep)
+              or ((closed and (col == foldinfo.level or col == width)) and foldclosed)
               or ((foldinfo.start == vim.v.lnum and first_level + col > foldinfo.llevel) and foldopen)
               or foldsep
             )
@@ -457,6 +471,16 @@ function M.provider.macro_recording(opts)
     if register ~= "" then register = opts.prefix .. register end
     return M.utils.stylize(register, opts)
   end
+end
+
+--- A provider function for displaying the current command
+---@param opts? table of options passed to the stylize function
+---@return string # the statusline string for showing the current command
+-- @usage local heirline_component = { provider = require("astronvim.utils.status").provider.showcmd() }
+-- @see astronvim.utils.status.utils.stylize
+function M.provider.showcmd(opts)
+  opts = extend_tbl({ minwid = 0, maxwid = 5, escape = false }, opts)
+  return M.utils.stylize(("%%%d.%d(%%S%%)"):format(opts.minwid, opts.maxwid), opts)
 end
 
 --- A provider function for displaying the current search count
@@ -737,10 +761,12 @@ function M.provider.lsp_progress(opts)
             "Loading1",
             "Loading2",
             "Loading3",
-          })[math.floor(vim.loop.hrtime() / 12e7) % 3 + 1])
-          .. (Lsp.title and " " .. Lsp.title or "")
-          .. (Lsp.message and " " .. Lsp.message or "")
-          .. (Lsp.percentage and " (" .. Lsp.percentage .. "%)" or "")
+          })[math.floor(vim.loop.hrtime() / 12e7) % 3 + 1], 1)
+          .. table.concat({
+            Lsp.title or "",
+            Lsp.message or "",
+            Lsp.percentage and "(" .. Lsp.percentage .. "%)" or "",
+          }, " ")
         ),
       opts
     )
@@ -823,6 +849,13 @@ function M.condition.is_macro_recording() return vim.fn.reg_recording() ~= "" en
 ---@return boolean # whether or not searching is currently visible
 -- @usage local heirline_component = { provider = "Example Provider", condition = require("astronvim.utils.status").condition.is_hlsearch }
 function M.condition.is_hlsearch() return vim.v.hlsearch ~= 0 end
+
+--- A condition function if showcmdloc is set to statusline
+---@return boolean # whether or not statusline showcmd is enabled
+-- @usage local heirline_component = { provider = "Example Provider", condition = require("astronvim.utils.status").condition.is_statusline_showcmd }
+function M.condition.is_statusline_showcmd()
+  return vim.fn.has "nvim-0.9" == 1 and vim.opt.showcmdloc:get() == "statusline"
+end
 
 --- A condition function if the current file is in a git repo
 ---@param bufnr table|integer a buffer number to check the condition for, a table with bufnr property, or nil to get the current buffer
@@ -983,7 +1016,7 @@ function M.component.tabline_file_info(opts)
       hl = function(self) return M.hl.get_attributes(self.tab_type .. "_close") end,
       padding = { left = 1, right = 1 },
       on_click = {
-        callback = function(_, minwid) require("astronvim.utils.buffer").close(minwid) end,
+        callback = function(_, minwid) buffer_utils.close(minwid) end,
         minwid = function(self) return self.bufnr end,
         name = "heirline_tabline_close_buffer_callback",
       },
@@ -1034,15 +1067,21 @@ function M.component.cmd_info(opts)
       padding = { left = 1 },
       condition = M.condition.is_hlsearch,
     },
+    showcmd = {
+      padding = { left = 1 },
+      condition = M.condition.is_statusline_showcmd,
+    },
     surround = {
       separator = "center",
       color = "cmd_info_bg",
-      condition = function() return M.condition.is_hlsearch() or M.condition.is_macro_recording() end,
+      condition = function()
+        return M.condition.is_hlsearch() or M.condition.is_macro_recording() or M.condition.is_statusline_showcmd()
+      end,
     },
     condition = function() return vim.opt.cmdheight:get() == 0 end,
     hl = M.hl.get_attributes "cmd_info",
   }, opts)
-  return M.component.builder(M.utils.setup_providers(opts, { "macro_recording", "search_count" }))
+  return M.component.builder(M.utils.setup_providers(opts, { "macro_recording", "search_count", "showcmd" }))
 end
 
 --- A function to build a set of children components for a mode section
@@ -1562,7 +1601,7 @@ M.heirline.make_buflist = function(component)
         },
         component, -- create buffer component
       },
-      false -- disable surrounding
+      function(self) return buffer_utils.is_valid(self.bufnr) end -- disable surrounding
     ),
     { provider = get_icon "ArrowLeft" .. " ", hl = overflow_hl },
     { provider = get_icon "ArrowRight" .. " ", hl = overflow_hl },

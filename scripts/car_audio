@@ -23,15 +23,15 @@ def import_play_dir(playlist_file,target_dir):
     #print("dir to create: " + dir_to_create)
     os.system("mkdir -p " + dir_to_create)
     raw_list = []
-    list = []
+    lista = []
     with open(playlist_file) as love:
         raw_list = love.readlines()
     for i in raw_list:
         i = i.replace("\n","")
         print(i)
-        list.append(i)
+        lista.append(i)
         shutil.copy2( i , dir_to_create+"/")
-    return list
+    return lista
 
 def filter_list(excludes):
     ls = os.listdir(cwd)
@@ -72,8 +72,10 @@ def main( arg ):
     path=arg[1]
     raw_playlists = get_playlists(cwd)
     for i in raw_playlists:
-        list = import_play_dir(i,path)
-        for j in list:
+        lista = import_play_dir(i,path)
+        print(lista)
+
+        for j in lista:
             if j in moved_list:
                 pass
             else:

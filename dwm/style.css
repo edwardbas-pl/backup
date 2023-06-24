@@ -21,9 +21,9 @@ tooltip {
 }
 
 #workspaces button {
-    padding: 5px;
+    padding: 2px;
     color: #313244;
-    margin-right: 5px;
+    margin-right: 2px;
 }
 
 #workspaces button.active {

@@ -2,9 +2,11 @@
 import os
 
 def go_line_by_line(file_name):
+    # binary = "yt-dlp "
+    binary = "ytdl-patched "
     f = open(file_name , 'r')
     for i in f:
-        os.system("yt-dlp " + i)
+        os.system(binary + i)
 def detect_fie_type(name):
     if name.lower().endswith(( '.txt')):
         return 'TXT'

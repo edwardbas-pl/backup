@@ -19,15 +19,49 @@ function M.extend_tbl(default, opts)
   return default and vim.tbl_deep_extend("force", default, opts) or opts
 end
 
+--- Partially reload AstroNvim user settings. Includes core vim options, mappings, and highlights. This is an experimental feature and may lead to instabilities until restart.
+---@param quiet? boolean Whether or not to notify on completion of reloading
+---@return boolean # True if the reload was successful, False otherwise
+function M.reload(quiet)
+  local core_modules = { "astronvim.bootstrap", "astronvim.options", "astronvim.mappings" }
+  local modules = vim.tbl_filter(function(module) return module:find "^user%." end, vim.tbl_keys(package.loaded))
+
+  vim.tbl_map(require("plenary.reload").reload_module, vim.list_extend(modules, core_modules))
+
+  local success = true
+  for _, module in ipairs(core_modules) do
+    local status_ok, fault = pcall(require, module)
+    if not status_ok then
+      vim.api.nvim_err_writeln("Failed to load " .. module .. "\n\n" .. fault)
+      success = false
+    end
+  end
+  if not quiet then -- if not quiet, then notify of result
+    if success then
+      M.notify("AstroNvim successfully reloaded", vim.log.levels.INFO)
+    else
+      M.notify("Error reloading AstroNvim...", vim.log.levels.ERROR)
+    end
+  end
+  vim.cmd.doautocmd "ColorScheme"
+  return success
+end
+
 --- Insert one or more values into a list like table and maintain that you do not insert non-unique values (THIS MODIFIES `lst`)
----@param lst any[] The list like table that you want to insert into
+---@param lst any[]|nil The list like table that you want to insert into
 ---@param vals any|any[] Either a list like table of values to be inserted or a single value to be inserted
 ---@return any[] # The modified list like table
 function M.list_insert_unique(lst, vals)
+  if not lst then lst = {} end
   assert(vim.tbl_islist(lst), "Provided table is not a list like table")
   if not vim.tbl_islist(vals) then vals = { vals } end
+  local added = {}
+  vim.tbl_map(function(v) added[v] = true end, lst)
   for _, val in ipairs(vals) do
-    if not vim.tbl_contains(lst, val) then table.insert(lst, val) end
+    if not added[val] then
+      table.insert(lst, val)
+      added[val] = true
+    end
   end
   return lst
 end
@@ -43,14 +77,18 @@ end
 
 --- Get an icon from `lspkind` if it is available and return it
 ---@param kind string The kind of icon in `lspkind` to retrieve
+---@param padding? integer Padding to add to the end of the icon
+---@param no_fallback? boolean Whether or not to disable fallback to text icon
 ---@return string icon
-function M.get_icon(kind)
+function M.get_icon(kind, padding, no_fallback)
+  if not vim.g.icons_enabled and no_fallback then return "" end
   local icon_pack = vim.g.icons_enabled and "icons" or "text_icons"
   if not M[icon_pack] then
     M.icons = astronvim.user_opts("icons", require "astronvim.icons.nerd_font")
     M.text_icons = astronvim.user_opts("text_icons", require "astronvim.icons.text")
   end
-  return M[icon_pack] and M[icon_pack][kind] or ""
+  local icon = M[icon_pack] and M[icon_pack][kind]
+  return icon and icon .. string.rep(" ", padding or 0) or ""
 end
 
 --- Get highlight properties for a given highlight name
