@@ -51,7 +51,7 @@ def transcode(lista,path):
 		output = path_remodel(output)
 		#crf - lower = higher quality
 		#command = 'ffmpeg -n -i "' + i + '" -map 0:0 -map 0:1 -c:v libsvtav1 -preset 7 -crf 30 -b:v 0 ' + output 
-		command = 'ffmpeg -n -i "' + i + '" -map 0:0 -map 0:1 -c:v av1_nvenc -preset 1  -tune hq -cq 45  -b:v 0 ' + output 
+		command = 'ffmpeg -n -i "' + i + '" -map 0:0 -map 0:1 -c:a copy -c:v av1_nvenc -preset 1  -tune hq -cq 45  -b:v 0 ' + output 
 		os.system(command)
 		print(output)
 	pass

@@ -27,19 +27,19 @@ class UnsupportedUnitError(Exception):
     def __str__(self):
        return self.message
 
-def move(lista):
+def move(lista,cwd):
     #pwd = os.getcwd()
-    dir = "to_chechk"
+    directory = "to_check"
     #path = pwd + '/' + dir
-    if os.path.exists == False:
-        os.mkdir(dir)
+    if os.path.exists(cwd+"/"+directory) == False:
+        os.mkdir(directory)
     for i in lista:
-            target = dir + "/" + i
+            target = cwd + "/" + directory + "/" + i
             shutil.move( i , target)
 
 
 def main(arg):
-    
+    pwd = os.getcwd()
     flags = ['-s' , '-u' , '-d'] #list of flags
     units = ["kb" , "mb" , "gb" ] #list of supported filesizes
     
@@ -120,13 +120,13 @@ def main(arg):
                 to_move_list.append(i) #addd file to to_move_list
 
     #dry run flag
-    if not '-d' in arg: #if it's not in dry run mode 
-        move(to_move_list) #move fioles from list to directory
-            
-    else: #in the other case
-        #print files that passed through the sieve
+    if '-d' in arg: #if it's not in dry run mode 
         print("list of files to move")
         print(to_move_list)
+            
+    else: #in the other case
+        move(to_move_list , pwd ) #move fioles from list to directory
+        #print files that passed through the sieve
 
 if __name__ == "__main__":
 	main(sys.argv)
