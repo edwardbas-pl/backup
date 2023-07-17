@@ -1,104 +1,121 @@
 #!/bin/python3
-from natsort import natsorted # pip install natsort
-import shutil
 import sys
 import os
-#TODO make the scriot to be executed by default inside of the $HOME/Music directory
+import shutil
+#TODO add flag to copy only playlists
+#TODO add help page
 
-class PathDoesNotExist(Exception):
-    def __init__(self):
-        self.message = "provided path does not exist"
-    def __str__(self):
-        return self.message
+def chceck_args(args,flags_enabeld_dict):
+    flags = [ '-d' , "-v" ]
+    for i in args:
+        if i.lower() == '-v':
+            print("Running in verbose mode")
+            flags_enabeld_dict.update( {"Verbose Mode" : True })
+            args.remove(i)
+            pass
+        if i.lower() == '-d':
+            # print("dry run enabled")
+            if flags_enabeld_dict["Verbose Mode"] == True:
+                print("Enabled Dry Run")
+            flags_enabeld_dict.update( {"Dry Run" : True })
+            args.remove(i)
+            pass
+    for i in args:
+        if os.path.exists(i):
+            flags_enabeld_dict.update( { "Output Path" : str(i) } )
+        else:
+            args.remove(i)
+        pass
+    pass
 
-def move_unmoved(list,path):
-    to_move = natsorted(list)
-    for i in to_move:
-        shutil.copy2(i,path)
-
-def import_play_dir(playlist_file,target_dir):
-    dir_name=os.path.splitext(playlist_file)[0] #get rid of playlist file extension
-    dir_name=dir_name.replace(" ","_")
-    dir_to_create = target_dir+"/"+dir_name
-    #print("dir to create: " + dir_to_create)
-    os.system("mkdir -p " + dir_to_create)
-    raw_list = []
-    lista = []
-    with open(playlist_file) as love:
-        raw_list = love.readlines()
-    for i in raw_list:
-        i = i.replace("\n","")
-        print(i)
-        lista.append(i)
-        shutil.copy2( i , dir_to_create+"/")
-    return lista
-
-def filter_list(excludes):
-    ls = os.listdir(cwd)
-    mp3_list = []
+def find_files_by_extension( ls , extension : str) -> list:
+    file_list = []
     for i in ls:
-        extension = os.path.splitext(i)[1]
-        if extension == ".mp3":
-            if i in excludes:
+        if os.path.isdir(i) == False:
+            if os.path.splitext(i)[1] == extension:
+                file_list.append(i)
                 pass
-            else:
-                mp3_list.append(i)
-    #for i in mp3_list:
-     #   for j in excludes:
-      #      if i == j:
-       #         print(i)
-        #        mp3_list.remove(i)
-        #    else:
-         #       pass
-    #print("this should be list of umoved files: ")
-    return mp3_list
+        else:
+            pass
+    return file_list
 
-def get_playlists(dir):
-    ls = os.listdir(dir)
-    list = []
-    for i in ls:
-        extension = os.path.splitext(i)[1]
-        if extension == ".m3u":
-            print(i +" "+ "is a playlist")
-            list.append(i)
-    return list
+def print_help() -> None:
+    pass
 
-def main( arg ):
-    #print(len(arg))
-    global cwd
-    cwd = os.getcwd()
-#   ls = os.listdir(cwd)
+def main(args):
+    if '-h' or '--help' in args:
+        print_help()
+    flags = {
+            "Dry Run" : False,
+            "Verbose Mode" : False,
+            # "Output Path" : os.getcwd()
+            "Output Path" : "",
+            "PWD" : os.getcwd(),
+            "PWD_LS" : os.listdir(os.getcwd()) #content of working directory
+            }
+    Playlists = {} #Contains name of playlist file and its content
+    not_moved_list = flags["PWD_LS"]
     moved_list = []
-    path=arg[1]
-    raw_playlists = get_playlists(cwd)
-    for i in raw_playlists:
-        lista = import_play_dir(i,path)
-        print(lista)
+    # input("sorawdź tą liste")
+    chceck_args(args,flags)
 
-        for j in lista:
-            if j in moved_list:
+    if flags["Output Path"] == '':
+        print("no pathh was provided... exiting...")
+        exit()
+        pass
+    else:
+        if flags["Verbose Mode"] == True:
+            print("out path was provided")
+        pass
+
+    playlist_files_list = find_files_by_extension( flags["PWD_LS"] , ".m3u")
+    for i in playlist_files_list: #Populating the PLaylists dictionary
+        file_content = []
+        f = open(i,"r")
+        lines = f.readlines()
+        for line in lines:
+            line = line.replace("\n","")
+            file_content.append(line)
+            moved_list.append(line.replace("./",""))
+        pass
+        Playlists[i] = file_content
+    if flags["Verbose Mode"] == True: #Enabling more information if verbose mode was toogled 
+        print("Program found following playlist files")
+        print(str(playlist_files_list)+ "\n")
+        for i in Playlists:
+            print(i + ": " + str(Playlists[i]) + "\n")
+        pass
+    if len(Playlists) <= 0:
+        print("No Playlist file waas found...")
+        print("program wil copy all music files to provided directory")
+    if flags["Dry Run"] == False:
+        # print("dry run is not enabled. program will copy playlists into provided directory")
+        if flags["Verbose Mode"] == True:
+            print("Creating playlist direcrtories andcopying files")
+            pass
+        for i in Playlists:
+            folder_name = os.path.splitext(i)[0]
+            out_dir = flags["Output Path"] + "/" + folder_name + "/" + i
+            os.system("mkdir -p " + out_dir)
+            content = Playlists[i]
+            for j in content:
+                # print(j.replace("./",""))
+                shutil.copy2(j,out_dir+j.replace("./",""))
+                if flags["Verbose Mode"] == True:
+                    print(out_dir+j.replace("./",""))
                 pass
-            else:
-                moved_list.append(j)
-    #print(moved_list)
-    #print(len(moved_list))
-    unmoved_list = filter_list(moved_list)
-    move_unmoved(unmoved_list,path)
-
-    #print(unmoved_list)
-    #print(len(unmoved_list))
-
-    
-
+        pass
+    if flags["Verbose Mode"] == True:
+        print("copying unmoved files to the root of Outpuut path")
+    for i in moved_list:
+        if i in not_moved_list:
+            not_moved_list.remove(i)
+    for i in not_moved_list:
+        if flags["Verbose Mode"] == True:
+            print(i)
+            pass
+        shutil.copy2("./"+i , flags["Output Path"]+"/"+i )
+    return 0
 
 if __name__ == "__main__":
-    try:
-        if os.path.exists(sys.argv[1]) == False:
-            raise PathDoesNotExist
-        else:
-            main(sys.argv)
-    except PathDoesNotExist:
-        print('provided path does not exist')
-        quit()
-
-
+    main(sys.argv[1:])
