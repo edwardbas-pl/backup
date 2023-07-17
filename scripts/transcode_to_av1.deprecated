@@ -1,0 +1,104 @@
+#!/bin/python3
+import sys
+import ntpath
+from natsort import natsorted # pip install natsort
+import os
+#TODO exclude path from the directory from witch script is running
+#TODO check if transcode command was successfull or not
+#TODO add optimize space flag (compare output file size with source file. if source is smaler then remove output and copy input to the output path)
+
+global rootdir
+rootdir = os.getcwd()
+global video_file_extensions
+video_file_extensions = ['.mkv','.avi','.mp4','.webm']
+
+class PathDoesNotExist(Exception):
+	def __init__(self):
+		self.message = "provided path does not exist"
+	def __str__(self):
+		return self.message
+
+def path_remodel(path):
+	string = ''
+	txt = path.split("/")
+	txt =  txt[1:]
+	for i in txt:
+	    string = string + '/'
+	    string = string +  '"' + i + '"' 
+	    #string = string + '/'
+	return string
+
+def transcode(lista,path):
+	#pwd = os.getcwd()
+	#os.system('mkdir -p out')
+	for i in lista:
+	# i - path -to file
+	# file_name - file with excluded extension
+	# file filename + extension
+		file = (ntpath.basename(i))
+		file_name = os.path.splitext(file)[0]
+		if rootdir in i:
+			txt = i
+			txt = txt.replace(rootdir,'')
+			path_to_replicate = txt.replace(os.path.basename(txt),'')
+			dest_path = path + path_to_replicate 
+			os.system('mkdir -p ' + path_remodel(dest_path))
+			print(dest_path)
+		#file_name = file_name.replace(" ","\ ")
+		output_file_name = file_name + video_file_extensions[1]
+		output =   dest_path +  output_file_name 
+		output.replace('"','')
+		output = path_remodel(output)
+		#crf - lower = higher quality
+		#command = 'ffmpeg -n -i "' + i + '" -map 0:0 -map 0:1 -c:v libsvtav1 -preset 7 -crf 30 -b:v 0 ' + output 
+		command = 'ffmpeg -n -i "' + i + '" -map 0:0 -map 0:1 -c:a copy -c:v av1_nvenc -preset 1  -tune hq -cq 45  -b:v 0 ' + output 
+		os.system(command)
+		print(output)
+	pass
+
+def crawl():
+	pwd = os.getcwd()
+	ls=os.listdir(pwd)
+	ls = natsorted(ls)
+	list_to_transcode = []
+	for i in ls:
+		if os.path.isdir(i) == True:
+			if 'out' == i:
+				pass
+			else:
+				os.chdir(i)
+				#print(i + 'is a directory being recursive...')
+				output = crawl()
+				os.chdir('../')
+				for j in output:
+					list_to_transcode.append(j)
+		else:
+			extension = os.path.splitext(i)[1]
+			if extension in video_file_extensions:
+				#print(i + "is a supported video")
+				list_to_transcode.append(os.getcwd()+'/'+i)
+	return(list_to_transcode)
+
+def main(args):
+	global path
+	if len(args) > 1:
+		try:
+			path_check = os.path.exists(args[1])
+			#print(path_check)
+			if path_check == False:
+				raise PathDoesNotExist
+			else:
+				path = args[1]
+		except PathDoesNotExist:
+			print("provided path does not exist")
+			quit()
+	else:
+		pwd = os.getcwd()
+		path = pwd + '/out'
+	list = crawl()
+	transcode(list,path)
+	#print(path)
+
+if __name__ == "__main__":
+	main(sys.argv)
+

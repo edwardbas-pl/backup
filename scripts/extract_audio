@@ -1,0 +1,24 @@
+#!/bin/python3
+import sys
+import ntpath
+from natsort import natsorted # pip install natsort
+import os
+#TODO exclude path from the directory from witch script is running
+#TODO check if transcode command was successfull or not
+#TODO add optimize space flag (compare output file size with source file. if source is smaler then remove output and copy input to the output path)
+
+def main():
+    PWD = os.getcwd()
+    LS = os.listdir(PWD)
+    LS = natsorted(LS)
+    for i in LS:
+        if os.path.isdir(i) == False:
+            # print(i)
+            name = os.path.splitext(i)[0]
+            command = 'ffmpeg -i "'+i+'" -map 0:1 -acodec libmp3lame "'+ name+'.mp3"'
+            os.system(command)
+            print(command)
+    return 0
+
+if __name__ == "__main__":
+    main()
