@@ -12,14 +12,13 @@ fi
 export VITASDK=/usr/local/vitasdk
 export LC_ALL="C"
 export EDITOR="vim"
-#export TERMINAL="kitty"
-export TERMINAL="alacritty"
+export TERMINAL="kitty"
 export WINEPREFIX="$HOME/.config/wine"
 export BROWSER="firefox"
-export PATH="$PATH:$HOME/.local/bin/"
 export PATH="$PATH:$HOME/.scripts"
 export PATH="$PATH:$HOME/.scripts/DEPLOY"
 export PATH="$PATH:$HOME/.scripts/TRANSCODE"
+export PATH="$PATH:$HOME/.scripts/screens"
 export PATH=$VITASDK/bin:$PATH # add vitasdk tool to $PATH
 export QT_QPA_PLATFORMTHEME="gnome"
 export CARGO_HOME="$XDG_DATA_HOME"/cargo

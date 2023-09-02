@@ -1,2 +1,2 @@
 #!/bin/bash
-yt-dlp  $1 ./playlists.yt -o "%(channel)s/%(playlist)s/%(playlist_index)s  - %(title)s - [%(id)s].%(ext)s" --embed-thumbnail
+yt-dlp  -f 'bestvideo+bestaudio' $1 ./playlists.yt -o "%(channel)s/%(playlist)s/%(playlist_index)s  - %(title)s - [%(id)s].%(ext)s" --embed-thumbnail -f bestvideo+bestaudio

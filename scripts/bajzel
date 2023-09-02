@@ -21,7 +21,7 @@ def main( *args ):
         os.mkdir(pattern)
     target_dir = pattern
     for i in ls:
-        if pattern in i:
+        if pattern.lower() in i.lower():
             target = target_dir + "/" + i
             shutil.move( i , target)
 

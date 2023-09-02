@@ -35,11 +35,14 @@ def crawl( flags , dir_name=None ) -> list:
     lista = []
     for i in os.listdir(os.getcwd()):
         if os.path.isdir(i) == True:
-            os.chdir(i)
-            output = crawl( flags,dir_name + i + "/" )
-            os.chdir( ".." )
-            for i in output:
-                lista.append(i)
+            if i == "out_mp3" or i == 'out_aac':
+                pass
+            else:
+                os.chdir(i)
+                output = crawl( flags,dir_name + i + "/" )
+                os.chdir( ".." )
+                for i in output:
+                    lista.append(i)
         elif os.path.isdir(i) == False:
             lista.append( dir_name + i )
     return list(lista)
@@ -64,17 +67,17 @@ def main(args):
             "PWD_LS" : os.listdir(os.getcwd()) #content of working directory
             }
     for i in flags["PWD_LS"]:
-        if i == 'out':
+        if i == 'out_mp3' or i == 'out_aac':
             if os.path.isdir(i):
                 flags["PWD_LS"].remove(i)
 
     chceck_args( args , flags)
     file_list = crawl( flags , "/")
-    extensions = [ ".mkv" , ".mp3" , ".avi" , ".mov" , ".webm" ]
+    extensions = [ ".mp3" , ".flac" , ".wav" , ".m4a"  ]
     filtered_list = filter_files_by_extensiosn( file_list,extensions )
     
     if flags["Output Path"] == "":
-        path = flags["PWD"] + "/out/"
+        path = flags["PWD"] + "/out_mp3/"
         flags.update( {"Output Path": path} )
     else:
         path = flags["Output Path"]
@@ -85,12 +88,15 @@ def main(args):
         filename = os.path.basename(i)
         path_to_replicate = flags["Output Path"] + i.replace(filename,'')
         path_to_replicate = path_to_replicate.replace("//","/")
-        output_filename = os.path.basename(os.path.splitext(i)[0]+'.avi')
+        output_filename = os.path.basename(os.path.splitext(i)[0]+'.mp3')
         input_file = flags["PWD"] + i
         output_file = path_to_replicate + output_filename
         output_file = output_file.replace("//","/")
         os.system( 'mkdir -p "' + path_to_replicate+'"' )
-        command = 'ffmpeg -n -i "' + input_file + '" -probesize 10M  -acodec mp3 -c:v av1_nvenc -preset 1  -tune hq -cq 45  -b:v 0 "' + output_file+'"'
+        # command = 'ffmpeg -n -i "' + input_file + '"   -c:v av1_nvenc -preset 1  -tune hq -cq 45  -b:v 0 -map 0:a "' + output_file+'"'
+        command = 'ffmpeg -n -i "' + input_file + '" -acodec libmp3lame -q:a 1 "' + output_file + '"'
+
+        # command = 'ffmpeg -n -i "' + input_file + '"  -c:v copy -c:a alac -ar 44100  -sample_fmt s16p "' + output_file + '"'
         os.system( command )
     return 0
 

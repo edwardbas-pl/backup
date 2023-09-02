@@ -18,6 +18,7 @@ export BROWSER="firefox"
 export PATH="$PATH:$HOME/.scripts"
 export PATH="$PATH:$HOME/.scripts/DEPLOY"
 export PATH="$PATH:$HOME/.scripts/TRANSCODE"
+export PATH="$PATH:$HOME/.scripts/screens"
 export PATH=$VITASDK/bin:$PATH # add vitasdk tool to $PATH
 export QT_QPA_PLATFORMTHEME="gnome"
 export CARGO_HOME="$XDG_DATA_HOME"/cargo

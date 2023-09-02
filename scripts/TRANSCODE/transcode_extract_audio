@@ -1,0 +1,102 @@
+#!/bin/python3
+import sys
+import os
+import shutil
+#TODO add help page
+
+def path_remodel( path:str ) -> str:
+	string = ''
+	txt = path.split("/")
+	txt =  txt[1:]
+	for i in txt:
+	    string = string + '/'
+	    string = string +  '"' + i + '"' 
+	return str(string)
+
+def chceck_args( args:list , flags_enabeld_dict:dict ) -> None:
+    flags = [ '-d' , "-o" ]
+    for i in args:
+        if i.lower() == '-d':
+            flags_enabeld_dict.update( { "Dry Run": True } )
+            args.remove((i))
+    if len(args) == 1:
+        path = args[0]
+        try:
+            if os.path.exists(path) == True:
+                print("path exists")
+                flags_enabeld_dict.update( { "Output Path":path  } )
+            else:
+                raise ValueError("")
+        except ValueError:
+            print("Provided path does not exists")
+    return None
+
+def crawl( flags , dir_name=None ) -> list:
+    lista = []
+    for i in os.listdir(os.getcwd()):
+        if os.path.isdir(i) == True:
+            if i == "out":
+                pass
+            else:
+                os.chdir(i)
+                output = crawl( flags,dir_name + i + "/" )
+                os.chdir( ".." )
+                for i in output:
+                    lista.append(i)
+        elif os.path.isdir(i) == False:
+            lista.append( dir_name + i )
+    return list(lista)
+
+def filter_files_by_extensiosn( file_list , extension_list ) -> list:
+    filtered_ist = []
+    for i in file_list:
+        if os.path.splitext(i)[1] in extension_list:
+            filtered_ist.append(i)
+    return list(filtered_ist)
+
+def print_help() -> None:
+    pass
+
+def main(args):
+    if '-h' or '--help' in args:
+        print_help()
+    flags = {
+            "Dry Run" : False,
+            "Output Path" : "",
+            "PWD" : os.getcwd(),
+            "PWD_LS" : os.listdir(os.getcwd()) #content of working directory
+            }
+    for i in flags["PWD_LS"]:
+        if i == 'out':
+            if os.path.isdir(i):
+                flags["PWD_LS"].remove(i)
+
+    chceck_args( args , flags)
+    file_list = crawl( flags , "/")
+    extensions = [ ".mkv" , ".mp4" , ".avi" , ".mov" , ".webm" ]
+    filtered_list = filter_files_by_extensiosn( file_list,extensions )
+    
+    if flags["Output Path"] == "":
+        path = flags["PWD"] + "/out/"
+        flags.update( {"Output Path": path} )
+    else:
+        path = flags["Output Path"]
+        flags.update( {"Output Path": path} )
+    # print( flags["Output Path"] )
+
+    for i in filtered_list:
+        filename = os.path.basename(i)
+        path_to_replicate = flags["Output Path"] + i.replace(filename,'')
+        path_to_replicate = path_to_replicate.replace("//","/")
+        output_filename = os.path.basename(os.path.splitext(i)[0]+'.mp3')
+        input_file = flags["PWD"] + i
+        output_file = path_to_replicate + output_filename
+        output_file = output_file.replace("//","/")
+        os.system( 'mkdir -p "' + path_to_replicate+'"' )
+        command = 'ffmpeg -n -i "' + input_file + '"   -c:v av1_nvenc -preset 1  -tune hq -cq 45  -b:v 0 -map 0:a "' + output_file+'"'
+        command = 'ffmpeg -i "' + input_file + '" -vn -acodec libmp3lame "' + output_file + '"'
+        os.system( command )
+    return 0
+
+if __name__ == "__main__":
+    main( sys.argv[1:] )
