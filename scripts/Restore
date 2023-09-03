@@ -18,6 +18,7 @@ mkdir -p $HOME/.scripts
 mkdir -p $HOME/Pictures
 mkdir -p $HOME/Pictures/Wallpapers
 mkdir -p $HOME/.templates
+mkdir -p $HOME/.local/share/nemo/actions
 mkdir -p $config/kitty
 mkdir -p $config/dunst
 mkdir -p $config/picom
@@ -55,6 +56,7 @@ cp $path/bspwm/*			$config/bspwm
 cp $path/sxhkd/*			$config/sxhkd
 cp $path/dconf/*			$config/dconf
 cp $path/dwm/*				$config/dwm/
+cp $path/nemo/actions       $HOME/.local/share/nemo/actions
 cp $path/nvim/init.lua				$config/nvim/
 cp $path/hypr/*				$config/dwm/
 cp -r $path/waybar/*				$config/dwm/

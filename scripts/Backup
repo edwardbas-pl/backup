@@ -35,6 +35,7 @@ mkdir -p nvim
 mkdir -p waybar
 mkdir -p hypr
 mkdir -p rofi
+mkdir -p nemo/actions
 
 
 sudo mkdir -p /usr/share/backgrounds/
@@ -47,6 +48,7 @@ cp -r 	/usr/share/icons/Marwaita-Dark				$path/icons/
 cp -r 	/usr/share/icons/WinSur-dark-cursors			$path/icons/
 cp   	$HOME/.config/compton.conf				$path/compton.conf
 cp 	$HOME/.templates/*					$path/vim-templates
+
 
 # cp $config
 
@@ -76,6 +78,7 @@ cp $HOME/.vimrc			$path/vimrc
 cp $HOME/.profile		$path/profile
 cp $HOME/.xinitrc 		$path/xinitrc
 cp $config/dconf/*		$path/dconf
+cp $HOME/.local/share/nemo/actions/* $path/nemo/actions
 cp ~/.scripts/Restore		$path/Restore
 cp /etc/lightdm/*		$path/lightdm
 cp ~/.gtkrc-2.0			$path/gtkrc-2.0
