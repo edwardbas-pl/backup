@@ -35,11 +35,14 @@ def crawl( flags , dir_name=None ) -> list:
     lista = []
     for i in os.listdir(os.getcwd()):
         if os.path.isdir(i) == True:
-            os.chdir(i)
-            output = crawl( flags,dir_name + i + "/" )
-            os.chdir( ".." )
-            for i in output:
-                lista.append(i)
+            if i == "out":
+                print("found output directory")
+            else:
+                os.chdir(i)
+                output = crawl( flags,dir_name + i + "/" )
+                os.chdir( ".." )
+                for i in output:
+                    lista.append(i)
         elif os.path.isdir(i) == False:
             lista.append( dir_name + i )
     return list(lista)

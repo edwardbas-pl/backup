@@ -95,12 +95,12 @@ def main(args):
             pass
         for i in Playlists:
             folder_name = os.path.splitext(i)[0]
-            out_dir = flags["Output Path"] + "/" + folder_name + "/" + i
+            out_dir = flags["Output Path"] + folder_name
             os.system("mkdir -p " + out_dir)
             content = Playlists[i]
             for j in content:
                 # print(j.replace("./",""))
-                shutil.copy2(j,out_dir+j.replace("./",""))
+                shutil.copy2(j,out_dir+'/'+j.replace("./",""))
                 if flags["Verbose Mode"] == True:
                     print(out_dir+j.replace("./",""))
                 pass
@@ -110,11 +110,17 @@ def main(args):
     for i in moved_list:
         if i in not_moved_list:
             not_moved_list.remove(i)
+    not_moved_dir = flags["Output Path"]+ "other" + '/' 
+    os.system( 'mkdir -p ' + not_moved_dir )
     for i in not_moved_list:
         if flags["Verbose Mode"] == True:
             print(i)
             pass
-        shutil.copy2("./"+i , flags["Output Path"]+"/"+i )
+        #print(not_moved_dir)
+        #shutil.copy2(i,out_dir+'/'+i.replace("./",""))
+        if os.path.isdir(i) == False:
+            if os.path.splitext(i)[1] != ".m3u":
+                shutil.copy2(i , not_moved_dir  )
     return 0
 
 if __name__ == "__main__":

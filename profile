@@ -9,6 +9,9 @@ sub='pts'
 if [[ "$session" =~ .*"$SUB".* ]]; then
 	export GAMESCOPE=0
 fi
+if [[ $XDG_SESSION_TYPE == "wayland" ]]; then
+	MOZ_ENABLE_WAYLAND=1
+fi
 export VITASDK=/usr/local/vitasdk
 export LC_ALL="C"
 export EDITOR="vim"
