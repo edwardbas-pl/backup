@@ -42,6 +42,7 @@ return {
         TypeParameter = "󰊄",
         Unit = "",
       },
+      menu = {},
     },
     enabled = vim.g.icons_enabled,
     config = require "plugins.configs.lspkind",
@@ -49,21 +50,25 @@ return {
   {
     "rcarriga/nvim-notify",
     init = function() require("astronvim.utils").load_plugin_with_func("nvim-notify", vim, "notify") end,
-    opts = { on_open = function(win) vim.api.nvim_win_set_config(win, { zindex = 1000 }) end },
+    opts = {
+      on_open = function(win)
+        vim.api.nvim_win_set_config(win, { zindex = 175 })
+        if not vim.g.ui_notifications_enabled then vim.api.nvim_win_close(win, true) end
+        if not package.loaded["nvim-treesitter"] then pcall(require, "nvim-treesitter") end
+        vim.wo[win].conceallevel = 3
+        local buf = vim.api.nvim_win_get_buf(win)
+        if not pcall(vim.treesitter.start, buf, "markdown") then vim.bo[buf].syntax = "markdown" end
+        vim.wo[win].spell = false
+      end,
+    },
     config = require "plugins.configs.notify",
   },
   {
     "stevearc/dressing.nvim",
     init = function() require("astronvim.utils").load_plugin_with_func("dressing.nvim", vim.ui, { "input", "select" }) end,
     opts = {
-      input = {
-        default_prompt = "➤ ",
-        win_options = { winhighlight = "Normal:Normal,NormalNC:Normal" },
-      },
-      select = {
-        backend = { "telescope", "builtin" },
-        builtin = { win_options = { winhighlight = "Normal:Normal,NormalNC:Normal" } },
-      },
+      input = { default_prompt = "➤ " },
+      select = { backend = { "telescope", "builtin" } },
     },
   },
   {
@@ -75,50 +80,28 @@ return {
   {
     "lukas-reineke/indent-blankline.nvim",
     event = "User AstroFile",
+    main = "ibl",
     opts = {
-      buftype_exclude = {
-        "nofile",
-        "terminal",
+      indent = { char = "▏" },
+      scope = { show_start = false, show_end = false },
+      exclude = {
+        buftypes = {
+          "nofile",
+          "terminal",
+        },
+        filetypes = {
+          "help",
+          "startify",
+          "aerial",
+          "alpha",
+          "dashboard",
+          "lazy",
+          "neogitstatus",
+          "NvimTree",
+          "neo-tree",
+          "Trouble",
+        },
       },
-      filetype_exclude = {
-        "help",
-        "startify",
-        "aerial",
-        "alpha",
-        "dashboard",
-        "lazy",
-        "neogitstatus",
-        "NvimTree",
-        "neo-tree",
-        "Trouble",
-      },
-      context_patterns = {
-        "class",
-        "return",
-        "function",
-        "method",
-        "^if",
-        "^while",
-        "jsx_element",
-        "^for",
-        "^object",
-        "^table",
-        "block",
-        "arguments",
-        "if_statement",
-        "else_clause",
-        "jsx_element",
-        "jsx_self_closing_element",
-        "try_statement",
-        "catch_clause",
-        "import_statement",
-        "operation_type",
-      },
-      show_trailing_blankline_indent = false,
-      use_treesitter = true,
-      char = "▏",
-      context_char = "▏",
-      show_current_context = true,
     },
   },
 }

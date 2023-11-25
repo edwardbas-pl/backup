@@ -1,7 +1,7 @@
 return {
   "nvim-lua/plenary.nvim",
+  "echasnovski/mini.bufremove",
   { "AstroNvim/astrotheme", opts = { plugins = { ["dashboard-nvim"] = true } } },
-  { "famiu/bufdelete.nvim", cmd = { "Bdelete", "Bwipeout" } },
   { "max397574/better-escape.nvim", event = "InsertCharPre", opts = { timeout = 300 } },
   { "NMAC427/guess-indent.nvim", event = "User AstroFile", config = require "plugins.configs.guess-indent" },
   { -- TODO: REMOVE neovim-session-manager with AstroNvim v4
@@ -14,19 +14,23 @@ return {
     "stevearc/resession.nvim",
     enabled = vim.g.resession_enabled == true,
     opts = {
-      buf_filter = function(bufnr) return require("astronvim.utils.buffer").is_valid(bufnr) end,
+      buf_filter = function(bufnr) return require("astronvim.utils.buffer").is_restorable(bufnr) end,
       tab_buf_filter = function(tabpage, bufnr) return vim.tbl_contains(vim.t[tabpage].bufs, bufnr) end,
       extensions = { astronvim = {} },
     },
   },
-  { "s1n7ax/nvim-window-picker", opts = { use_winbar = "smart" } },
+  {
+    "s1n7ax/nvim-window-picker",
+    main = "window-picker",
+    opts = { picker_config = { statusline_winbar_picker = { use_winbar = "smart" } } },
+  },
   {
     "mrjones2014/smart-splits.nvim",
     opts = { ignored_filetypes = { "nofile", "quickfix", "qf", "prompt" }, ignored_buftypes = { "nofile" } },
   },
   {
     "windwp/nvim-autopairs",
-    event = "InsertEnter",
+    event = "User AstroFile",
     opts = {
       check_ts = true,
       ts_config = { java = false },
@@ -100,6 +104,16 @@ return {
     "akinsho/toggleterm.nvim",
     cmd = { "ToggleTerm", "TermExec" },
     opts = {
+      highlights = {
+        Normal = { link = "Normal" },
+        NormalNC = { link = "NormalNC" },
+        NormalFloat = { link = "NormalFloat" },
+        FloatBorder = { link = "FloatBorder" },
+        StatusLine = { link = "StatusLine" },
+        StatusLineNC = { link = "StatusLineNC" },
+        WinBar = { link = "WinBar" },
+        WinBarNC = { link = "WinBarNC" },
+      },
       size = 10,
       on_create = function()
         vim.opt.foldcolumn = "0"
@@ -108,10 +122,7 @@ return {
       open_mapping = [[<F7>]],
       shading_factor = 2,
       direction = "float",
-      float_opts = {
-        border = "curved",
-        highlights = { border = "Normal", background = "Normal" },
-      },
+      float_opts = { border = "rounded" },
     },
   },
 }

@@ -73,7 +73,7 @@ def main(args):
 
     chceck_args( args , flags)
     file_list = crawl( flags , "/")
-    extensions = [ ".mp3" , ".flac" , ".wav" , ".m4a"  ]
+    extensions = [ ".mp3" , ".flac" , ".wav" , ".m4a" , ".ogg"  ]
     filtered_list = filter_files_by_extensiosn( file_list,extensions )
     
     if flags["Output Path"] == "":

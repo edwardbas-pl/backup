@@ -44,6 +44,10 @@ extract () {
     esac
 }
 
+detach () {
+    nohup $1 > /dev/null 2> /dev/null && notify-send "done $1"
+}
+
 2clip (){
 	xclip -sel clip $1
 }

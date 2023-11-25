@@ -93,8 +93,9 @@ def main(args):
         output_file = path_to_replicate + output_filename
         output_file = output_file.replace("//","/")
         os.system( 'mkdir -p "' + path_to_replicate+'"' )
-        command = 'ffmpeg -n -i "' + input_file + '"   -c:v av1_nvenc -preset 1  -tune hq -cq 45  -b:v 0 -map 0:a "' + output_file+'"'
-        command = 'ffmpeg -n -i "' + input_file + '"  -c:v copy -c:a alac -ar 44100  -sample_fmt s16p "' + output_file + '"'
+        #command = 'ffmpeg -n -i "' + input_file + '"   -c:v av1_nvenc -preset 1  -tune hq -cq 45  -b:v 0 -map 0:a "' + output_file+'"'
+        # command = 'ffmpeg -n -i "' + input_file + '"  -c:v copy -c:a alac -ar 36000  -sample_fmt s16p "' + output_file + '"'
+        command = 'ffmpeg -n -i "' + input_file + '" -strict experimental -c:a aac -b:a 128k "' +output_file+ '"'
         os.system( command )
     return 0
 
