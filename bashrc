@@ -44,6 +44,12 @@ extract () {
     esac
 }
 
+find_and_copy (){
+    # echo $2
+    # find . -iname $1 -print0 | xargs -0 -I {} cp {} $2
+    find $PWD -iname "$1" -print0 | xargs -0 -I {} cp {} "$2"
+}
+
 detach () {
     nohup $1 > /dev/null 2> /dev/null && notify-send "done $1"
 }

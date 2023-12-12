@@ -77,6 +77,7 @@ def main(args):
             line = line.replace("\n","")
             file_content.append(line)
             moved_list.append(line.replace("./",""))
+        file_content.append(i)
         pass
         Playlists[i] = file_content
     if flags["Verbose Mode"] == True: #Enabling more information if verbose mode was toogled 
@@ -120,7 +121,8 @@ def main(args):
         #shutil.copy2(i,out_dir+'/'+i.replace("./",""))
         if os.path.isdir(i) == False:
             if os.path.splitext(i)[1] != ".m3u":
-                shutil.copy2(i , not_moved_dir  )
+                if os.path.exists(i):
+                    shutil.copy2(i , not_moved_dir  )
     return 0
 
 if __name__ == "__main__":

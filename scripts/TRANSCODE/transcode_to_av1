@@ -73,7 +73,7 @@ def main(args):
 
     chceck_args( args , flags)
     file_list = crawl( flags , "/")
-    extensions = [ ".mkv" , ".mp4" , ".avi" , ".mov" , ".webm" ]
+    extensions = [ ".mkv" , ".mp4" , ".avi" , ".mov" , ".webm" ,".ts" ]
     filtered_list = filter_files_by_extensiosn( file_list,extensions )
     
     if flags["Output Path"] == "":
