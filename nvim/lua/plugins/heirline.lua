@@ -6,11 +6,10 @@ return {
     return {
       opts = {
         disable_winbar_cb = function(args)
-          return not require("astronvim.utils.buffer").is_valid(args.buf)
-            or status.condition.buffer_matches({
-              buftype = { "terminal", "prompt", "nofile", "help", "quickfix" },
-              filetype = { "NvimTree", "neo%-tree", "dashboard", "Outline", "aerial" },
-            }, args.buf)
+          return status.condition.buffer_matches({
+            buftype = { "terminal", "prompt", "nofile", "help", "quickfix" },
+            filetype = { "NvimTree", "neo%-tree", "dashboard", "Outline", "aerial" },
+          }, args.buf)
         end,
       },
       statusline = { -- statusline
@@ -49,18 +48,10 @@ return {
         { -- file tree padding
           condition = function(self)
             self.winid = vim.api.nvim_tabpage_list_wins(0)[1]
-            return status.condition.buffer_matches({
-              filetype = {
-                "NvimTree",
-                "OverseerList",
-                "aerial",
-                "dap-repl",
-                "dapui_.",
-                "edgy",
-                "neo%-tree",
-                "undotree",
-              },
-            }, vim.api.nvim_win_get_buf(self.winid))
+            return status.condition.buffer_matches(
+              { filetype = { "aerial", "dapui_.", "neo%-tree", "NvimTree" } },
+              vim.api.nvim_win_get_buf(self.winid)
+            )
           end,
           provider = function(self) return string.rep(" ", vim.api.nvim_win_get_width(self.winid) + 1) end,
           hl = { bg = "tabline_bg" },
@@ -84,7 +75,6 @@ return {
         },
       },
       statuscolumn = vim.fn.has "nvim-0.9" == 1 and {
-        init = function(self) self.bufnr = vim.api.nvim_get_current_buf() end,
         status.component.foldcolumn(),
         status.component.fill(),
         status.component.numbercolumn(),

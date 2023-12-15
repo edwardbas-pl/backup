@@ -6,13 +6,7 @@ return function(_, opts)
   cmd("MasonUpdate", function(options) require("astronvim.utils.mason").update(options.fargs) end, {
     nargs = "*",
     desc = "Update Mason Package",
-    complete = function(arg_lead)
-      local _ = require "mason-core.functional"
-      return _.sort_by(
-        _.identity,
-        _.filter(_.starts_with(arg_lead), require("mason-registry").get_installed_package_names())
-      )
-    end,
+    complete = "custom,v:lua.mason_completion.available_package_completion",
   })
   cmd(
     "MasonUpdateAll",
