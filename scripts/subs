@@ -1,0 +1,27 @@
+#!/bin/python
+import os
+import subprocess
+
+def main():
+    extension_list = [ ".mkv" , ".mp4" , ".avi" ]
+    pwd = os.getcwd()
+    ls = os.listdir(pwd)
+    for i in ls:
+        extension = os.path.splitext(i)[1]
+        if os.path.isdir(i) == False and extension in extension_list:
+            # print(os.path.splitext(i)[1])
+            print("subtitles for:" + i)
+            subs = subprocess.getoutput("ffprobe -loglevel error -select_streams s -show_entries stream=index:stream_tags=language -of csv=p=0 " + i)
+            subs = subs.split('\n')
+            table_of_content = []
+            for j in subs:
+                lang = j.split(',')
+                print("extracting " + lang[1] + " from "  + i )
+                command = "ffmpeg -nostdin -hide_banner -loglevel quiet -i " + i +" -map 0:" + lang[0] + " " + os.path.splitext(i)[0] + "." + lang[1] + ".srt"
+                os.system(command)
+        else:
+            pass
+    return 0
+
+if __name__ == "__main__":
+    main()
