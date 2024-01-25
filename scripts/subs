@@ -3,7 +3,7 @@ import os
 import subprocess
 
 def main():
-    extension_list = [ ".mkv" , ".mp4" , ".avi" ]
+    extension_list = [ ".mkv" , ".mp4" , ".avi" , ".ts" ]
     pwd = os.getcwd()
     ls = os.listdir(pwd)
     for i in ls:
