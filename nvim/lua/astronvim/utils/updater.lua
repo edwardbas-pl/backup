@@ -56,7 +56,13 @@ function M.generate_snapshot(write)
       if plugin.version then
         file:write(("version = %q"):format(plugin.version))
       else
-        file:write(("commit = %q"):format(plugin.commit))
+        file:write(
+          ( -- add hard code for neovim 0.8 support
+            plugin[1] == "nvim-treesitter/nvim-treesitter"
+              and 'vim.fn.has "nvim-0.9" ~= 1 and "63260da18bf273c76b8e2ea0db84eb901cab49ce" or %q'
+            or "commit = %q"
+          ):format(plugin.commit)
+        )
       end
       file:write ", optional = true },\n"
     end
@@ -268,17 +274,12 @@ function M.update(opts)
     -- calculate and print the changelog
     local changelog = git.get_commit_range(source, target)
     local breaking = git.breaking_changes(changelog)
-    if
-      #breaking > 0
-      and not opts.skip_prompts
-      and not confirm_prompt(
-        ("Update contains the following breaking changes:\n%s\nWould you like to continue?"):format(
-          table.concat(breaking, "\n")
-        ),
-        "Warning"
-      )
-    then
-      echo(cancelled_message)
+    if #breaking > 0 then
+      echo {
+        { "Cannot update to AstroNvim v4 due to changes in the installation and management\n", "ErrorMsg" },
+        { "Please check the documentation for update instructions: ", "Title" },
+        { "https://docs.astronvim.com", "String" },
+      }
       return
     end
     -- attempt an update

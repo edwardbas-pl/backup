@@ -1,0 +1,119 @@
+#!/bin/python3
+import sys
+import os
+import time
+
+
+def walk( searched_extensions:list ) -> list:
+    file_list = []
+    for root, dirs, files in os.walk(".", topdown=False):
+        for name in files:
+            tmp_list = []
+            if './out' in  root:
+                pass
+            else:
+                if os.path.splitext(name)[1] in searched_extensions:
+                    tmp_list.append(root) #path where file is located
+                    tmp_list.append(name) #file name
+                    tmp_list.append(root.replace("./","/")) #path to replicate in the output directory
+                    file_list.append(tmp_list)
+    return file_list
+
+def main( args = None ):
+    flags = {
+        "OUTPUT_DIR":"./out/",
+        "MEDIA FORMAT":"AV1",
+        "file_extensions":['.avi','.mkv','.mp4','.webm'],
+        "available_formats":[ "AV1" , "mp3", "aac" , "alac", "ipod_video" ],
+        "VERBOSE":False
+    }
+    print(flags["file_extensions"])
+    if args is not None:
+        for i in args:
+            if i in flags["available_formats"]:
+                if i == "AV1":
+                    pass
+                if i == "mp3":
+                    flags["MEDIA FORMAT"] = "mp3"
+                    flags["file_extensions"] = [".mp3" , ".flac", ".m4a"]
+                    pass
+                if i == "aac":
+                    flags["MEDIA FORMAT"] = "aac"
+                    flags["file_extensions"] = [".mp3" , ".flac", ".m4a"]
+                    pass
+                if i == "alac":
+                    flags["MEDIA FORMAT"] = "alac"
+                    flags["file_extensions"] = [".mp3" , ".flac", ".m4a"]
+                    pass
+                if i == "ipod_video":
+                    flags["MEDIA FORMAT"] = "ipod"
+                    pass
+                pass
+            if i == "-o":
+                try:
+                    index = args.index(i)
+                    value = args[index+1]
+                    if os.path.exists(value) == False:
+                        raise ValueError
+                    else:
+                        flags["OUTPUT_DIR"] = value
+                except IndexError:
+                    print("output path needs to be provided")
+                    return 1
+                except ValueError:
+                    print("provided output path does not exists")
+                    return 1
+            pass
+    else:
+        pass
+    print(flags)
+    file_extensions_list = flags["file_extensions"]
+    files_found = walk(file_extensions_list)
+    for i in files_found:
+        time.sleep(0.1)
+        command = None
+        output_file = None
+        input_file = i[0]+'/'+i[1]
+        if flags["MEDIA FORMAT"] == "AV1":
+            os.system('mkdir -p "'  + flags["OUTPUT_DIR"]+i[2] + '"')
+            output_file = flags["OUTPUT_DIR"] + i[2] + '/' + os.path.splitext(i[1])[0] + ".mkv"
+            command = 'ffmpeg -n -i "' + input_file + '" -probesize 10M   -map 0:a  -map 0:v -acodec copy -c:v av1_nvenc -preset 1  -tune hq -cq 35  -b:v 0 "' + output_file+'"'
+
+        if flags["MEDIA FORMAT"] == "mp3":
+            os.system('mkdir -p "'  + flags["OUTPUT_DIR"]+i[2] + '"')
+            output_file = flags["OUTPUT_DIR"] + i[2] + '/' + os.path.splitext(i[1])[0] + ".mp3"
+            command = 'ffmpeg -n -i "' + input_file + '" -acodec libmp3lame -q:a 1 "' + output_file + '"'
+
+        if flags["MEDIA FORMAT"] == "alac":
+            os.system('mkdir -p "'  + flags["OUTPUT_DIR"]+i[2] + '"')
+            output_file = flags["OUTPUT_DIR"] + i[2] + '/' + os.path.splitext(i[1])[0] + ".m4a"
+            command = 'ffmpeg -n -i "' + input_file + '"  -c:v copy -c:a alac -ar 44100  -sample_fmt s16p "' + output_file + '"'
+
+        if flags["MEDIA FORMAT"] == "aac":
+            os.system('mkdir -p "'  + flags["OUTPUT_DIR"]+i[2] + '"')
+            output_file = flags["OUTPUT_DIR"] + i[2] + '/' + os.path.splitext(i[1])[0] + ".m4a"
+            # command = 'ffmpeg -i "'+input_file+'" -strict experimental -c:a aac -b:a 128k "' +output_file +'"'
+            # command = 'ffmpeg -n -i "' + input_file + '"  -c:v copy -c:a aac -b 44100  -sample_fmt s16p "' + output_file + '"'
+            command = 'ffmpeg -i "' + input_file + '" -c:v copy  -c:a aac -b:a 44100 "' + output_file + '"'
+
+        if flags["MEDIA FORMAT"] == "ipod":
+            os.system('mkdir -p "'  + flags["OUTPUT_DIR"]+i[2] + '"')
+            output_file = flags["OUTPUT_DIR"] + i[2] + '/' + os.path.splitext(i[1])[0] + ".mp4"
+            command = 'ffmpeg -i "'+input_file+'" -vcodec libxvid -b:a 300 -qmin 3 -qmax 5 -bufsize 4096 -g 300 -acodec aac -ab 128k -s 568x320 -aspect 4:3 "'+output_file+'"'
+        if command and output_file != None :
+            if os.path.exists(output_file):
+                pass
+            else:
+                os.system(command)
+        else:
+            raise ValueError
+    return 0
+
+if __name__ == "__main__":
+    try:
+        if len(sys.argv) > 1:
+            main(sys.argv[1:])
+        else:
+            main()
+    except KeyboardInterrupt:
+        quit()

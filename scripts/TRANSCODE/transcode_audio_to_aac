@@ -33,7 +33,7 @@ def chceck_args( args:list , flags_enabeld_dict:dict ) -> None:
             print("Provided path does not exists")
     return None
 
-def crawl( flags , dir_name=None ) -> list:
+def crawl( flags , dir_name ) -> list:
     lista = []
     for i in os.listdir(os.getcwd()):
         if os.path.isdir(i) == True:

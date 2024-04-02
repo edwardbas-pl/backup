@@ -2,8 +2,8 @@
 import os
 
 def go_line_by_line(file_name):
-    # binary = "yt-dlp "
-    binary = "ytdl-patched "
+    binary = "yt-dlp "
+    # binary = "ytdl-patched "
     f = open(file_name , 'r')
     for i in f:
         os.system(binary + i)
@@ -33,4 +33,7 @@ def main():
     crawl()
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        quit()

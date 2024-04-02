@@ -88,12 +88,12 @@ def main(args):
         filename = os.path.basename(i)
         path_to_replicate = flags["Output Path"] + i.replace(filename,'')
         path_to_replicate = path_to_replicate.replace("//","/")
-        output_filename = os.path.basename(os.path.splitext(i)[0]+'.avi')
+        output_filename = os.path.basename(os.path.splitext(i)[0]+'.mkv')
         input_file = flags["PWD"] + i
         output_file = path_to_replicate + output_filename
         output_file = output_file.replace("//","/")
         os.system( 'mkdir -p "' + path_to_replicate+'"' )
-        command = 'ffmpeg -n -i "' + input_file + '" -probesize 10M   -map 0:a  -map 0:v -acodec copy -c:v av1_nvenc -preset 1  -tune hq -cq 30  -b:v 0 "' + output_file+'"'
+        command = 'ffmpeg -n -i "' + input_file + '" -probesize 10M   -map 0:a  -map 0:v -acodec copy -c:v av1_nvenc -preset 1  -tune hq -cq 35  -b:v 0 "' + output_file+'"'
         os.system( command )
     return 0
 

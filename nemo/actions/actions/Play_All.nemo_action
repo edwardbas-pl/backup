@@ -1,0 +1,7 @@
+[Nemo Action]
+Active=true
+Name=Play all in %N
+Comment=Archiving %N will add .archive to the object.
+Exec=mpv %F
+Selection=any
+Extensions=any
