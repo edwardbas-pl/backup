@@ -87,14 +87,16 @@ def main( args = None ):
         if flags["MEDIA FORMAT"] == "alac":
             os.system('mkdir -p "'  + flags["OUTPUT_DIR"]+i[2] + '"')
             output_file = flags["OUTPUT_DIR"] + i[2] + '/' + os.path.splitext(i[1])[0] + ".m4a"
-            command = 'ffmpeg -n -i "' + input_file + '"  -c:v copy -c:a alac -ar 44100  -sample_fmt s16p "' + output_file + '"'
+            # command = 'ffmpeg -n -i "' + input_file + '"  -c:v copy -c:a alac   -sample_fmt s16p "' + output_file + '"'
+            command = 'ffmpeg -n -i "' + input_file + '"  -c:v copy -c:a alac   "' + output_file + '"'
 
         if flags["MEDIA FORMAT"] == "aac":
             os.system('mkdir -p "'  + flags["OUTPUT_DIR"]+i[2] + '"')
             output_file = flags["OUTPUT_DIR"] + i[2] + '/' + os.path.splitext(i[1])[0] + ".m4a"
             # command = 'ffmpeg -i "'+input_file+'" -strict experimental -c:a aac -b:a 128k "' +output_file +'"'
             # command = 'ffmpeg -n -i "' + input_file + '"  -c:v copy -c:a aac -b 44100  -sample_fmt s16p "' + output_file + '"'
-            command = 'ffmpeg -i "' + input_file + '" -c:v copy  -c:a aac_at -b:a 44100 "' + output_file + '"'
+            # command = 'ffmpeg -i "' + input_file + '" -c:v copy  -c:a aac_at -b:a 44100 "' + output_file + '"'
+            command = 'ffmpeg -i "' + input_file + '" -c:v copy  -c:a libfdk_aac -b:a 44100 "' + output_file + '"'
 
         if flags["MEDIA FORMAT"] == "ipod":
             os.system('mkdir -p "'  + flags["OUTPUT_DIR"]+i[2] + '"')

@@ -58,6 +58,28 @@ detach () {
 	xclip -sel clip $1
 }
 
+audio-join() {
+
+    output_file="$1"
+    shift  # Usuwa pierwszy argument (nazwę pliku wynikowego)
+
+    temp_list="file_list.txt"
+    rm -f "$temp_list"  # Usuwa stary plik, jeśli istnieje
+
+    # Tworzy listę plików w odpowiednim formacie
+    for file in "$@"; do
+        echo "file '$file'" >> "$temp_list"
+    done
+
+    # Łączenie plików za pomocą listy
+    ffmpeg -f concat -safe 0 -i "$temp_list" -c copy "$output_file"
+
+    # Usunięcie tymczasowego pliku listy
+    rm -f "$temp_list"
+
+}
+
+
 # function subs() {
 #     movie="${1}"
 #     filename="${1%.*}"
