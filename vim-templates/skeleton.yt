@@ -1,3 +1,0 @@
-#!/bin/bash
-
-alias yt="youtube-dl -i "

@@ -17,7 +17,7 @@ mkdir -p $config/polybar
 mkdir -p $HOME/.scripts
 mkdir -p $HOME/Pictures
 mkdir -p $HOME/Pictures/Wallpapers
-mkdir -p $HOME/.templates
+# mkdir -p $HOME/.templates
 mkdir -p $HOME/.local/share/nemo/actions
 mkdir -p $config/kitty
 mkdir -p $config/dunst
@@ -54,9 +54,9 @@ cp $path/gtk-3.0/*			$config/gtk-3.0
 cp $path/gtk-4.0/*			$config/gtk-4.0
 cp $path/bspwm/*			$config/bspwm
 cp $path/sxhkd/*			$config/sxhkd
-cp $path/dconf/*			$config/dconf
-cp $path/dwm/*				$config/dwm/
-cp $path/nemo/actions       $HOME/.local/share/nemo/actions
+cp -r $path/dconf/*			$config/dconf
+cp -r $path/dwm/*				$config/dwm/
+cp -r $path/nemo/actions       $HOME/.local/share/nemo/actions
 # cp $path/nvim/init.lua				$config/nvim/
 cp $path/hypr/*				$config/dwm/
 cp -r $path/waybar/*				$config/dwm/
@@ -65,11 +65,11 @@ sudo cp $path/gtk-3.0/*			$config/gtk-3.0
 cp -r $path/.icons/			$HOME/
 
 
-cp $path/polybar-scripts/*		$HOME/.polybar-scripts/
+# cp $path/polybar-scripts/*		$HOME/.polybar-scripts/
 cp -r $path/scripts/*			$HOME/.scripts/
 
-cp $path/bash_profile			$HOME/.bash_profile
 cp $path/bashrc				$HOME/.bashrc
+cp $path/zshrc				$HOME/.zshrc
 cp $path/vimrc				$HOME/.vimrc
 cp $path/profile			$HOME/.profile
 
@@ -77,8 +77,8 @@ cp $path/profile			$HOME/.profile
 mkdir -p $config/X11/.xinitrc
 cp $path/xinitrc			$config/X11/.xinitrc
 
-mkdir -p $config/gtk-2.0/
-cp -r $path/gtk-2.0			$config/
+# mkdir -p $config/gtk-2.0/
+# cp -r $path/gtk-2.0			$config/
 cp $path/compton.conf			$config/compton.conf
 
 sudo cp $path/lightdm/*			/etc/lightdm/

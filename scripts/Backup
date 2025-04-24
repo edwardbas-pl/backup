@@ -30,11 +30,11 @@ mkdir -p icons
 mkdir -p .icons
 mkdir -p dconf
 mkdir -p dwm
-mkdir -p vim-templates
+# mkdir -p vim-templates
 mkdir -p nvim
-mkdir -p waybar
-mkdir -p hypr
-mkdir -p rofi
+# mkdir -p waybar
+# mkdir -p hypr
+# mkdir -p rofi
 mkdir -p nemo/actions
 
 
@@ -47,7 +47,7 @@ cp -r 	/usr/share/icons/Flatery-Dark				$path/icons/
 cp -r 	/usr/share/icons/Marwaita-Dark				$path/icons/
 cp -r 	/usr/share/icons/WinSur-dark-cursors			$path/icons/
 cp   	$HOME/.config/compton.conf				$path/compton.conf
-cp 	$HOME/.templates/*					$path/vim-templates
+# cp 	$HOME/.templates/*					$path/vim-templates
 
 
 # cp $config
@@ -64,16 +64,16 @@ cp $config/bspwm/*		$path/bspwm/
 cp $config/sxhkd/*		$path/sxhkd/
 cp $config/dwm/*		$path/dwm/
 cp $config/nvim/*		$path/nvim/
-cp $config/hypr/*		$path/hypr/
-cp $config/rofi/*		$path/rofi/
-cp -r $config/waybar/*		$path/waybar/
+# cp $config/hypr/*		$path/hypr/
+# cp $config/rofi/*		$path/rofi/
+# cp -r $config/waybar/*		$path/waybar/
 cp -r $HOME/.icons/*		$path/.icons
 
 #cp $HOME/.polybar-scripts/*	$path/polybar-scripts/
 cp -r $HOME/.scripts/*		$path/scripts
 
-cp $HOME/.bash_profile		$path/bash_profile
 cp $HOME/.bashrc		$path/bashrc
+cp $HOME/.zshrc		$path/zshrc
 cp $HOME/.vimrc			$path/vimrc
 cp $HOME/.profile		$path/profile
 cp $HOME/.xinitrc 		$path/xinitrc
@@ -81,7 +81,7 @@ cp $config/dconf/*		$path/dconf
 cp $HOME/.local/share/nemo/actions/* $path/nemo/actions
 cp ~/.scripts/Restore		$path/Restore
 cp /etc/lightdm/*		$path/lightdm
-cp ~/.gtkrc-2.0			$path/gtkrc-2.0
+# cp ~/.gtkrc-2.0			$path/gtkrc-2.0
 sync
 echo "Done!"
 notify-send "Dotfiles copied to $HOME/backup/"
